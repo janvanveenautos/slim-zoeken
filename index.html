@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slim zoeken | Jan van Veen Auto's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Jan van Veen huisstijl: navy kop, blauwe accenten, lichte grijs-blauwe ondergrond; zoekvak bovenaan, resultaten als kaarten eronder */
+  --navy:#14222C;
+  --blue:#0098E0;
+  --ink:#14222C;
+  --muted:#5E6E7A;
+  --line:#D9E1E7;
+  --paper:#F2F5F7;
+  --card:#FFFFFF;
+  --good:#1F8A4C;
+  --warn:#B86E00;
+  --font-display:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --font-body:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-weight:500;font-size:15px;line-height:1.5}
+a{color:var(--blue)}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+.top{background:var(--navy);color:#fff;padding:22px 16px 30px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 4px}
+.brandrow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px}
+.logo .mark{background:var(--blue);color:#fff;font-weight:800;font-size:13px;letter-spacing:.06em;padding:6px 12px 6px 16px;clip-path:polygon(10px 0,100% 0,100% 100%,0 100%)}
+.logo .name{font-weight:800;font-size:17px;letter-spacing:.01em}
+.logo .tag{font-size:12px;color:#AAB6C0;font-weight:500}
+.stock{font-size:13px;color:#AAB6C0}
+.stock b{color:#fff}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,4vw,38px);line-height:1.15;margin:26px 0 6px;text-wrap:balance}
+.lede{color:#C9D3DA;margin:0 0 18px;max-width:62ch}
+
+.searchbar{display:flex;gap:8px;background:#fff;border-radius:10px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.searchbar input{flex:1;min-width:0;border:0;font:inherit;font-size:17px;font-weight:600;color:var(--ink);padding:12px 12px;background:transparent}
+.searchbar input:focus{outline:none}
+.searchbar:focus-within{box-shadow:0 0 0 3px var(--blue),0 8px 24px rgba(0,0,0,.25)}
+.searchbar button{background:var(--blue);color:#fff;border:0;border-radius:7px;font-weight:700;font-size:15px;padding:0 22px;cursor:pointer}
+.searchbar button:hover{filter:brightness(1.08)}
+.examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+.examples span{font-size:12px;color:#AAB6C0;margin-right:2px}
+.ex{background:transparent;border:1px solid #3A4C59;color:#DDE5EA;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer}
+.ex:hover{border-color:var(--blue);color:#fff}
+
+main{padding:22px 16px 60px}
+.understood{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.understood .lbl{font-size:13px;color:var(--muted);font-weight:600;margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 6px 4px 12px;font-size:13px;font-weight:600}
+.chip button{border:0;background:var(--paper);color:var(--muted);border-radius:50%;width:20px;height:20px;line-height:18px;cursor:pointer;font-size:14px;padding:0}
+.chip button:hover{background:var(--navy);color:#fff}
+.chip.opt{border-color:#9FD4F0;background:#EAF6FD}
+.ai{font-size:12px;color:var(--muted);min-height:18px;margin-bottom:12px}
+.ai.on::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:6px;animation:pulse 1s infinite alternate}
+@keyframes pulse{from{opacity:.3}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.ai.on::before{animation:none}}
+
+.bar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:16px}
+.bar h2{font-size:20px;font-weight:800;margin:0}
+.bar h2 small{font-size:14px;color:var(--muted);font-weight:600}
+.sort{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.sort select{font:inherit;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px 8px;background:var(--card)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.car{background:#F4F4F4;border:0;border-radius:0;display:flex;flex-direction:column;overflow:hidden}
+.car .photo{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--paper)}
+.car .ph{display:block;width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,#E3E9ED,#F2F5F7)}
+.car .head{padding:18px 20px 10px}
+.pr{margin-top:8px;font-weight:800;font-size:16px;font-variant-numeric:tabular-nums}
+.pr small{font-weight:600;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-left:8px}
+.addline{padding:0 20px 10px;font-size:13px;font-weight:700;color:var(--blue)}
+.o.add{background:#fff;border:1px dashed var(--blue);color:var(--blue)}
+.car h3{margin:0;font-size:21px;font-weight:800;line-height:1.2}
+.car .uitv{font-size:13px;color:var(--muted);margin-top:3px}
+.price{background:var(--navy);color:#fff;font-weight:800;font-size:16px;padding:6px 10px;border-radius:6px;white-space:nowrap;font-variant-numeric:tabular-nums;text-align:right}
+.price small{display:block;font-size:10px;font-weight:600;color:#AAB6C0;letter-spacing:.04em;text-transform:uppercase}
+.specs{display:flex;flex-wrap:wrap;gap:4px 12px;padding:0 20px 10px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.specs span{white-space:nowrap}
+.specs span+span::before{content:"·";color:var(--muted);margin-right:12px}
+.opts{display:flex;flex-wrap:wrap;gap:5px;padding:0 20px 12px}
+.o{font-size:12px;border-radius:4px;padding:2px 7px;background:#fff;color:var(--muted);font-weight:600}
+.o.hit{background:var(--blue);color:#fff}
+.o.miss{background:#FFF1DE;color:var(--warn)}
+.car .foot{margin-top:auto;border-top:1px solid #E2E2E2;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.car .foot a{font-weight:700;text-decoration:none}
+.car .foot a:hover{text-decoration:underline}
+.near .car{outline:2px dashed #D9C3A0;outline-offset:-2px}
+.why{font-size:12px;font-weight:700;color:var(--warn);padding:0 20px 10px}
+.empty{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;max-width:62ch}
+.empty h3{margin:0 0 6px}
+.section-gap{margin-top:34px}
+.note{font-size:12px;color:var(--muted);margin-top:40px;max-width:80ch}
+@media (max-width:480px){.grid{grid-template-columns:1fr}.searchbar button{padding:0 14px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brandrow">
+      <div class="logo"><span class="mark">JAN VAN VEEN</span><span><span class="name">Slim zoeken</span><br><span class="tag">Je rijdt er graag voor om</span></span></div>
+      <div class="stock"><b id="stockCount">0</b> occasions op voorraad · <span id="stockDate"></span> · <a href="https://janvanveenautos.nl" style="color:#fff">janvanveenautos.nl</a></div>
+    </div>
+    <h1>Zeg wat je zoekt, wij vinden 'm.</h1>
+    <p class="lede">Typ gewoon wat je wilt: budget, kilometerstand, soort auto en de opties die je belangrijk vindt. Merk hoeft niet.</p>
+    <form class="searchbar" id="form" role="search">
+      <label for="q" class="sr" style="position:absolute;left:-9999px">Zoekopdracht</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Bijv. SUV met trekhaak tot € 28.000 onder 120.000 km">
+      <button type="submit" id="go">Zoeken</button>
+    </form>
+    <div class="examples" id="examples"><span>Probeer:</span></div>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="understood" id="understood"></div>
+    
+    <div id="results"></div>
+    <p class="note">Niet gevonden wat je zoekt? Bel ons op 0418-673026 of mail info@janvanveenautos.nl, dan zoeken we met je mee. Opties zoals vermeld in de advertentie; vraag bij twijfel gerust na. Prijzen incl. BTW of marge zoals aangegeven. <a href="https://janvanveenautos.nl/aanbod">Bekijk het volledige aanbod</a>.</p>
+  </div>
+</main>
+<script>
+const STOCK_DATE="18-11-2026";
+let CARS=[["54549506","Audi A1","citycarver 25 TFSI epic Parkeersensoren Climate Control Navigatie Cruise Control",18900,"M","08-2020","H",61.7,"B",95,"zwart","Hatchback",0,"5.7","cdhqrsyB"],["55454170","Audi A1","Sportback 25 TFSI Pro Line Navigatie DAB+ App-Connect Virtual Cockpit",15750,"B","07-2022","H",110.1,"B",95,"wit","Hatchback",0,"4.7","cdqryB"],["57743832","Audi A1","Sportback 25 TFSI Pro Line DAB+ App-Connect Virtual Cockpit Cruise Control",16950,"B","10-2021","H",65.9,"B",95,"wit","Hatchback",0,"4.7","cqryB"],["57811594","Audi A1","Sportback 30 TFSI S Edition DAB+ App-Connect Parkeersensoren Adaptive Cruise",19850,"B","11-2022","H",72.9,"B",110,"wit","Hatchback",0,"4.8","bchmnqrtyBJM"],["54345746","Audi A3","Sportback Sportback 35 TFSI Advanced edition Stoelverwarming Navigatie Climate Control",20950,"B","02-2022","A",104.8,"H",150,"zwart","Hatchback",1500,"4.8","acdhjqrsyBJK"],["55491157","Audi A3","Sportback 40 TFSI e Advanced Edition LED Virtual Cockpit Parkeersensoren Navigatie DAB+",21750,"B","04-2022","A",107.3,"H",150,"zwart","Hatchback",1400,"1.4","acdhqrstyBJKL"],["55992605","Audi A3","Sportback 30 TFSI Advanced Edition LED Adaptive Cruise Camera DAB+",18450,"B","01-2022","A",114.2,"H",110,"blauw","Hatchback",1300,"4.3","bcdehqrstyBJK"],["57319069","Audi A3","Sportback 30 TFSI Advanced Edition Navigatie DAB+ App-Connect",19450,"B","02-2023","A",104.3,"H",110,"grijs","Hatchback",1300,"5.3","cdhqrsyBCJK"],["57125908","Audi A3","Sportback 2.0 TFSI S3 Quattro Pro Line Plus Panoramadak B&O Sportstoelen",18900,"M","04-2014","A",174.9,"B",301,"wit metallic","Hatchback",0,"6.9","cdhjmpstJLNO"],["57222212","Audi A3","Limousine 30 TFSI S-Tronic Advanced Edition Navigatie Parkeersensoren App-Connect DAB+",19400,"B","11-2022","A",100.6,"H",110,"grijs","Sedan",1300,"4.3","bcdhqrsyBCJKL"],["57561878","Audi A3","Limousine 30 TFSI S-Tronic Advanced Edition LED Navigatie Climate Control Parkeersensoren",20950,"B","02-2023","A",78.9,"H",110,"grijs","Sedan",1300,"5.2","cdhqrstyBCJK"],["57707872","Audi A3","Sportback 30 TFSI S-Tronic Business Edition Navigatie App-Connect DAB+ Navigatie Parkeersensoren",18900,"B","06-2022","A",113.5,"H",110,"zwart","Hatchback",1300,"4.3","cdhqrsyBCJK"],["57872550","Audi A3","Sportback 35 TFSI 150pk Advanced Edition Navigatie Stoelverwarming LED Adaptive Cruise",20750,"B","08-2021","A",118.5,"H",150,"zwart","Hatchback",1500,"4.8","bcdhjqrstyBJKL"],["58027106","Audi A3","Sportback 30 TFSI S-Tronic Advanced Edition LED Navigatie Parkeersensoren DAB+",17950,"B","01-2022","A",129.7,"H",110,"zwart","Hatchback",1300,"4.3","cdghqrstyBJKL"],["58033741","Audi A3","Limousine 30 TFSI Advanced Edition Navigatie Parkeersensoren App-Connect DAB+",17850,"B","07-2021","A",120.3,"H",110,"zwart","Sedan",1300,"4.3","cdhqrsyBCJK"],["58117996","Audi A3","Sportback 30 TFSI S-Tronic Advanced Edition LED Trekhaak Navigatie App-Connect DAB+",18750,"B","10-2023","A",110.1,"H",110,"blauw","Hatchback",1300,"5.3","acdhqrstyBCJK"],["56325837","Audi A4","Avant 35 TFSI S Edition Competition LED Stoelverwarming Camera DAB+ Navigatie",23400,"B","06-2021","A",120.1,"H",150,"zwart","Stationwagon",1500,"5.7","cdeghjnqrstwBDIJLM"],["56521262","Audi A4","Avant 35 TFSI S Edition Competition S-Line LED Leder-Stof Virtual Cockpit Sfeerverlichting",23850,"M","03-2022","A",145.4,"H",150,"grijs","Stationwagon",1500,"5.6","cdhjnqrstwABIJLM"],["56580980","Audi A4","Avant 40 TFSI Advanced Edition Parkeersensoren LED Navigatie DAB+ App-Connect",26900,"M","07-2022","A",90.1,"H",204,"grijs","Stationwagon",1500,"5.7","bcdghqrstwBIJ"],["57743861","Audi A4","Avant 1.4 TFSI 150pk S-Tronic Sport Edition Navigatie Climate Control",14850,"M","07-2017","A",161.8,"B",150,"grijs","Stationwagon",1500,"5.3","cdhstwIJL"],["53016990","Audi Q2","30 TFSI Epic LED Navigatie Parkeersensoren Climate Control",16450,"B","01-2020","H",123,"B",116,"zwart","SUV",1300,"5.2","cdhstJ"],["53311420","Audi Q2","30 TFSI Pro Line App-Connect DAB+ Climate Control",17400,"B","03-2022","H",115.7,"B",110,"grijs","SUV",1300,"5.1","chqsB"],["55408135","Audi Q2","30 TFSI Pro Line Navigatie App-Connect DAB+",18750,"B","07-2020","H",67.2,"B",116,"grijs","SUV",1300,"5.2","cdhqsB"],["55861836","Audi Q2","30 TFSI Epic LED Navigatie Climate Control Parkeersensoren",16450,"M","06-2020","H",102.8,"B",116,"zwart","SUV",1300,"5.2","cdhstJL"],["56512734","Audi Q2","30 TFSI Advanced Edition Panoramadak Stoelverwarming App-Connect DAB+",17400,"B","08-2021","H",126.5,"B",110,"blauw","SUV",1300,"5.2","cdhjpqrswBJ"],["56324099","Audi Q2","30 TFSI Pro Line App-Connect DAB+ Climate Control Parkeersensoren",16900,"B","08-2021","H",109.8,"B",110,"wit","SUV",1300,"5.1","chqsBCL"],["57876872","Audi Q2","30 TFSI Epic LED Navigatie App-Connect DAB+ Parkeersensoren",17850,"B","10-2020","H",86,"B",116,"grijs","SUV",1300,"5.2","cdhqstBJ"],["58059520","Audi Q2","30 TFSI Pro Line Navigatie Climate Control Parkeersensoren",17850,"M","08-2020","H",78.3,"B",116,"zwart","SUV",1300,"5.2","cdhs"],["58113151","Audi Q2","30 TFSI Advanced Edition Navigatie App-Connect Virtual Cockpit",18450,"B","07-2022","H",98.7,"B",110,"grijs","SUV",1300,"5.1","bcdhqrsBCJ"],["57361822","Audi Q3","35 TFSI S Line Virtual Cockpit Sfeerverlichting Leder-Stof Navigatie",28400,"B","07-2020","A",101.9,"B",150,"zwart","SUV",1800,"5.8","cdghnqrstxyAILM"],["56085775","Audi Q3 Sportback","35 TFSI Business Edition Virtual Cockpit Navigatie Parkeersensoren App-Connect",28400,"B","07-2020","A",94,"H",150,"zwart","SUV",1800,"5.9","cdhqrstwyBK"],["58028148","Audi Q4 e-tron","40 Launch Edition Advanced 77 kWh SoH 93,38% Stoelverwarming Navigatie Parkeersensoren App-Connect",29750,"B","11-2021","A",80,"E",204,"zwart","SUV",1000,"","cdhjqrstuwyBJKL"],["58117406","Audi Q4 e-tron","40 Launch Edition 77 kWh SoH 92,92% Stoelverwarming Leder Parkeersensoren DAB+",25850,"B","12-2021","A",127.2,"E",204,"zwart","SUV",1000,"","cdhjmqrstwyBL"],["58100020","Audi Q7","4.0 TFSI SQ7 507pk Quattro LED Luchtvering Stoelmassage Trekhaak Panoramadak",82750,"B","10-2022","A",59.4,"B",507,"grijs","SUV",3500,"11.9","abcdefghjlmnopqrstuvwxyzABDEFIJKLMNO"],["52122692","CUPRA Formentor","1.4 e-Hybrid VZ 245pk Copper Edition Camera Sfeerverlichting Leder-Stof",25750,"B","05-2023","A",79.7,"H",150,"grijs","SUV",1500,"1.5","bcdeghikmnprstuvwxyABCDIKL"],["57220720","CUPRA Formentor","1.4 e-Hybrid Business SoH 93,33% Camera Panoramadak Sfeerverlichting Navigatie App-Connect",23900,"B","05-2022","A",73.6,"H",150,"grijs","SUV",1500,"1.2","bcdehknpqrsvxyABIKL"],["57095083","SEAT Arona","1.0 TSI Style App-Connect Parkeersensoren DAB+",14250,"B","11-2022","H",79.7,"B",95,"wit","SUV",1000,"4.8","chqstyBI"],["57443895","SEAT Arona","1.0 TSI Style Business Intense Camera Navigatie DAB+ App-Connect",13250,"B","05-2021","H",102.2,"B",95,"grijs","SUV",1000,"4.7","bcdehiqsvxBCIL"],["58124863","SEAT Arona","1.0 TSI Style Climate Control Parkeersensoren Navigatie DAB+",14450,"B","10-2022","H",74.8,"B",95,"groen","SUV",1000,"4.8","cdhqsyBI"],["52701126","SEAT Ateca","1.5 TSI 150pk DSG Style Business Intense LED Camera Navigatie",23850,"B","01-2023","A",77.9,"B",150,"zwart","SUV",1600,"5.3","cdeghiqstvBIL"],["52989112","SEAT Ateca","1.5 TSI 150pk DSG Xperience Business Intense Virtual Cockpit LED Camera Stoelverwarming",23850,"B","01-2022","A",89.3,"B",150,"grijs","SUV",1600,"5.6","cdeghijkmqrstvwBIJL"],["53095735","SEAT Ateca","1.5 TSI 150pk FR Business Intense LED 360 Camera Navigatie App-Connect",17750,"B","11-2019","H",132.3,"B",150,"zwart","SUV",1800,"5.5","cdefghioqstvwBCIJLM"],["55586376","SEAT Ateca","1.5 TSI 150pk DSG FR Business Intense Navigatie Camera DAB+ App-Connect",16900,"M","08-2019","A",158.5,"B",150,"wit","SUV",1600,"5.4","acdefghioqstvwABCIJLMO"],["57424677","SEAT Ateca","1.4 EcoTSI 150pk 6-bak FR Alcantara Navigatie Parkeersensoren App-Connect",14400,"M","05-2018","H",170.2,"B",150,"wit","SUV",1800,"5.4","cdehoqstIJLM"],["57765849","SEAT Ateca","1.5 TSI 150pk Style Business Intense Camera Stoelverwarming DAB+ App-Connect",19400,"B","02-2021","H",93.3,"B",150,"zwart","SUV",1800,"5.5","cdeghijoqrsBIL"],["51067012","SEAT Ibiza","1.0 EcoTSI FR Parkeersensoren App-Connect Climate Control",13750,"B","01-2022","H",111.5,"B",95,"zwart","Hatchback",1000,"4.8","cghqsyBJLM"],["54914235","SEAT Ibiza","1.0 EcoTSI Style Business Intense Stoelverwarming Virtual Cockpit Navigatie DAB+ App-Connect",12850,"B","06-2022","H",104.4,"B",95,"grijs","Hatchback",1000,"4.5","cdghjqrstyBL"],["56206584","SEAT Ibiza","1.0 EcoTSI Style Virtual Cockpit Parkeersensoren DAB+ App-Connect",13400,"B","05-2023","H",95.6,"B",95,"zwart","Hatchback",1000,"5.2","chqrstyB"],["54880803","SEAT Ibiza","1.0 EcoTSI Style Business Connect Virtual Cockpit Stoelverwarming Parkeersensoren DAB+",12850,"B","01-2023","H",137.5,"B",95,"blauw","Hatchback",1000,"4.5","cghjqrsyBL"],["54959990","SEAT Ibiza","1.0 EcoTSI Style Virtual Cockpit App-Connect DAB+",12900,"B","06-2023","H",101.9,"B",95,"zwart","Hatchback",1000,"5.2","chqryB"],["56000673","SEAT Ibiza","1.0 EcoTSI Style App-Connect Virtual Cockpit DAB+",13450,"B","05-2023","H",88.6,"B",95,"zwart","Hatchback",1000,"5.2","chqrstyB"],["54710918","SEAT Ibiza","1.0 TSI FR Business Intense Camera Navigatie DAB+ Climate Control",13750,"B","03-2021","H",113,"B",95,"grijs","Hatchback",1000,"4.7","cdeghqsBJLM"],["56114842","SEAT Ibiza","1.0 EcoTSI Style Virtual Cockpit App-Connect DAB+ Parkeersensoren",14200,"B","06-2023","H",70.4,"B",95,"grijs","Hatchback",1000,"5.2","chqrstyB"],["57008757","SEAT Ibiza","1.0 TSI FR Business Intense Camera Navigatie Sfeerverlichting App-Connect",13250,"B","08-2021","H",119,"B",95,"zwart","Hatchback",1000,"4.7","cdeghqsAJLM"],["57101427","SEAT Ibiza","1.0 TSI FR Business Intense Navigatie Camera DAB+ App-Connect",14450,"B","08-2021","H",80.8,"B",95,"zwart","Hatchback",1000,"4.7","cdeghqsBJLM"],["57361367","SEAT Ibiza","1.0 EcoTSI Style App-Connect Parkeersensoren DAB+",13450,"B","05-2023","H",85.6,"B",95,"zwart","Hatchback",1000,"5.2","chqstyB"],["57573078","SEAT Ibiza","1.0 EcoTSI Style Parkeersensoren App-Connect Climate Control",13900,"B","10-2022","H",58.7,"B",95,"zwart","Hatchback",1000,"4.5","chqstyB"],["57628271","SEAT Ibiza","1.0 EcoTSI Style Parkeersensoren App-Connect DAB+ Virtual Cockpit",14400,"B","08-2023","H",61.7,"B",95,"zwart","Hatchback",1000,"5.2","chqryB"],["57872759","SEAT Ibiza","1.0 TSI FR Business Intense Camera Navigatie DAB+ App-Connect",11250,"B","08-2021","H",150.4,"B",95,"zwart","Hatchback",1000,"4.7","cdeghqsBJLM"],["57934125","SEAT Ibiza","1.0 EcoTSI Style Parkeersensoren App-Connect DAB+",12750,"B","09-2023","H",109,"B",95,"grijs","Hatchback",1000,"5.2","chqrtyB"],["57987368","SEAT Ibiza","1.0 EcoTSI Style Business Connect Stoelverwarming Parkeersensoren Navigatie",12450,"B","09-2023","H",121.3,"B",95,"zwart","Hatchback",1000,"5.2","cdghjqsyBCL"],["58155657","SEAT Ibiza","1.5 TSI 150pk DSG Sport FR LED Parkeersensoren App-Connect DAB+",17400,"B","11-2022","A",100.1,"B",150,"grijs","Hatchback",1200,"5","cghqrstyBJLM"],["58160632","SEAT Ibiza","1.0 TSI FR Business Intense Sfeerverlichting Navigatie Camera",11850,"B","08-2021","H",141,"B",95,"zwart","Hatchback",1000,"4.7","cdeghqsAJLM"],["56625739","SEAT Leon","ST 1.0 TSI Style Ultimate Edition Panoramadak Camera App-Connect DAB+",12900,"B","02-2020","H",125.2,"B",116,"grijs","Stationwagon",1000,"4.7","cdeghpqsvyBCIKL"],["55745114","SEAT Leon","1.0 TSI FR Business Intense Camera Virtual Cockpit Stoelverwarming Navigatie",14850,"B","07-2021","H",135.1,"B",110,"wit","Hatchback",1300,"4.7","bcdeghjqrsvxyBJKLM"],["55915943","SEAT Leon","1.0 TSI FR Business Intense Camera Sfeerverlichting Navigatie LED",15250,"B","04-2022","H",125.2,"B",110,"blauw","Hatchback",1300,"4.9","bcdeghiqrstvxyABIJKLM"],["56507004","SEAT Leon","ST 1.0 EcoTSI Style Business Intense Navigatie DAB+ Parkeersensoren",10250,"M","09-2018","H",162.1,"B",116,"grijs","Stationwagon",1000,"4.8","cdghqsvBCIKL"],["57220825","SEAT Leon","Sportstourer 1.5 TSI Style Business Intense LED App-Connect Navigatie Camera",15400,"B","05-2021","H",124.5,"B",131,"zwart","Stationwagon",1400,"4.8","bcdeghiqrstvyBIKL"],["57766106","SEAT Leon","1.0 TSI Style Business Intense Camera Navigatie App-Connect DAB+",14400,"B","09-2021","H",112.8,"B",110,"zwart","Hatchback",1300,"4.6","bcdeghiqrsvyBKL"],["57876482","SEAT Leon","ST 1.2 TSI 105pk Reference Business Cruise Control Climate Control",6850,"M","06-2014","H",176.2,"B",105,"zwart","Stationwagon",1300,"4.9","cdsIL"],["57878573","SEAT Leon","Sportstourer 1.0 TSI 110pk Style Trekhaak App-Connect DAB+ Parkeersensoren",14950,"B","09-2023","H",104.5,"B",110,"grijs","Stationwagon",1300,"5.6","achqsvyBI"],["57957834","SEAT Leon","Sportstourer 1.0 TSI FR Business Intense Camera Navigatie Sfeerverlichting App-Connect",15400,"B","10-2022","H",123,"B",110,"grijs","Stationwagon",1300,"4.9","bcdeghiqrsvxyABIJKLM"],["58099864","SEAT Leon","Sportstourer 1.5 TSI FR LED Camera Stoelverwarming Navigatie App-Connect DAB+",15750,"B","06-2021","H",134.4,"B",131,"zwart","Stationwagon",1400,"5.6","cdehjqrstvyBIJLM"],["58124540","SEAT Leon","1.0 TSI FR Business Navigatie Parkeersensoren App-Connect DAB+",16850,"B","10-2022","H",83.8,"B",110,"grijs","Hatchback",1300,"4.9","cdhqrstvyBJLM"],["47565491","SEAT Tarraco","1.5 TSI 150pk DSG Style Camera DAB+ Navigatie Virtual Cockpit Stoelverwarming",21850,"B","07-2020","A",127,"B",150,"grijs","SUV",1800,"5.8","bcdeghjqrstvyBIL"],["53094276","SEAT Tarraco","1.5 TSI 150pk FR Business Intense Camera Navigatie App-Connect Virtual Cockpit",21950,"B","05-2021","H",120.4,"B",150,"grijs","SUV",1800,"5.9","bcdefghioqrsvxyBCDIJKLM"],["49259694","SEAT Tarraco","1.5 TSI 150pk DSG Style Virtual Cockpit Navigatie Camera Stoelverwarming",21850,"B","10-2020","A",129,"B",150,"grijs","SUV",1800,"5.8","bcdeghjqrstvyI"],["53431698","SEAT Tarraco","1.5 TSI 150pk FR Virtual Cockpit Climate Control App-Connect Trekhaak",21400,"B","02-2021","H",132.4,"B",150,"zwart","SUV",1800,"5.9","abcghiqrstvyDIJLM"],["57569495","Škoda Enyaq iV","80 Camera Sfeerverlichting Navigatie App-Connect",25750,"B","08-2021","A",93.9,"E",204,"zwart","SUV",1000,"","cdeghjkmqrstvyABI"],["57468960","Škoda Enyaq iV","80 SoH 90,39% Trekhaak Camera Panoramadak Sfeerverlichting Camera",25850,"B","06-2021","A",110.1,"E",204,"wit","SUV",1000,"","acdeghkmpqrstvyABI"],["57624330","Škoda Enyaq iV","80 SoH 95,65% Navigatie Camera Parkeersensoren App-Connect",30750,"B","05-2023","A",109.1,"E",204,"zwart","SUV",1000,"","cdeghmqrsvyABI"],["58064644","Škoda Enyaq iV","80 SoH 92,21% Trekhaak Camera Navigatie Sfeerverlichting Navigatie",25750,"B","07-2021","A",95.9,"E",204,"blauw","SUV",1000,"","acdeghkmqrsvyABI"],["56506752","Škoda Fabia","Combi 1.0 TSI Business Edition Navigatie App-Connect DAB+ Airco",11950,"B","01-2021","H",101.6,"B",95,"zwart","Stationwagon",1000,"4.5","cdhqBIL"],["57284316","Škoda Fabia","Combi 1.0 TSI Business Edition Navigatie App-Connect DAB+ Airco",11900,"B","09-2021","H",113.4,"B",95,"blauw","Stationwagon",1000,"4.7","acdhqBIL"],["57388381","Škoda Fabia","1.0 TSI Style Climate Control App-Connect DAB+ Parkeersensoren",8850,"M","08-2019","H",127.8,"B",95,"grijs","Hatchback",1000,"4.5","cdhqsBL"],["57730134","Škoda Fabia","Combi 1.0 TSI DSG Ambition Navigatie Parkeersensoren DAB+ App-Connect",14450,"B","10-2022","A",108.9,"B",95,"grijs","Stationwagon",1000,"5.6","cdhqBI"],["51441123","Škoda Kamiq","1.0 TSI 110pk Ambition Parkeersensoren Climate Control DAB+ Cruise Control",15400,"B","02-2022","H",94,"B",110,"zwart","SUV",1200,"4.7","chqsyBIL"],["55942024","Škoda Kamiq","1.0 TSI 110pk DSG Business Edition LED Virtual Cockpit Stoelverwarming DAB+ App-Connect",17400,"B","12-2020","A",88.1,"B",110,"zwart","SUV",1200,"4.8","acdghjoqrstvyBCIKLO"],["56206302","Škoda Kamiq","1.0 TSI Sport Business Virtual Cockpit Trekhaak Parkeersensoren App-Connect Stoelverwarming",15250,"B","12-2022","H",133,"B",110,"grijs","SUV",1200,"4.7","acghjmoqrsyBCIJL"],["56765697","Škoda Kamiq","1.0 TSI 116pk DSG Sport Business Stoelverwarming App-Connect DAB+",16650,"B","07-2020","A",116.5,"B",116,"zwart","SUV",1200,"5","chjoqrsyBCIJL"],["57707975","Škoda Kamiq","1.0 TSI 110pk DSG Ambition Parkeersensoren App-Connect DAB+",16850,"B","07-2021","A",111,"B",110,"zwart","SUV",1200,"4.7","chqstyBIL"],["55654529","Škoda Karoq","1.5 TSI 150pk ACT Sportline Business Camera Trekhaak Sfeerverlichting Stoelverwarming Adaptive Cruise LED",18750,"B","06-2020","H",143.3,"B",150,"blauw","SUV",1500,"5.4","abcdeghjqrstvABCIJLM"],["54907150","Škoda Karoq","1.5 TSI 150pk ACT Sportline Business Camera Stoelverwarming Sfeerverlichting",24850,"B","06-2022","H",102.4,"B",150,"grijs","SUV",1500,"5.6","cdeghjkqstuvABIJLM"],["54041843","Škoda Kodiaq","1.5 TSI Sportline Business 7p. Camera Adaptive Cruise Stoelverwarming Camera",35950,"B","05-2023","A",61.3,"B",150,"grijs","SUV",1800,"7","abcdeghjnoqstuvABCDGIJLM"],["55587844","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business Alcantara Stoelverwarming Trekhaak Camera Stoelverwarming",30900,"B","07-2021","A",77.4,"B",150,"zwart","SUV",1800,"5.9","abcdeghjoqrstuvABCDIJLM"],["57128605","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business Adaptive Cruise Sfeerverlichting",26750,"B","02-2021","A",114.5,"B",150,"wit","SUV",1800,"5.9","bcdeghjnoqrstvwABCDIJLM"],["57370014","Škoda Kodiaq","1.5 TSI 150pk DSG Business Edition Camera Sfeerverlichting Navigatie App-Connect",25400,"B","11-2022","A",122.6,"B",150,"zwart","SUV",1800,"7","abcdeghnqsvABCIL"],["57358958","Škoda Kodiaq","1.5 TSI 150pk Sportline Business Trekhaak Camera Stoelverwarming Sfeerverlichting",23400,"B","05-2021","H",139,"B",150,"zwart","SUV",1800,"5.8","acdeghjoqrstuvABCDIJLM"],["56461312","Škoda Kodiaq","1.5 TSI 150pk Sportline Business 7p. Virtual Cockpit Camera Stoelverwarming Cruise Control",26400,"B","05-2021","H",138.5,"B",150,"grijs","SUV",1800,"5.8","acdeghjoqrstuvABCDGIJLM"],["56739544","Škoda Kodiaq","1.5 TSI DSG Sportline Business 7p. Leder Stoelverwarming Camera Trekhaak Adaptive Cruise",31750,"B","04-2022","A",124.9,"B",150,"zwart","SUV",1800,"6.1","abcdeghjkmoqrstuvwBCDGIJLM"],["57412067","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business Adaptive Cruise Camera Sfeerverlichting Virtual Cockpit",33400,"B","08-2023","A",87.1,"B",150,"grijs","SUV",1800,"7","bcdeghjnoqrstuvwABCDIJLM"],["57435770","Škoda Kodiaq","1.5 TSI DSG Business Edition Plus 7p. Panoramadak Alcantara Camera App-Connect DAB+",31900,"B","07-2021","A",96.8,"B",150,"zwart","SUV",1800,"5.8","bcdefghjknopqrstvwxABCDGILO"],["57699453","Škoda Kodiaq","1.5 TSI Business Edition Cruise Control App Connect Camera Trekhaak",22700,"B","02-2021","H",109.9,"B",150,"grijs","SUV",1800,"5.6","acdeghnqstvBCI"],["57707692","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business Trekhaak Panoramadak Sfeerverlichting Adaptive Cruise",30950,"B","02-2022","A",126.1,"B",150,"grijs","SUV",1800,"6","abcdeghjknopqrstuvwABCDIJLM"],["57967993","Škoda Kodiaq","1.5 TSI 150pk Sportline Business 7p. Panoramadak LED Leder-Alcantara Camera Stoelverwarming DAB+",26950,"B","08-2021","H",103.5,"B",150,"grijs","SUV",1800,"5.8","abcdeghjnopqrstuvwxABCDGIJLM"],["58058504","Škoda Kodiaq","1.5 TSI 150pk Business Edition 7p. Camera Virtual Cockpit App-Connect DAB+",26400,"B","07-2023","H",114.4,"B",150,"zwart","SUV",1800,"6.6","cdeghnqrstvBCGI"],["52884694","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Virtual Cockpit Parkeersensoren Navigatie DAB+ App-Connect",18750,"B","01-2023","A",111.7,"H",110,"grijs","Stationwagon",1300,"5.2","cdghqrstvyBIL"],["49661971","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Plus Camera Navigatie Adaptive Cruise DAB+",15450,"B","01-2022","A",153.8,"H",110,"wit","Stationwagon",1300,"4.3","bcdeghjqrsvxyBCIL"],["52812060","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Navigatie Parkeersensoren App-Connect DAB+",16950,"B","06-2021","A",109.5,"H",110,"zwart","Stationwagon",1300,"4.3","cdghqrsvwyBCIL"],["56400655","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Trekhaak Navigatie Parkeersensoren App-Connect",19250,"B","06-2023","A",115.1,"H",110,"grijs","Stationwagon",1300,"5.2","acdghqrsvwyBCI"],["56119476","Škoda Octavia","Combi 1.0 TSI 110pk Business Edition Plus Navigatie Parkeersensoren Sfeerverlichting",16750,"B","06-2021","H",110.8,"B",110,"grijs","Stationwagon",1300,"4.7","bcdghjqrsvwxyABCIL"],["56201354","Škoda Octavia","Combi 1.0 e-TSI 110pk DSG Ambition Navigatie Trekhaak App-Connect DAB+",18400,"B","07-2021","A",99,"H",110,"blauw","Stationwagon",1300,"4.3","acdhqrsvyBIL"],["56861565","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Navigatie App-Connect DAB+ Parkeersensoren",16900,"B","05-2022","A",128.3,"H",110,"wit","Stationwagon",1300,"4.3","cdghqrsvyBCI"],["56913410","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Navigatie Parkeersensoren Virtual Cockpit DAB+",19750,"B","07-2023","A",96.6,"H",110,"grijs","Stationwagon",1300,"5.2","abcdghqrsvwyBCI"],["57021616","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Plus Leder-Alcantara Sfeerverlichting Navigatie Parkeersensoren",20850,"B","09-2022","A",82.4,"H",110,"grijs","Stationwagon",1300,"5.2","bcdghjnoqrsvwxyABCIL"],["57230518","Škoda Octavia","Combi 1.5 e-TSI 150pk DSG Business Edition Plus Leder-Alcantara Adaptive Cruise Navigatie Camera",17400,"B","01-2022","A",152.8,"H",150,"zwart","Stationwagon",1500,"4.8","bcdeghjknoqrsvxyABCIL"],["57221717","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Navigatie Trekhaak Parkeersensoren App-Connect DAB+",16400,"B","08-2022","A",137.5,"H",110,"blauw","Stationwagon",1300,"4.3","acdhqrsvyBI"],["57647937","Škoda Octavia","Combi 1.0 TSI Greentech Business Edition Leder-Stof Stoelverwarming Navigatie App-Connect DAB+",15400,"B","07-2020","H",85.8,"B",116,"blauw","Stationwagon",1300,"4.8","cdhjnqsBCIL"],["57811296","Škoda Octavia","Combi 1.5 e-TSI 150pk DSG Business Edition Parkeersensoren Navigatie DAB+",23750,"B","03-2024","A",86.1,"H",150,"grijs","Stationwagon",1500,"5.4","cdghqrsvwyBCI"],["57877747","Škoda Octavia","Combi 1.0 TSI 110pk Ambition Navigatie App-Connect DAB+",14750,"B","09-2022","H",131.7,"B",110,"grijs","Stationwagon",1300,"4.7","cdhqrsvyBI"],["57877992","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Trekhaak Navigatie Parkeersensoren Navigatie DAB+",16950,"B","08-2022","A",126.6,"H",110,"zwart","Stationwagon",1300,"4.3","acdhqrsvyBI"],["57898452","Škoda Octavia","Combi 1.0 e-TSI DSG Sport Business Sfeerverlichting Adaptive Cruise Trekhaak Navigatie",17450,"B","12-2021","A",117.3,"H",110,"grijs","Stationwagon",1300,"4.3","abcdghjkqrsvyABIJL"],["57982502","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition DAB+ App-Connect Navigatie Parkeersensoren",15450,"B","09-2022","A",128.9,"H",110,"grijs","Stationwagon",1300,"4.3","cdhqrsvyBI"],["58026961","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Navigatie Parkeersensoren App-Connect DAB+",17450,"B","02-2022","A",108.7,"H",110,"grijs","Stationwagon",1300,"4.3","cdghqrsvyBCI"],["58073029","Škoda Octavia","Combi 1.0 TSI Sport Business Navigatie Parkeersensoren App-Connect DAB+",13850,"B","09-2022","H",153.4,"B",110,"blauw","Stationwagon",1300,"5.3","cdhjkqrsvyABIJL"],["58124205","Škoda Octavia","Combi 1.0 TSI 110pk Ambition Navigatie Parkeersensoren App-Connect DAB+",15850,"B","08-2022","H",98.1,"B",110,"grijs","Stationwagon",1300,"5.3","acdhqrsvyBI"],["58125120","Škoda Octavia","Combi 1.0 TSI 110pk Ambition Navigatie Parkeersensoren Trekhaak App-Connect",14450,"B","10-2022","H",134.9,"B",110,"grijs","Stationwagon",1300,"4.7","acdhqrsvyBI"],["58155979","Škoda Octavia","Combi 1.0 TSI 110pk Ambition Navigatie Parkeersensoren Climate Control",15400,"B","07-2022","H",108.4,"B",110,"blauw","Stationwagon",1300,"4.7","cdhqrsvyBIL"],["58268756","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Navigatie Parkeersensoren Trekhaak",18750,"B","09-2023","A",111.5,"H",110,"grijs","Stationwagon",1300,"5.2","acdghqrsvyBIL"],["54646089","Škoda Scala","1.0 TSI 116pk Ambition App-Connect Climate Control Cruise Control",11900,"M","01-2020","H",112.7,"B",116,"zwart","Hatchback",1200,"5","cqsty"],["57424497","Škoda Scala","1.5 TSI 150pk DSG Sport Business Stoelverwarming Camera Navigatie Parkeersensoren",16850,"B","06-2021","A",126.1,"B",150,"grijs","Hatchback",1250,"5.1","cdehjoqsyBCJL"],["56684979","Škoda Scala","1.0 TSI 110pk DSG Sport Business Navigatie Parkeersensoren Virtual Cockpit",14900,"B","04-2021","A",112,"B",110,"blauw","Hatchback",1200,"4.7","cdhoqrsyBCJL"],["58117777","Škoda Scala","1.0 TSI 116pk DSG Business Edition LED Navigatie Stoelverwarming Climate Control",13950,"B","07-2020","A",143.2,"B",116,"zwart","Hatchback",1200,"5.1","cdhjpqrstvyBCKL"],["55748157","Škoda Superb","Combi 1.5 TSI 150pk DSG ACT Business Edition Virtual Cockpit Navigatie DAB+ App-Connect",21950,"B","07-2022","A",76.5,"B",150,"zwart","Stationwagon",1600,"5.3","cdhqrsvBCI"],["57196848","Volkswagen Caddy","2.0 TDI L1H1 Navigatie App-Connect DAB+ Cruise Control",10400,"B","01-2019","H",117,"D",75,"zilver","Bestelauto",0,"4.7","acdqB"],["54493661","Volkswagen Caddy Cargo","2.0 TDI L1H1 Trend Parkeersensoren Airco Parkeersensoren Elektrische ramen",11250,"B","05-2021","H",130.7,"D",75,"wit","Bestelauto",0,"4.4","h"],["50262261","Volkswagen Golf","1.0 eTSI 110pk DSG Life Virtual Cockpit Navigatie Parkeersensoren",20450,"B","04-2023","A",93,"H",110,"grijs","Hatchback",1300,"5.2","bcdghqrstvyBCL"],["50317599","Volkswagen Golf","Variant 1.5 TSI Life Business Sfeerverlichting Navigatie Virtual Cockpit Parkeersensoren",17950,"B","09-2021","H",134.3,"B",131,"grijs","Stationwagon",1400,"5.1","bcdghjkqrstvxyABCDEIK"],["51439995","Volkswagen Golf","Variant 1.0 TSI 110pk Life Sfeerverlichting Navigatie Parkeersensoren",14900,"B","01-2022","H",123.8,"B",110,"zwart","Stationwagon",1300,"4.7","bcdghqrsvyABCI"],["49738076","Volkswagen Golf","Variant 1.0 TSI 110pk Life Camera DAB+ Navigatie",17450,"B","01-2022","H",127.1,"B",110,"grijs","Stationwagon",1300,"4.7","bcdeghqrstvyBCIK"],["51221301","Volkswagen Golf","Variant 1.0 TSI Comfortline Business Panoramadak Stoelverwarming LED DAB+",16450,"B","07-2020","H",99,"B",116,"zwart","Stationwagon",1300,"4.8","bcdghjopqstBEIJL"],["55026886","Volkswagen Golf","1.0 TSI 110pk Life Sfeerverlichting Navigatie Parkeersensoren App-Connect",14750,"B","06-2022","H",147,"B",110,"zwart","Hatchback",1300,"4.6","bcdghqrsvyABC"],["55586828","Volkswagen Golf","Variant 1.0 eTSI DSG Life Sfeerverlichting Navigatie Parkeersensoren Camera",16900,"B","07-2022","A",121.6,"H",110,"grijs","Stationwagon",1300,"4.3","bcdeghqrsvyABCI"],["55745276","Volkswagen Golf","Variant 1.5 TSI 150pk DSG Highline R-Line Stoelverwarming LED Camera Virtual Cockpit",15750,"M","12-2017","A",132.9,"B",150,"grijs","Stationwagon",1500,"5","bcdeghjoqrstIJLMO"],["56952569","Volkswagen Golf","Variant 1.0 TSI DSG Highline Business R LED Panoramadak Stoelverwarming Navigatie Parkeersensoren",15900,"M","06-2017","A",78.3,"B",110,"grijs","Stationwagon",1300,"4.9","abcdeghjoprstBIJL"],["57002657","Volkswagen Golf","Variant 1.0 TSI 110pk Golf Trekhaak Parkeersensoren Stoelverwarming",14900,"M","08-2021","H",107.2,"B",110,"grijs","Stationwagon",1300,"5.5","aghjrstvyBI"],["57035690","Volkswagen Golf","Variant 1.0 TSI 116pk 6-bak Connected Series Navigatie Camera DAB+ App-Connect",7900,"M","09-2016","H",175.6,"B",116,"zwart","Stationwagon",1100,"4.3","cdeghqsBIJL"],["57567002","Volkswagen Golf","Variant 1.0 TSI Life Sfeerverlichting App-Connect Parkeersensoren Navigatie",14250,"B","06-2022","H",137.8,"B",110,"grijs","Stationwagon",1300,"4.7","bcdghqrsvyABCI"],["56698850","Volkswagen Golf","Variant 1.5 TSI 150pk DSG Highline Business R Virtual Cockpit Camera Navigatie DAB+",12900,"M","01-2019","A",199.2,"B",150,"zwart","Stationwagon",1500,"5.2","bcdeghoqrstvBIJLM"],["57470488","Volkswagen Golf","Variant 1.5 TSI 150pk Highline Virtual Cockpit Alcantara Parkeersensoren",13900,"M","09-2019","H",165.1,"B",150,"zwart","Stationwagon",1500,"5.2","abcdghjoqrstBIJL"],["57184875","Volkswagen Golf","1.0 eTSI DSG Life Sfeerverlichting Camera Navigatie App-Connect",20400,"B","01-2024","A",94.7,"H",110,"zwart","Hatchback",1300,"5.2","bcdeghqrsvyABC"],["57387210","Volkswagen Golf","1.0 TSI 110pk Life Parkeersensoren Sfeerverlichting Navigatie Adaptive Cruise",17400,"B","07-2021","H",56.2,"B",110,"zwart","Hatchback",1300,"4.6","bcdghqrsvyABC"],["56897492","Volkswagen Golf","1.0 TSI 110pk Life Sfeerverlichting Navigatie App-Connect DAB+",18750,"B","05-2023","H",84.6,"B",110,"zwart","Hatchback",1300,"5.4","bcdghqrsvyABC"],["57572977","Volkswagen Golf","1.5 TSI Comfortline Business Alcantara Camera Virtual Cockpit Stoelverwarming",11900,"M","02-2019","H",181.5,"B",131,"grijs","Hatchback",1400,"5","bcdeghjoqrsBEJ"],["57785852","Volkswagen Golf","1.0 eTSI DSG Life Business Alcantara Sfeerverlichting Navigatie Stoelverwarming",18950,"B","04-2023","A",113.2,"H",110,"zwart","Hatchback",1300,"5.2","bcdghjkoqrstvyABCDEKL"],["58033491","Volkswagen Golf","1.5 TSI Life Business Alcantara Stoelverwarming Sfeerverlichting Navigatie DAB+",17450,"B","09-2022","H",99.5,"B",131,"grijs","Hatchback",1400,"5.1","bcdghjkoqrsvyABCDEK"],["58157664","Volkswagen Golf","2.0 TSI 265PK GTI 8.5 Panoramadak Camera Stuur/Stoel Verwarming Sfeerverlichting",39850,"B","10-2024","A",36.4,"B",265,"zwart","Hatchback",1600,"7","bcdeghjkpqrstuvxyABCKL"],["57958040","Volkswagen ID.3","Pro 58 kWh SoH 91,38% Parkeersensoren App-Connect Sfeerverlichting Navigatie",20250,"B","08-2022","A",97.7,"E",145,"grijs","Hatchback",0,"","bcdghqsvyABCK"],["57599472","Volkswagen ID.4","Pro 77 kWh SoH 95,84% Navigatie Parkeersensoren App-Connect DAB+",27850,"B","02-2023","A",111.9,"E",204,"grijs","SUV",1000,"","bcdghqsvyBIK"],["57707461","Volkswagen ID.4","Life 77 kWh SoH 92,6% Stoelverwarming Navigatie Sfeerverlichting DAB+",24850,"B","09-2021","A",125.3,"E",204,"grijs","SUV",1000,"","bcdghjkqsvyABCK"],["57783867","Volkswagen ID.4","Business 77 kWh SoH 93,51% Stoelverwarming Camera Sfeerverlichting",26400,"B","10-2021","A",108.9,"E",204,"grijs","SUV",1000,"","bcdeghjnoqstuvyABKL"],["57939004","Volkswagen ID.4","Pro 77 kWh SoH 94,48% Sfeerverlichting Navigatie DAB+ App-Connect",26400,"B","09-2022","A",112.6,"E",204,"grijs","SUV",1000,"","abcdghjkqsvyABCIK"],["58059208","Volkswagen ID.4","Life 77 kWh SoH 91,82% Trekhaak Sfeerverlichting Navigatie Stoelverwarming",23250,"B","09-2021","A",139.6,"E",204,"grijs","SUV",1000,"","abcdghjkqsvyABCK"],["58267677","Volkswagen ID.4","Pro 77 kWh SoH 95,26% Warmtepomp Alcantara Camera Stoelverwarming Sfeerverlichting",24950,"B","12-2021","A",121.6,"E",204,"grijs","SUV",1000,"","bcdeghjoqsvyABCDHIJK"],["57555987","Volkswagen Passat","Variant 1.6 TDI DSG Highline Stoelverwarming Navigatie Camera App-Connect",11900,"B","06-2017","A",145.7,"D",120,"zwart","Stationwagon",1500,"4","bcdeghjnoqsIL"],["58268113","Volkswagen Passat","Variant 1.5 TSI DSG R-Line Business + Panoramadak LED Alcantara Stoelverwarming",19950,"B","05-2021","A",151.4,"B",150,"blauw","Stationwagon",1600,"5.4","bcdeghjnopqrstuvwyBCIKLM"],["53096042","Volkswagen Polo","1.0 TSI Highline Beats Parkeersensoren Adaptive Cruise App-Connect",9900,"M","12-2017","H",171.1,"B",95,"zwart","Hatchback",1000,"4.4","bcghqsBJO"],["51441212","Volkswagen Polo","1.0 TSI R-Line Edition LED Navigatie Parkeersensoren Climate Control DAB+",13950,"B","07-2021","H",118.4,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqstBLM"],["49253422","Volkswagen Polo","1.0 TSI R-Line Edition Camera Navigatie DAB+ App-Connect",14850,"B","09-2021","H",92.3,"B",95,"grijs","Hatchback",1000,"4.6","bcdeqBLM"],["49260104","Volkswagen Polo","1.0 TSI R-Line Edition Camera Climate Control Navigatie DAB+",14850,"B","08-2021","H",83.3,"B",95,"wit","Hatchback",1000,"4.6","bcdeghqsBLM"],["53959297","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren App-Connect DAB+",11850,"B","09-2021","H",128.6,"B",95,"wit","Hatchback",1000,"4.6","bcghqB"],["53093520","Volkswagen Polo","1.0 TSI R-Line Edition Navigatie Adaptive Cruise DAB+ Airco",13400,"B","10-2021","H",128.4,"B",95,"grijs","Hatchback",1000,"4.6","bcdqBLM"],["53691023","Volkswagen Polo","1.0 TSI Polo Virtual Cockpit App-Connect DAB+ Parkeersensoren",14750,"M","12-2021","H",88.4,"B",95,"zwart","Hatchback",1000,"4.6","cghqrtyB"],["55993891","Volkswagen Polo","1.0 TSI R-Line Camera Navigatie DAB+ Stoelverwarming Virtual Cockpit",17900,"B","07-2022","H",88.6,"B",95,"rood","Hatchback",1000,"4.6","bcdeghjoqrstyBLM"],["56008612","Volkswagen Polo","1.0 TSI Polo App-Connect Airco Virtual Cockpit",13900,"B","06-2022","H",123.4,"B",95,"wit","Hatchback",1000,"4.6","cqrtyB"],["56496515","Volkswagen Polo","1.0 TSI R-Line Business LED Stoelverwarming Camera DAB+ App-Connect",16400,"B","06-2022","H",130.7,"B",95,"blauw","Hatchback",1000,"4.6","bcdeghjqstuyBCKLM"],["56742790","Volkswagen Polo","1.0 TSI Highline R-Line Panoramadak LED Virtual Cockpit",17250,"B","08-2020","H",90.7,"B",95,"wit","Hatchback",1000,"4.6","abcdnpqrstBJLM"],["57305675","Volkswagen Polo","1.0 TSI Comfortline Navigatie App-Connect Adaptive Cruise",12650,"B","09-2021","H",113.8,"B",95,"wit","Hatchback",1000,"4.6","bcdqB"],["56432481","Volkswagen Polo","1.0 TSI Style LED Navigatie Parkeersensoren Climate Control DAB+",16250,"B","09-2022","H",106.4,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqrstuyB"],["56339801","Volkswagen Polo","1.0 TSI Life Parkeersensoren App-Connect DAB+ Adaptive Cruise",14400,"B","11-2021","H",109.7,"B",95,"zwart","Hatchback",1000,"4.6","bcghqrtyB"],["56596095","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren App-Connect DAB+ Navigatie",12900,"B","06-2021","H",117.7,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqB"],["56636168","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren App-Connect DAB+ Navigatie",12900,"B","11-2021","H",118.6,"B",95,"wit","Hatchback",1000,"4.6","bcdghqB"],["56965939","Volkswagen Polo","1.0 TSI Life Business Camera Stoelverwarming Navigatie DAB+ App-Connect",16250,"B","09-2022","H",86.1,"B",95,"zwart","Hatchback",1000,"4.6","bcdeghjqrsyBCK"],["57295156","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren Navigatie DAB+ App-Connect DAB+",12550,"B","03-2021","H",124.6,"B",95,"grijs","Hatchback",1000,"4.6","bcdghqB"],["57198067","Volkswagen Polo","1.0 TSI R-Line Edition Navigatie Parkeersensoren App-Connect DAB+",13900,"B","07-2021","H",110.6,"B",95,"grijs","Hatchback",1000,"4.6","bcdghqsBLM"],["56829673","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren Navigatie App-Connect DAB+",13450,"B","06-2021","H",107.3,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqBL"],["56948595","Volkswagen Polo","1.0 TSI Life Camera App-Connect Adaptive Cruise Airco",13750,"B","12-2021","H",115.6,"B",95,"zwart","Hatchback",1000,"4.6","bceqrtyB"],["57321393","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren Navigatie DAB+ App-Connect",12750,"B","03-2021","H",104.1,"B",95,"grijs","Hatchback",1000,"4.6","bcdghqB"],["57358773","Volkswagen Polo","1.0 TSI R-Line Navigatie Parkeersensoren App-Connect DAB+",16900,"B","09-2022","H",111.6,"B",95,"zwart","Hatchback",1000,"4.6","bcdghoqrsyBLM"],["57220620","Volkswagen Polo","1.0 TSI Life Parkeersensoren Navigatie Trekhaak App-Connect DAB+",14900,"B","09-2022","H",84.4,"B",95,"blauw","Hatchback",1000,"4.6","abcdghqryB"],["57365197","Volkswagen Polo","1.0 TSI Life Navigatie App-Connect DAB+",14900,"B","09-2023","H",88.8,"B",95,"blauw","Hatchback",1000,"5.2","bcdeqrtyB"],["57642078","Volkswagen Polo","1.0 TSI Comfortline Navigatie App-Connect DAB+ Airco",12950,"B","05-2021","H",98.3,"B",95,"wit","Hatchback",1000,"4.6","bcdqB"],["57730967","Volkswagen Polo","1.0 TSI Life Navigatie App-Connect DAB+",14400,"B","08-2022","H",112.5,"B",95,"zwart","Hatchback",1000,"4.6","bcdqryB"],["57785618","Volkswagen Polo","1.0 TSI Life Business Camera Stoelverwarming Climate Control",15850,"B","06-2022","H",96.9,"B",95,"zwart","Hatchback",1000,"4.6","bcdeghjqrsyBCK"],["57878750","Volkswagen Polo","1.0 TSI Comfortline Camera Climate Control Navigatie App-Connect",13400,"B","07-2021","H",113,"B",95,"grijs","Hatchback",1000,"4.6","bcdeghqsBL"],["58033859","Volkswagen Polo","1.0 TSI Life Business Stoelverwarming Camera Climate Control Navigatie",15200,"B","01-2022","H",91.5,"B",95,"zwart","Hatchback",1000,"4.6","bcdeghjqrstyBCK"],["58058781","Volkswagen Polo","1.0 TSI Highline Business R R-Line Virtual Cockpit Parkeersensoren Navigatie DAB+ App-Connect",14450,"B","01-2021","H",109.6,"B",95,"wit","Hatchback",1000,"4.6","bcdghiqrsBJLM"],["58064499","Volkswagen Polo","1.0 TSI Life Business Stoelverwarming Parkeersensoren Virtual Cockpit DAB+",15850,"B","08-2022","H",96,"B",95,"grijs","Hatchback",1000,"4.6","bcdghjqrsyBCK"],["58157096","Volkswagen Polo","1.0 TSI Life Business Parkeersensoren Navigatie Stoelverwarming",15850,"B","06-2023","H",94.4,"B",95,"zwart","Hatchback",1000,"5.2","bcdghjqrsyBCK"],["55367799","Volkswagen T-Cross","1.0 TSI Life Navigatie DAB+ App-Connect Climate Control",12900,"M","07-2019","H",144,"B",95,"zwart","SUV",1000,"4.9","bcdqsxyBI"],["57556089","Volkswagen T-Cross","1.0 TSI 116pk Style LED Parkeersensoren Navigatie Climate Control DAB+",17850,"B","02-2021","H",87.8,"B",116,"wit","SUV",1100,"4.9","bcdghnqstxBIJL"],["55128397","Volkswagen T-Roc","1.5 TSI 150pk DSG Life Navigatie Trekhaak Parkeersensoren App-Connect DAB+",22750,"B","03-2023","A",101.3,"B",150,"grijs","SUV",1500,"5","abcdghiqrsyBI"],["57735538","Volkswagen T-Roc","1.5 TSI 150pk DSG Sport Panoramadak Camera Navigatie DAB+ App-Connect",18750,"M","07-2019","A",140.8,"B",150,"wit","SUV",1500,"5.6","bcdeghopqrstwyBIJL"],["58267300","Volkswagen T-Roc","1.5 TSI 150pk DSG Style Business Camera Stoelverwarming Virtual Cockpit Navigatie",18750,"B","01-2022","A",134.7,"B",150,"grijs","SUV",1500,"5.4","bcdeghjqrswyBCIK"],["58268458","Volkswagen T-Roc","1.5 TSI 150pk DSG Life Camera App-Connect DAB+",20850,"B","11-2022","A",112.1,"B",150,"zwart","SUV",1500,"5","bcdeghiqrtyBIL"],["56496336","Volkswagen Taigo","1.0 TSI R-Line Business LED Camera Stoelverwarming App-Connect DAB+",18400,"B","11-2022","H",110.8,"B",110,"grijs","SUV",1100,"4.9","bcdeghjqrstuyBCIKLM"],["57407911","Volkswagen Taigo","1.0 TSI Life Camera Navigatie App-Connect DAB+",17250,"B","09-2022","H",59.7,"B",95,"zwart","SUV",1000,"4.7","deqrsyBIL"],["57369654","Volkswagen Taigo","1.0 TSI Life Camera Stoelverwarming Navigatie App-Connect DAB+",16850,"B","04-2022","H",83.6,"B",95,"zwart","SUV",1000,"4.7","deghjqryBI"],["57730373","Volkswagen Taigo","1.0 TSI Life Business Panoramadak Stoelverwarming Navigatie Parkeersensoren DAB+",17850,"B","10-2022","H",84.6,"B",95,"zwart","SUV",1000,"4.7","dghjpqrstyBCIKL"],["58099903","Volkswagen Taigo","1.0 TSI 110pk DSG Life Business Stoelverwarming Parkeersensoren Virtual Cockpit Navigatie",18950,"B","01-2023","A",95.6,"B",110,"zwart","SUV",1100,"4.9","dghjqrsyBCIK"],["53142447","Volkswagen Tiguan","1.4 TSI 150pk DSG ACT Connected Series Panoramadak Alcantara Stoelverwarming Camera DAB+",13450,"M","02-2017","A",215.3,"B",150,"blauw","SUV",1800,"6","cdeghjopqstwyBEIL"],["52083580","Volkswagen Tiguan","1.5 TSI 150pk DSG R-Line Business+ Camera Stoelverwarming LED Adaptive Cruise",27950,"B","12-2020","A",93.7,"B",150,"zwart","SUV",1800,"5.8","bcdeghjoqrstuvwyBIJKLM"],["55397977","Volkswagen Tiguan","1.5 TSI 150pk DSG R-Line Business Panoramadak Camera Virtual Cockpit Stoelverwarming",32450,"B","04-2023","A",103.3,"B",150,"zwart","SUV",1800,"6.6","bcdeghjopqrstuvwyBCIKLM"],["55968349","Volkswagen Tiguan","1.4 TSI 150pk DSG ACT Highline Virtual Cockpit Stoelverwarming Navigatie",22400,"M","01-2018","A",136.2,"B",150,"grijs","SUV",1800,"6.1","bcdghjorstyIJL"],["57459702","Volkswagen Tiguan","1.5 TSI 150pk DSG Life Parkeersensoren Navigatie DAB+ App-Connect",24850,"B","06-2021","A",83.5,"B",150,"zwart","SUV",1800,"5.7","bcdghqsyBIL"],["57466564","Volkswagen Tiguan","1.5 TSI 150pk DSG R-Line Panoramadak Alcantara App-Connect DAB+",31750,"B","09-2022","A",97.8,"B",150,"grijs","SUV",1800,"5.8","bcdeghopqrsyBILM"],["55844180","Volkswagen Tiguan Allspace","1.5 TSI Highline Business R Panoramadak Stoelverwarming Virtual Cockpit",26400,"B","11-2020","A",127.4,"B",150,"zwart","SUV",1800,"5.9","bcdeghijopqrstvwyBCIKLM"],["56626351","Volkswagen Tiguan Allspace","1.5 TSI 150pk DSG Highline Business R R-Line Camera Virtual Cockpit DAB+ Trekhaak",27400,"B","09-2021","A",113.1,"B",150,"wit","SUV",1800,"5.9","abcdeghoqrstvwyBCIKLM"],["57456095","Volkswagen Tiguan Allspace","1.5 TSI 150pk DSG Elegance LED Alcantara Stoelverwarming Camera Navigatie",26400,"B","08-2022","A",106.6,"B",150,"grijs","SUV",1800,"5.7","bcdeghijoqrstuvwyABIL"],["53959111","Volkswagen Transporter","2.0 TDI 110pk L1H1 Navigatie App-Connect DAB+ Trekhaak",16400,"B","02-2021","H",131.8,"D",110,"zwart","Bestelauto",0,"6.5","acdqB"],["57362731","Volkswagen Transporter","2.0 TDI 102pk L1H1 Comfortline Cruise Control Camera Airco",12750,"B","11-2019","H",134.9,"D",102,"wit","Bestelauto",0,"7.1","ceh"]];
+// index: 0 id,1 merk+model,2 uitvoering,3 prijs,4 B/M,5 mm-jjjj,6 A/H,7 km x1000,8 brandstof,9 pk,10 kleur,11 carrosserie,12 trekgewicht,13 verbruik,14 optiecodes
+const FLAGS=[
+ ["trekhaak","Trekhaak",/trekhaak|trek\s?haak|aanhanger|caravan/],
+ ["acc","Adaptive cruise",/adaptie?ve?\s*cruise(\s*control)?|\bacc\b|adaptief\s*cruise/],
+ ["cruise","Cruise control",/cruise(\s*control)?/],
+ ["navi","Navigatie",/navigatie|\bnavi\b|\bgps\b/],
+ ["camera","Camera",/achteruitrij\s*camera|\bcamera\b|\bcam\b/],
+ ["cam360","360° camera",/360|rondomzicht|area\s*view/],
+ ["pdcv","Parkeersensoren voor",/sensoren\s*voor|pdc\s*voor|voor\s*en\s*achter/],
+ ["pdca","Parkeersensoren",/parkeer\s*sensor(en)?|\bpdc\b|parkeerhulp/],
+ ["parkassist","Parkeerassistent",/park(eer)?\s*-?\s*assist(ent)?|zelf\s*inparkeren|automatisch\s*parkeren/],
+ ["stoelverw","Stoelverwarming",/stoel\s*verwarming|verwarmde\s*stoelen|stoelen\s*verwarmd/],
+ ["stuurverw","Stuurverwarming",/stuur\s*verwarming|verwarmd\s*stuur/],
+ ["achterbankverw","Verwarmde achterbank",/achterbank\s*verwarm/],
+ ["leder","Leder",/(?<!half\s)(?<!half)\bleder(en)?\b|\bleer\b|\bleren\b/],
+ ["halfleder","Half leder",/half\s*-?\s*leder/],
+ ["alcantara","Alcantara",/alcantara/],
+ ["panorama","Panoramadak",/panorama|\bpano\b|schuif\s*dak|glazen\s*dak|open\s*dak/],
+ ["carplay","CarPlay / Android Auto",/car\s*play|android\s*auto|app\s*-?\s*connect|apple/],
+ ["vcockpit","Digitaal dashboard",/virtual\s*cockpit|digita(al|le)\s*(dashboard|teller|cockpit|instrument)/],
+ ["climate","Climate control",/climate|clima|automatische\s*airco/],
+ ["led","LED-koplampen",/\bled\b/],
+ ["matrix","Matrix LED",/matrix/],
+ ["keyless","Keyless",/keyless|sleutelloos|zonder\s*sleutel/],
+ ["eklep","Elektrische achterklep",/elektrische?\s*(achter)?klep/],
+ ["dodehoek","Dodehoekdetectie",/dode\s*-?\s*hoek|blind\s*spot/],
+ ["lane","Lane assist",/lane\s*assist|rijstrook/],
+ ["hud","Head-up display",/head\s*-?\s*up|\bhud\b/],
+ ["sfeer","Sfeerverlichting",/sfeer\s*verlichting|ambient/],
+ ["dab","DAB+",/\bdab\+?/],
+ ["draadloos","Draadloos laden",/draadloo?s\s*(laden|lader|opladen)|draadloze\s*lader/],
+ ["estoel","Elektrische stoelen",/elektrische?\s*(verstelbare\s*)?stoel(en)?/],
+ ["massage","Massagestoelen",/massage/],
+ ["luchtvering","Luchtvering",/luchtvering/],
+ ["zeven","7 zitplaatsen",/7\s*-?\s*(zitter|zits|zitplaatsen|persoons|pers\b)|zeven\s*-?\s*(zitter|persoons)|\b7p\b/],
+ ["warmtepomp","Warmtepomp",/warmtepomp/],
+ ["dakrails","Dakrails",/dak\s*rails|dakdragers/],
+ ["sportstoel","Sportstoelen",/sport\s*stoelen/],
+ ["verkeersbord","Verkeersbordherkenning",/verkeersbord/],
+ ["getint","Privacy glass",/privacy\s*glas|getint(e)?\s*(glas|ramen)/],
+ ["sline","Sportief pakket (S/R-Line, FR, Sportline)",/s\s*-?\s*line|r\s*-?\s*line|\bfr\b|sportline|sportief\s*pakket/],
+ ["vierwd","4x4",/4\s*x\s*4|quattro|4\s*motion|vierwiel|4wd|awd/],
+ ["premiumaudio","Premium audio",/b\s*&\s*o|bang|beats|canton|premium\s*audio|goed\s*geluid/]
+];
+const code=i=>i<26?String.fromCharCode(97+i):String.fromCharCode(65+i-26);
+const FLAG_KEYS=FLAGS.map(f=>f[0]);
+const FLAG_LABEL=Object.fromEntries(FLAGS.map(f=>[f[0],f[1]]));
+const FLAG_CODE=Object.fromEntries(FLAGS.map((f,i)=>[f[0],code(i)]));
+const ADDONS={trekhaak:{label:"Vaste trekhaak",price:950}};
+const hasOpt=(c,o)=>c[14].includes(FLAG_CODE[o])||(o==="cruise"&&c[14].includes(FLAG_CODE.acc))||(o==="camera"&&c[14].includes(FLAG_CODE.cam360));
+const canAdd=(c,o)=>!!ADDONS[o]&&c[12]>0;
+const addons=(c,f)=>f.options.filter(o=>!hasOpt(c,o)&&canAdd(c,o));
+const totalPrice=(c,f)=>c[3]+addons(c,f).reduce((s,o)=>s+ADDONS[o].price,0);
+const SHOW_ORDER=["trekhaak","acc","navi","camera","cam360","pdca","stoelverw","stuurverw","panorama","carplay","vcockpit","climate","led","keyless","eklep","zeven","leder","halfleder","alcantara","sfeer","dodehoek","parkassist","massage","luchtvering","vierwd","sline","premiumaudio","dakrails","draadloos","warmtepomp","hud","matrix"];
+
+const BODY={SUV:/\bsuv\b|crossover|terreinauto|hoge\s*instap/,Stationwagon:/station(wagon)?|\bcombi\b|variant|\bbreak\b|estate|sports?tourer|\bavant\b|\bst\b/,Hatchback:/hatch(back)?|\bhb\b|compact(e)?\s*auto|stadsauto/,Sedan:/sedan|limousine/,Bestelauto:/bestel|\bbus\b|busje|cargo|transporter/};
+const FUEL={E:/elektris|\bev\b|electric|stekker/,H:/hybride|hybrid|e-?tsi|plug-?in|phev/,D:/diesel|\btdi\b/,B:/benzine|\btsi\b|\btfsi\b/};
+const FUEL_LABEL={E:"Elektrisch",H:"Hybride",D:"Diesel",B:"Benzine"};
+const BRANDS={"Audi":/\baudi\b/,"Volkswagen":/volkswagen|\bvw\b/,"SEAT":/\bseat\b/,"CUPRA":/cupra/,"Škoda":/skoda|škoda/};
+const COLORS=["zwart","wit","grijs","blauw","rood","groen","zilver"];
+
+const brandOf=mm=>mm.split(" ")[0].replace("SEAT","SEAT");
+const modelOf=mm=>mm.split(" ").slice(1).join(" ");
+let MODELS=[...new Set(CARS.map(c=>modelOf(c[1])))].sort((a,b)=>b.length-a.length);
+const normModel=s=>s.toLowerCase().replace(/[\s\-.]/g,"");
+
+function parseNum(s){
+  s=s.trim().toLowerCase();
+  let mult=1;
+  if(/k$|duizend$|dzd$/.test(s)){mult=1000;s=s.replace(/\s*(k|duizend|dzd)$/,"")}
+  if(/^\d{1,3}([.\s]\d{3})+$/.test(s)) s=s.replace(/[.\s]/g,"");
+  else s=s.replace(",",".");
+  const n=parseFloat(s);return isNaN(n)?null:n*mult;
+}
+
+function localParse(q){
+  let t=" "+q.toLowerCase().replace(/€/g," € ")+" ";
+  const f={maxPrice:null,minPrice:null,maxKm:null,minYear:null,maxYear:null,body:[],brands:[],models:[],transmission:null,fuel:[],options:[],minPower:null,colors:[]};
+  const take=re=>{let hit=false;t=t.replace(new RegExp(re.source,"g"),()=>{hit=true;return " ";});return hit;};
+  // opties (acc vóór gewone cruise)
+  for(const [k,,re] of FLAGS){ if(k==="led"&&/matrix/.test(t)) continue; if(take(re)) f.options.push(k); }
+  if(f.options.includes("acc")) f.options=f.options.filter(o=>o!=="cruise");
+  if(f.options.includes("halfleder")) f.options=f.options.filter(o=>o!=="leder");
+  if(f.options.includes("cam360")&&!f.options.includes("camera")) {}
+  for(const [b,re] of Object.entries(BODY)) if(take(re)) f.body.push(b);
+  if(/gezin|familie|kinderwagen|ruimte|grote\s*kofferbak/.test(t)&&!f.body.length){f.body.push("SUV","Stationwagon");f._family=true;}
+  if(take(/automaat|automatic|\bdsg\b|s-?tronic|\bauto\b(?=\s|$)/)) f.transmission="A";
+  else if(take(/handgeschakeld|handbak|schakel(auto|bak)?|\bhand\b/)) f.transmission="H";
+  for(const [k,re] of Object.entries(FUEL)) if(take(re)) f.fuel.push(k);
+  for(const [b,re] of Object.entries(BRANDS)) if(take(re)) f.brands.push(b);
+  for(const m of MODELS){const nm=normModel(m);const parts=m.toLowerCase().split(" ");
+    const re=new RegExp("\\b"+parts.map(p=>p.replace(/[.\-]/g,"[.\\-\\s]?")).join("\\s*")+"\\b");
+    if(re.test(t)||(nm.length>2&&new RegExp("\\b"+nm+"\\b").test(t.replace(/[\-.]/g,"")))){f.models.push(m);t=t.replace(re," ");}}
+  for(const c of COLORS) if(take(new RegExp("\\b"+c+"e?\\b"))) f.colors.push(c);
+  // vermogen
+  t=t.replace(/(\d{2,3})\s*(pk|hp)\b/g,(m,n)=>{f.minPower=+n;return " ";});
+  // getallen
+  const numRe=/(\d{1,3}(?:[.\s]\d{3})+|\d+(?:[.,]\d+)?)(\s*(?:k|duizend|dzd)\b)?/g;
+  const nums=[];let m;while((m=numRe.exec(t))){nums.push({s:m[0],i:m.index,e:m.index+m[0].length});}
+  nums.forEach((n,ix)=>{
+    const before=t.slice(Math.max(ix?nums[ix-1].e:0,n.i-28),n.i);
+    const after=t.slice(n.e,Math.min(ix<nums.length-1?nums[ix+1].i:t.length,n.e+22));
+    const v=parseNum(n.s);if(v==null) return;
+    if(/^\s*(per\s*maand|p\/?m|\/\s*mnd|maand)/.test(after)) return;
+    const isMax=/(tot|max|maximaal|onder|minder\s*dan|niet\s*meer\s*dan|hooguit|beneden|<|budget|max\.)\s*(de|het|een)?\s*(€|euro|km)?\s*$/.test(before);
+    const isMin=/(vanaf|minimaal|boven|meer\s*dan|min\.?|>|na|nieuwer\s*dan)\s*(de|het|een|bouwjaar)?\s*(€|euro)?\s*$/.test(before);
+    const kmCtx=/^\s*(km|kilometer|k\s*km)/.test(after)||/(km|kilometer|kilometerstand|tellerstand|teller|gelopen|gereden)[^€]*$/.test(before);
+    const euroCtx=/^\s*(€|euro|eur\b|,-)/.test(after)||/(€|euro|budget|prijs|kosten|betalen)\s*\w*\s*\w*\s*$/.test(before);
+    const yearLike=v>=1995&&v<=2027&&!/[.\s]/.test(n.s.trim())&&!/k/.test(n.s);
+    if(kmCtx&&!euroCtx){ const km=v<1000?v*1000:v; if(isMin) {} else f.maxKm=km; return;}
+    if(yearLike&&!euroCtx){ if(/^\s*(of\s*)?(ouder|eerder)/.test(after)||/(tot|max|uiterlijk)\s*$/.test(before)) f.maxYear=v; else f.minYear=v; return;}
+    let price=v<1000&&!euroCtx?v*1000:v; if(price<1000) price*=1000;
+    if(price>=2000){ if(isMin) f.minPrice=price; else f.maxPrice=price; }
+  });
+  return f;
+}
+
+let filters=null, lastQuery="", sortBy="relevant";
+const $=id=>document.getElementById(id);
+const fmtEUR=n=>"€ "+n.toLocaleString("nl-NL")+",-";
+const fmtKm=n=>Math.round(n*1000).toLocaleString("nl-NL")+" km";
+const year=c=>+c[5].slice(3);
+
+function checks(c,f){
+  const out=[];const tp=totalPrice(c,f);
+  if(f.maxPrice) out.push({ok:tp<=f.maxPrice, near:tp<=f.maxPrice*1.1, why:"€ "+(tp-f.maxPrice).toLocaleString("nl-NL")+" boven budget"+(tp>c[3]?" (incl. trekhaak)":"")});
+  if(f.minPrice) out.push({ok:c[3]>=f.minPrice, near:false, why:"onder minimumprijs"});
+  if(f.maxKm) out.push({ok:c[7]*1000<=f.maxKm, near:c[7]*1000<=f.maxKm*1.1, why:fmtKm(c[7]-f.maxKm/1000)+" meer gereden"});
+  if(f.minYear) out.push({ok:year(c)>=f.minYear, near:year(c)>=f.minYear-1, why:"bouwjaar "+year(c)});
+  if(f.maxYear) out.push({ok:year(c)<=f.maxYear, near:false, why:"bouwjaar "+year(c)});
+  if(f.body.length) out.push({ok:f.body.includes(c[11]), near:false, why:"is een "+c[11].toLowerCase()});
+  if(f.brands.length) out.push({ok:f.brands.includes(brandOf(c[1])), near:false, why:"ander merk"});
+  if(f.models.length) out.push({ok:f.models.includes(modelOf(c[1])), near:false, why:"ander model"});
+  if(f.transmission) out.push({ok:c[6]===f.transmission, near:false, why:c[6]==="A"?"automaat":"handgeschakeld"});
+  if(f.fuel.length) out.push({ok:f.fuel.includes(c[8]), near:false, why:FUEL_LABEL[c[8]]});
+  if(f.minPower) out.push({ok:c[9]>=f.minPower, near:c[9]>=f.minPower*0.9, why:c[9]+" pk"});
+  if(f.colors.length) out.push({ok:f.colors.some(k=>c[10].includes(k)), near:true, why:"kleur "+c[10]});
+  for(const o of f.options){ const has=hasOpt(c,o)||canAdd(c,o);
+    out.push({ok:has, near:true, why:"geen "+FLAG_LABEL[o].toLowerCase(), opt:o}); }
+  return out;
+}
+
+function run(){
+  const res=$("results");
+  if(!filters){res.innerHTML="";return;}
+  const exact=[],near=[];
+  for(const c of CARS){
+    const ch=checks(c,filters);const fails=ch.filter(x=>!x.ok);
+    if(!fails.length) exact.push(c);
+    else if(fails.length===1&&fails[0].near) near.push([c,fails[0]]);
+  }
+  const sorter={relevant:(a,b)=>score(b)-score(a)||a[3]-b[3],prijs:(a,b)=>a[3]-b[3],km:(a,b)=>a[7]-b[7],nieuw:(a,b)=>b[5].slice(3)+b[5].slice(0,2)>a[5].slice(3)+a[5].slice(0,2)?1:-1};
+  exact.sort(sorter[sortBy]); near.sort((x,y)=>sorter[sortBy](x[0],y[0]));
+  const n=exact.length;
+  let h=`<div class="bar"><h2>${n?n+" "+(n===1?"auto past":"auto's passen"):"Geen exacte match"} <small>op je zoekopdracht</small></h2>
+  <label class="sort" for="sort">Sorteer <select id="sort"><option value="relevant">Best passend</option><option value="prijs">Prijs laag-hoog</option><option value="km">Minste km</option><option value="nieuw">Nieuwste eerst</option></select></label></div>`;
+  if(n) h+=`<div class="grid">${exact.slice(0,120).map(c=>card(c)).join("")}</div>`;
+  else h+=`<div class="empty"><h3>Niets dat precies past</h3><p>Haal een wens weg met het kruisje hierboven, of bekijk hieronder wat er net buiten valt.</p></div>`;
+  if(near.length){
+    h+=`<div class="section-gap near"><div class="bar"><h2>Bijna <small>${near.length} ${near.length===1?"auto mist":"auto's missen"} precies één wens</small></h2></div><div class="grid">${near.slice(0,30).map(([c,f])=>card(c,f)).join("")}</div></div>`;
+  }
+  res.innerHTML=h;
+  $("sort").value=sortBy;
+  $("sort").onchange=e=>{sortBy=e.target.value;run();};
+}
+function score(c){return filters.options.filter(o=>hasOpt(c,o)).length*10 + addons(c,filters).length*4 - c[7]/50;}
+
+function card(c,fail){
+  const has=k=>c[14].includes(FLAG_CODE[k]);
+  const wanted=filters.options;
+  const shown=[];
+  wanted.forEach(k=>shown.push(hasOpt(c,k)?`<span class="o hit">✓ ${FLAG_LABEL[k]}</span>`:canAdd(c,k)?`<span class="o add">+ ${ADDONS[k].label} te monteren</span>`:`<span class="o miss">✗ ${FLAG_LABEL[k]}</span>`));
+  const adds=addons(c,filters), tp=totalPrice(c,filters);
+  let extra=0;
+  for(const k of SHOW_ORDER){ if(wanted.includes(k)||!has(k)) continue; if(extra<6){shown.push(`<span class="o">${FLAG_LABEL[k]}</span>`);} extra++; }
+  const more=extra>6?`<span class="o">+${extra-6}</span>`:"";
+  const fuel=FUEL_LABEL[c[8]], tr=c[6]==="A"?"Automaat":"Handgeschakeld";
+  const pic=`https://janvanveenautos.nl/webservices/feed_images/${c[0]}/${c[0]}-0.jpg`;
+  return `<article class="car">
+    <a href="https://janvanveenautos.nl/occasions-kopen/${c[0]}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">${pic?`<img class="photo" src="${pic}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'ph'}))">`:`<span class="ph"></span>`}</a>
+    <div class="head"><h3>${c[1]}</h3><div class="uitv">${c[2]}</div>
+    <div class="pr">${fmtEUR(c[3])}${c[15]?` of € ${c[15]} /mnd`:""}<small>${c[4]==="M"?"Marge":"Incl. BTW"}</small></div></div>
+    ${adds.length?`<div class="addline">${adds.map(o=>ADDONS[o].label+" erop voor "+fmtEUR(ADDONS[o].price)).join(", ")} · totaal ${fmtEUR(tp)}</div>`:""}
+    ${fail?`<div class="why">Mist: ${fail.why}</div>`:""}
+    <div class="specs"><span>${c[5]}</span><span>${fmtKm(c[7])}</span><span>${tr}</span><span>${fuel}</span>${c[9]?`<span>${c[9]} pk</span>`:""}</div>
+    <div class="opts">${shown.join("")}${more}</div>
+    <div class="foot"><span style="color:var(--muted)">${c[11]} · ${c[10]}</span><a href="https://janvanveenautos.nl/occasions-kopen/${c[0]}" target="_blank" rel="noopener">Bekijk auto →</a></div>
+  </article>`;
+}
+
+function renderChips(){
+  const u=$("understood");
+  if(!filters){u.innerHTML="";return;}
+  const chips=[];
+  const add=(label,key,val,cls="")=>chips.push(`<span class="chip ${cls}">${label}<button type="button" aria-label="Verwijder ${label}" data-k="${key}" data-v="${val??""}">×</button></span>`);
+  if(filters.maxPrice) add("Tot "+fmtEUR(filters.maxPrice),"maxPrice");
+  if(filters.minPrice) add("Vanaf "+fmtEUR(filters.minPrice),"minPrice");
+  if(filters.maxKm) add("Max "+Math.round(filters.maxKm).toLocaleString("nl-NL")+" km","maxKm");
+  if(filters.minYear) add("Bouwjaar "+filters.minYear+" of nieuwer","minYear");
+  if(filters.maxYear) add("Bouwjaar t/m "+filters.maxYear,"maxYear");
+  filters.body.forEach(b=>add(b,"body",b));
+  filters.brands.forEach(b=>add(b,"brands",b));
+  filters.models.forEach(b=>add(b,"models",b));
+  if(filters.transmission) add(filters.transmission==="A"?"Automaat":"Handgeschakeld","transmission");
+  filters.fuel.forEach(b=>add(FUEL_LABEL[b],"fuel",b));
+  if(filters.minPower) add("Min. "+filters.minPower+" pk","minPower");
+  filters.colors.forEach(b=>add(b[0].toUpperCase()+b.slice(1),"colors",b));
+  filters.options.forEach(o=>add(FLAG_LABEL[o],"options",o,"opt"));
+  u.innerHTML=chips.length?`<span class="lbl">Gezocht op:</span>${chips.join("")}`:`<span class="lbl">Geen wensen herkend. Probeer bijvoorbeeld een budget, een soort auto of een optie.</span>`;
+  u.querySelectorAll("button").forEach(b=>b.onclick=()=>{const k=b.dataset.k,v=b.dataset.v;
+    if(Array.isArray(filters[k])) filters[k]=filters[k].filter(x=>x!==v); else filters[k]=null;
+    renderChips();run();});
+}
+
+function search(q){
+  q=q.trim(); if(!q) return;
+  lastQuery=q; sortBy="relevant";
+  filters=localParse(q); renderChips(); run();
+  try{localStorage.setItem("jvv-last",q);}catch(e){}
+}
+
+$("form").addEventListener("submit",e=>{e.preventDefault();search($("q").value);});
+const EX=["SUV met trekhaak tot 28.000 en onder de 120.000 km","Audi A3 met adaptive cruise","7-zitter automaat met camera","Stationwagon automaat stoelverwarming tot 18.000","Elektrisch met trekhaak","Polo met navigatie onder 14.000"];
+EX.forEach(x=>{const b=document.createElement("button");b.type="button";b.className="ex";b.textContent=x;b.onclick=()=>{$("q").value=x;search(x);};$("examples").appendChild(b);});
+$("stockCount").textContent=CARS.length; $("stockDate").textContent="stand "+STOCK_DATE; 
+let start=EX[0]; try{start=localStorage.getItem("jvv-last")||start;}catch(e){}
+$("q").value=start; lastQuery=start; filters=localParse(start); renderChips(); run();
+
+// Live bijwerken: haalt het actuele aanbod op van janvanveenautos.nl (1 verzoek) en vult alleen nieuwe auto's aan
+const LF=[['trekhaak',/trekhaak/i],['acc',/cruise control adaptief|adaptive cruise/i],['cruise',/cruise control/i],['navi',/navigatie/i],['camera',/achteruitrijcamera|rondomzicht|\bcamera\b/i],['cam360',/rondomzicht|360 camera/i],['pdcv',/parkeersensor voor/i],['pdca',/parkeersensor achter|parkeersensor voor en achter|parkeersensoren/i],['parkassist',/parkeer-assistent/i],['stoelverw',/voorstoelen verwarmd|verwarmde voorstoelen|stoelverwarming/i],['stuurverw',/stuurwiel verwarmd/i],['achterbankverw',/achterbank verwarmd/i],['leder',/lederen bekleding|luxe lederen|^bekleding leder$/i],['halfleder',/lederen\/stoffen|lederen\/alcantara|leder-stof|leder-alcantara|half leder/i],['alcantara',/alcantara/i],['panorama',/panorama/i],['carplay',/apple carplay|android auto|appconnect|app-connect/i],['vcockpit',/virtual cockpit|volledig digitaal instrumentenpaneel/i],['climate',/climate|airco automatisch/i],['led',/led koplampen|matrix|\bLED\b(?! (achter|dag|mist))/i],['matrix',/matrix/i],['keyless',/keyless/i],['eklep',/elektrisch bedienbare achterklep/i],['dodehoek',/dodehoek/i],['lane',/rijstrook/i],['hud',/head-up/i],['sfeer',/sfeerverlichting/i],['dab',/DAB/],['draadloos',/draadloze telefoonlader/i],['estoel',/elektrisch verstelbare (voor|bestuurders|passagiers)?stoel|elektrisch verstelb\. passagiers|elektrisch verstelbare stoel/i],['massage',/massage/i],['luchtvering',/luchtvering/i],['zeven',/derde rij|7p\.|7-zits/i],['warmtepomp',/warmtepomp/i],['dakrails',/dakrails/i],['sportstoel',/sportstoelen/i],['verkeersbord',/verkeersbord/i],['getint',/getint glas|privacy/i],['sline',/s line|s-line|r-line|\bFR\b|sportline/i],['vierwd',/quattro|4motion|4x4|4drive/i],['premiumaudio',/audio installatie premium|B&O|bang|canton|beats/i]];
+const KKEYS=['Aantal versnellingen','Bouwjaar','Kenteken','Kleur','Interieur','Bekleding','Vermogen','Carrosserie','Gewicht','Max. trekgewicht','Laadvermogen','APK','Onderhoudsboekje aanwezig?','Bijtelling','Energielabel','Gemiddeld verbruik','Aantal deuren','Aantal zitplaatsen','Actieradius','Batterijcapaciteit','Cilinderinhoud'];
+const KRE=new RegExp('('+KKEYS.map(k=>k.replace(/[.?]/g,'\\$&')).join('|')+')','g');
+const cl=s=>(s||'').replace(/\s+/g,' ').trim();
+function flagsFor(opts,txt){let b='';LF.forEach(([n,re],i)=>{if(opts.some(o=>re.test(o))||re.test(txt))b+=code(i)});return b;}
+function rowFromCard(x,extra){const pm=x.prijs.match(/€\s?([\d.]+)/);const rg=x.range.split(' - ');
+  return [x.id,x.mm,x.uitv,pm?+pm[1].replace(/\./g,''):null,/Marge/.test(x.prijs)?'M':'B',(rg[0]||'').slice(3),(rg[1]||' ')[0],rg[2]?Math.round(+rg[2].replace(/\D/g,'')/100)/10:0,
+   extra.fuel||'B',extra.pk||0,extra.kleur||'',extra.body||'',extra.trek||0,extra.verbruik||'',extra.flags!=null?extra.flags:flagsFor([],x.mm+' '+x.uitv),(x.prijs.match(/€\s?([\d.]+)\s*\/\s*mnd/)||[])[1]||''];}
+async function detail(x){
+  const key='jvv-car-'+x.id; try{const c=JSON.parse(localStorage.getItem(key)||'null'); if(c) return c;}catch(e){}
+  const d=new DOMParser().parseFromString(await fetch('/occasions-kopen/'+x.id).then(r=>r.text()),'text/html');
+  const opts=[...(d.querySelector('#home')?.querySelectorAll('li')||[])].map(e=>cl(e.textContent));
+  const m1=d.querySelector('#menu1'); if(m1) m1.querySelectorAll('style,script').forEach(s=>s.remove());
+  const parts=(m1?cl(m1.textContent):'').replace(/EU symbol NL/,'').split(KRE);const k={};for(let i=1;i<parts.length;i+=2)k[parts[i]]=parts[i+1].trim();
+  const top={};d.querySelectorAll('table tr').forEach(r=>{const cc=[...r.children].map(y=>cl(y.textContent));if(cc.length==2&&cc[0])top[cc[0]]=top[cc[0]]||cc[1]});
+  opts.push('bekleding '+(k.Bekleding||''));
+  const ex={fuel:(top.Brandstof||'B')[0],pk:+((top.Vermogen||k.Vermogen||'').replace(/\D/g,''))||0,kleur:k.Kleur||'',body:k.Carrosserie||'',trek:+(k['Max. trekgewicht']||'').replace(/\D/g,'')||0,verbruik:(k['Gemiddeld verbruik']||'').replace(' L/100KM',''),flags:flagsFor(opts,x.mm+' '+x.uitv)};
+  try{localStorage.setItem(key,JSON.stringify(ex));}catch(e){}
+  return ex;
+}
+(async()=>{
+  if(!/(^|\.)janvanveenautos\.nl$/.test(location.hostname)) return;
+  try{
+    const ad=new DOMParser().parseFromString(await fetch('/aanbod').then(r=>{if(!r.ok)throw 0;return r.text()}),'text/html');
+    const cards=[...ad.querySelectorAll('.each-product')].map(p=>{const a=p.querySelector('a[href*="/occasions-kopen/"]');return a&&{id:(a.getAttribute('href').match(/\/(\d+)-/)||[])[1],mm:cl(p.querySelector('h4')?.textContent),uitv:cl(p.querySelector('h6')?.textContent),prijs:cl(p.querySelector('td')?.textContent),range:cl(p.querySelector('.product-range')?.textContent)}}).filter(x=>x&&x.id);
+    if(cards.length<20) return;
+    const known=Object.fromEntries(CARS.map(c=>[c[0],c]));
+    const fresh=cards.filter(x=>!known[x.id]).slice(0,40);
+    const extras={};
+    for(let i=0;i<fresh.length;i+=4){await Promise.all(fresh.slice(i,i+4).map(async x=>{try{extras[x.id]=await detail(x);}catch(e){}}));}
+    CARS=cards.map(x=>{const o=known[x.id];
+      if(o) return rowFromCard(x,{fuel:o[8],pk:o[9],kleur:o[10],body:o[11],trek:o[12],verbruik:o[13],flags:o[14]});
+      return rowFromCard(x,extras[x.id]||{});}).filter(r=>r[3]);
+    MODELS=[...new Set(CARS.map(c=>modelOf(c[1])))].sort((a,b)=>b.length-a.length);
+    $("stockCount").textContent=CARS.length; $("stockDate").textContent="live bijgewerkt";
+    if(lastQuery) filters=localParse(lastQuery);
+    renderChips(); run();
+  }catch(e){ /* niet op de eigen site of offline: dan blijft de meegeleverde voorraad staan */ }
+})();
+</script>
+</body>
+</html>
