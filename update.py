@@ -3,7 +3,7 @@
 Draait als GitHub Action. Leest /aanbod, haalt van nieuwe auto's de advertentie
 en een foto op, en schrijft de nieuwe gegevens in index.html en fotos.json.
 """
-import base64, io, json, re, sys, time, urllib.request
+import base64, io, json, os, re, sys, time, urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
@@ -149,7 +149,7 @@ def row(card, ex):
     km = int(re.sub(r"\D", "", rg[2])) if len(rg) > 2 and re.search(r"\d", rg[2]) else 0
     return [card["id"], card["mm"], card["uitv"], int(pm.group(1).replace(".", "")) if pm else None,
             "M" if "Marge" in card["prijs"] else "B", (rg[0] if rg else "")[3:], ((rg[1] if len(rg) > 1 else " ") or " ")[0],
-            round(km / 100) / 10, ex["fuel"], ex["pk"], ex["kleur"], ex["body"], ex["trek"], ex["verbruik"], ex["flags"],
+            km / 1000, ex["fuel"], ex["pk"], ex["kleur"], ex["body"], ex["trek"], ex["verbruik"], ex["flags"],
             mnd.group(1) if mnd else ""]
 
 
@@ -166,6 +166,25 @@ def thumb(car_id):
         except Exception:
             continue
     return None
+
+
+def big_photo(car_id):
+    """Scherpe foto (1000 px breed) in de map img/, voor kaarten en de vergelijking."""
+    path = os.path.join("img", f"{car_id}.jpg")
+    if os.path.exists(path):
+        return True
+    for n in range(4):
+        try:
+            data = get(f"{SITE}/webservices/feed_images/{car_id}/{car_id}-{n}.jpg", binary=True)
+            im = Image.open(io.BytesIO(data)).convert("RGB")
+            if im.width > 1000:
+                im = im.resize((1000, round(im.height * 1000 / im.width)), Image.LANCZOS)
+            os.makedirs("img", exist_ok=True)
+            im.save(path, "JPEG", quality=82, optimize=True, progressive=True)
+            return True
+        except Exception:
+            continue
+    return False
 
 
 def main():
@@ -234,6 +253,21 @@ def main():
             t = thumb(i)
             if t:
                 fotos[i] = t
+    # scherpe foto's: nieuwe auto's direct, de rest aanvullen binnen de tijd
+    if os.path.isdir("img"):
+        for f in os.listdir("img"):
+            if f.endswith(".jpg") and f[:-4] not in ids:
+                os.remove(os.path.join("img", f))
+    big = 0
+    for i in sorted(ids):
+        if os.path.exists(os.path.join("img", f"{i}.jpg")):
+            continue
+        if time.time() - start > TIME_BUDGET + 4 * 60:
+            break
+        if big_photo(i):
+            big += 1
+            time.sleep(0.2)
+    print(f"Scherpe foto's: {big} nieuw opgehaald.")
 
     data = json.dumps(rows, ensure_ascii=False, separators=(",", ":"))
     html = html[:m.start()] + f"{m.group(1)} CARS={data};" + html[m.end():]
@@ -241,7 +275,7 @@ def main():
         od, idx, ec = [], {}, {}
         for i in sorted(ids):
             v = dict(extra.get(i) or {})
-            if not v:
+            if not v and not os.path.exists(os.path.join("img", f"{i}.jpg")):
                 continue
             nums = []
             for s in v.pop("opts", []):
@@ -251,6 +285,8 @@ def main():
                 nums.append(idx[s])
             if nums:
                 v["o"] = nums
+            if os.path.exists(os.path.join("img", f"{i}.jpg")):
+                v["im"] = 1
             ec[i] = v
         ejs = json.dumps({"v": 1, "o": od, "c": ec}, ensure_ascii=False, separators=(",", ":"))
         me2 = re.search(r"^const EXTRA=(.*);$", html, re.M)
