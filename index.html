@@ -1025,7 +1025,7 @@ function card(c,fail){
     <div class="specs"><span>${c[5]}</span><span>${fmtKm(c[7])}</span><span>${tr}</span><span>${fuel}</span>${c[9]?`<span>${c[9]} pk</span>`:""}${c[13]?`<span>1 op ${Math.round(100/+c[13])}</span>`:""}</div>
     <div class="opts">${shown.join("")}${more}</div>
     <div class="specs" style="color:var(--muted)"><span>${c[11]}</span><span>${c[10]}</span></div>
-    <div class="acts"><a class="wa-act" href="${waCar(c)}" target="_blank" rel="noopener" data-wacar="${c[0]}">${TL("Proefrit of inruil","Test drive or trade-in")}</a><button type="button" class="like" data-like="${c[0]}">${TL("Lijkt hierop","Similar cars")}</button></div>
+    <div class="acts"><a class="wa-act" href="${waCar(c)}" target="_blank" rel="noopener" data-wacar="${c[0]}">${TL("Proefrit plannen","Book a test drive")}</a><button type="button" class="like" data-like="${c[0]}">${TL("Lijkt hierop","Similar cars")}</button></div>
     <div class="likebox" id="like-${c[0]}"></div>
     <div class="foot">${cmpBtn(c[0])}<a href="https://janvanveenautos.nl/occasions-kopen/${c[0]}" target="_blank" rel="noopener">Bekijk auto →</a></div>
   </article>`;
@@ -1107,7 +1107,7 @@ document.addEventListener("click",e=>{
       try{goatcounter.count({path:"lijkt-hierop/"+c[0],title:"Lijkt hierop: "+c[1],event:true});}catch(err){}}
     return;}
   const wc=e.target.closest&&e.target.closest("[data-wacar]");
-  if(wc){try{goatcounter.count({path:"proefrit/"+wc.dataset.wacar,title:"Proefrit/inruil: "+(carById(wc.dataset.wacar)||[,""])[1],event:true});}catch(err){}}
+  if(wc){try{goatcounter.count({path:"proefrit/"+wc.dataset.wacar,title:"Proefrit: "+(carById(wc.dataset.wacar)||[,""])[1],event:true});}catch(err){}}
   const w=e.target.closest&&e.target.closest(".wensbtn");if(w){try{goatcounter.count({path:"wens/"+(w.classList.contains("wa")?"whatsapp":"mail")+"/"+lastQuery.toLowerCase().slice(0,80),title:"Zoekwens via "+(w.classList.contains("wa")?"WhatsApp":"mail")+": "+lastQuery,event:true});}catch(err){}}
 const a=e.target.closest&&e.target.closest('a[href*="/occasions-kopen/"]');if(!a)return;const art=a.closest("article");const t=art?art.querySelector("h3")?.textContent:"";try{ if(window.goatcounter&&goatcounter.count) goatcounter.count({path:"klik/"+a.href.split("/").pop(),title:"Bekeken: "+t,event:true}); }catch(err){}});
 $("form").addEventListener("submit",e=>{e.preventDefault();search($("q").value);});
