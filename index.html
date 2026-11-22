@@ -398,7 +398,6 @@ if(emb){document.documentElement.classList.add("embedded");
       <button type="submit" id="go">Zoeken</button>
     </form>
     <div class="examples" id="examples"><span>Probeer:</span></div>
-    <details class="ideas"><summary>Zo kun je allemaal zoeken</summary><div class="ideas-grid" id="ideas"></div></details>
   </div>
 </header>
 <div class="trust"><ul>
@@ -731,7 +730,6 @@ function localParse(q){
   // sorteren
   if(take(/duurste|zo\s*duur\s*mogelijk|hoogste\s*prijs/))f._sort="duur";
   else if(take(/meeste\s*(pk|vermogen|paardenkracht\w*)|sterkste|krachtigste|snelste/))f._sort="pk";
-  else if(take(/(net|nieuw|pas|vers|laatst|recent)\s*(binnen(gekomen)?|ingekocht|binnengekomen)|nieuwste\s*(aanbod|binnenkomers)|laatste\s*(binnenkomers|aanwinsten)|wat\s*is\s*er\s*nieuw(\s*binnen(gekomen)?)?/))f._sort="binnen";
   else if(take(/goedkoopste|zo\s*goedkoop\s*mogelijk|laagste\s*prijs|goedko+pe?\b|betaalbaa?r\w*|niet\s*te\s*duur|voordelig\w*/))f._sort="prijs";
   else if(take(/nieuwste|zo\s*nieuw\s*mogelijk|jongste/))f._sort="nieuw";
   else if(take(/minste\s*(km|kilometers?)|laagste\s*(km|kilometerstand)/))f._sort="km";
@@ -971,7 +969,7 @@ function run(){
     if(!fails.length) exact.push(c);
     else if(fails.length===1&&fails[0].near) near.push([c,fails[0]]);
   }
-  const sorter={relevant:(a,b)=>score(b)-score(a)||a[3]-b[3],prijs:(a,b)=>a[3]-b[3],duur:(a,b)=>b[3]-a[3],pk:(a,b)=>b[9]-a[9],binnen:(a,b)=>(+b[0])-(+a[0]),km:(a,b)=>a[7]-b[7],nieuw:(a,b)=>b[5].slice(3)+b[5].slice(0,2)>a[5].slice(3)+a[5].slice(0,2)?1:-1};
+  const sorter={relevant:(a,b)=>score(b)-score(a)||a[3]-b[3],prijs:(a,b)=>a[3]-b[3],duur:(a,b)=>b[3]-a[3],pk:(a,b)=>b[9]-a[9],km:(a,b)=>a[7]-b[7],nieuw:(a,b)=>b[5].slice(3)+b[5].slice(0,2)>a[5].slice(3)+a[5].slice(0,2)?1:-1};
   exact.sort(sorter[sortBy]); near.sort((x,y)=>sorter[sortBy](x[0],y[0]));
   const n=exact.length;
   if(lastQuery&&lastQuery!==window.__lc){window.__lc=lastQuery;
@@ -991,7 +989,7 @@ function run(){
     return;
   }
   let h=`<div class="bar"><h2><span class="slant">Resultaten</span>${n?n+" "+(n===1?"auto past":"auto's passen"):"Geen exacte match"} <small>op je zoekopdracht</small></h2>
-  <span class="right">${favN?favBtn:""}<label class="sort" for="sort">Sorteer <select id="sort"><option value="relevant">Best passend</option><option value="prijs">Prijs laag-hoog</option><option value="km">Minste km</option><option value="duur">Prijs hoog-laag</option><option value="pk">Meeste pk</option><option value="binnen">Laatst binnen</option><option value="nieuw">Nieuwste eerst</option></select></label></span></div>`;
+  <span class="right">${favN?favBtn:""}<label class="sort" for="sort">Sorteer <select id="sort"><option value="relevant">Best passend</option><option value="prijs">Prijs laag-hoog</option><option value="km">Minste km</option><option value="duur">Prijs hoog-laag</option><option value="pk">Meeste pk</option><option value="nieuw">Nieuwste eerst</option></select></label></span></div>`;
   if(n) h+=`<div class="grid">${exact.slice(0,120).map(c=>card(c)).join("")}</div>`;
   else h+=`<div class="empty"><h3>Niets dat precies past</h3><p>Haal een wens weg met het kruisje hierboven, of bekijk hieronder wat er net buiten valt.</p><p><b>Of laat je wens achter:</b> we houden het voor je in de gaten en bellen je zodra er iets binnenkomt.</p><p style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><a class="wensbtn wa" href="${waWens}" target="_blank" rel="noopener">Stuur via WhatsApp</a><a class="wensbtn" href="${mailWens}">Mail ons je zoekwens</a><span style="color:var(--muted);font-size:13px">of bel 0418-673026</span></p></div>`;
   if(near.length){
@@ -1128,7 +1126,7 @@ const IDEAS=EN?{
  "Ook in het Engels en Duits":["SUV with towbar under 25000","Automatic estate with heated seats","Kombi Automatik mit Sitzheizung"],
  "Handig om te weten":["Net binnen","Meeste pk","Afneembare trekhaak","Kan ik mijn auto inruilen?"]
 };
-{const g=$("ideas");for(const [h,list] of Object.entries(IDEAS)){const d=document.createElement("div");d.innerHTML="<h4>"+h+"</h4>";for(const x of list){const b=document.createElement("button");b.type="button";b.textContent=x;b.onclick=()=>{$("q").value=x;search(x);};d.appendChild(b);}g.appendChild(d);}}
+if($("ideas")){const g=$("ideas");for(const [h,list] of Object.entries(IDEAS)){const d=document.createElement("div");d.innerHTML="<h4>"+h+"</h4>";for(const x of list){const b=document.createElement("button");b.type="button";b.textContent=x;b.onclick=()=>{$("q").value=x;search(x);};d.appendChild(b);}g.appendChild(d);}}
 if(EN){EX.length=0;EX.push("SUV with towbar under 28000 and below 120000 km","Family car with towbar","Caravan towing, automatic","First car for my daughter","Not black, no diesel, max 300 a month","Economical for commuting, over 110 hp","7 seater with camera");}
 EX.forEach(x=>{const b=document.createElement("button");b.type="button";b.className="ex";b.textContent=x;b.onclick=()=>{$("q").value=x;search(x);};$("examples").appendChild(b);});
 $("stockCount").textContent=CARS.length; $("stockDate").textContent="stand "+STOCK_DATE; 
