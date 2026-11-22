@@ -1,0 +1,9 @@
+# ZOEKWENS-ALARM
+# Zet hier zoekwensen van klanten, één per regel, zo:
+#   naam | telefoon of e-mail | zoekwens zoals in Slim zoeken
+# Komt er een auto binnen die past, dan krijg je een melding (e-mail van GitHub)
+# met een knop om de klant direct te WhatsAppen.
+# Regels die met # beginnen worden overgeslagen. Haal een wens weg als de klant geholpen is.
+#
+# Voorbeeld (haal het # weg om hem te gebruiken):
+# Jan Jansen | 06-12345678 | SUV met trekhaak tot 25000 automaat

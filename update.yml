@@ -2,11 +2,12 @@ name: Voorraad bijwerken
 
 on:
   schedule:
-    - cron: "10 6,9,12,15,18 * * *"   # ongeveer 07:10, 10:10, 13:10, 16:10 en 19:10 Nederlandse tijd
-  workflow_dispatch:                    # knop "Run workflow" om met de hand te starten
+    - cron: "10 6,9,12,15,18 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: voorraad
@@ -23,6 +24,11 @@ jobs:
           python-version: "3.12"
       - run: pip install beautifulsoup4==4.12.3 pillow==10.4.0
       - run: python update.py
+      - name: Zoekwens-alarm
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node wensen.js
       - name: Wijzigingen opslaan
         run: |
           git config user.name "Slim zoeken (automatisch)"

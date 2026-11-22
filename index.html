@@ -59,6 +59,16 @@ h1{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,4vw,38px
 .searchbar button:hover{filter:brightness(1.08)}
 .examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
 .examples span{font-size:12px;color:#AAB6C0;margin-right:2px}
+.langbtn{font:inherit;font-size:12px;font-weight:800;color:#fff;background:var(--blue);border:0;border-radius:999px;padding:3px 11px;cursor:pointer;margin-left:2px}
+.ideas{margin-top:12px;color:#DDE5EA;font-size:13px}
+.ideas summary{cursor:pointer;font-weight:700;color:#fff;list-style:none;display:inline-flex;align-items:center;gap:8px}
+.ideas summary::-webkit-details-marker{display:none}
+.ideas summary::before{content:"+";display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800}
+.ideas[open] summary::before{content:"\2212"}
+.ideas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px 22px;margin-top:12px}
+.ideas-grid h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#8FB3C9}
+.ideas-grid button{display:block;background:none;border:0;padding:3px 0;color:#fff;font:inherit;font-size:14px;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:#3A4C59;text-underline-offset:3px}
+.ideas-grid button:hover{text-decoration-color:var(--blue)}
 .ex{background:transparent;border:1px solid #3A4C59;color:#DDE5EA;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer}
 .ex:hover{border-color:var(--blue);color:#fff}
 
@@ -191,6 +201,173 @@ html.embedded .top{padding-top:8px}
 html.embedded .top .slant{margin-top:12px}
 html.embedded .brandrow{min-height:0}
 html.embedded .brandrow .stock{margin-top:8px}
+.chip.neg{border-color:#E8B4B4;background:#FDF2F2}
+.unk{font-size:12px;color:var(--muted);flex-basis:100%}
+.unk.life{color:var(--blue);font-weight:700;font-size:13px}
+.unk.info{color:var(--ink);font-weight:600;font-size:13px;background:#EAF6FD;border-radius:6px;padding:8px 12px}
+
+/* --- vergelijken --- */
+.car .foot{gap:10px}
+.cmpbtn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+.cmpbtn::before{content:"";width:14px;height:14px;border:2px solid var(--muted);border-radius:3px;box-sizing:border-box}
+.cmpbtn.on{border-color:var(--blue);color:var(--blue);background:#EAF6FD}
+.cmpbtn.on::before{background:var(--blue);border-color:var(--blue);box-shadow:inset 0 0 0 2px #fff}
+.cmpgo{font-weight:800;font-size:13px;color:#fff;background:var(--blue);border:0;border-radius:6px;padding:7px 10px;cursor:pointer}
+#cmpbar{display:none}
+#cmpbar.show{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:30;gap:10px;align-items:center;background:var(--navy);color:#fff;padding:10px 12px 10px 18px;border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.3);font-weight:700;font-size:14px;max-width:calc(100% - 24px)}
+#cmpbar button{font:inherit;font-weight:800;font-size:13px;border:0;border-radius:7px;padding:9px 14px;cursor:pointer}
+#cmpbar .go{background:var(--blue);color:#fff;text-transform:uppercase;letter-spacing:.04em}
+#cmpbar .go:disabled{opacity:.5;cursor:default}
+#cmpbar .x{background:#2A3A46;color:#fff}
+@media (max-width:560px){#cmpbar.show{bottom:84px;width:calc(100% - 24px);justify-content:space-between}}
+html.embedded #cmpbar.show{position:static;transform:none;margin:6px 0 14px;width:100%;justify-content:space-between}
+#compare:empty{display:none}
+#compare{background:var(--card);border:1px solid var(--line);margin:4px 0 28px;padding:18px}
+#compare .bar{margin-bottom:12px}
+.cmpwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmpt{border-collapse:collapse;width:100%;min-width:560px;font-size:14px;font-variant-numeric:tabular-nums}
+.cmpt th,.cmpt td{padding:8px 10px;border-bottom:1px solid #E8ECEF;text-align:left;vertical-align:top}
+.cmpt th{width:150px;min-width:120px;color:var(--muted);font-weight:700;font-size:13px;position:sticky;left:0;background:var(--card);z-index:1}
+.cmpt td{min-width:170px;font-weight:600}
+.cmpt .car-h td{border-bottom:0}
+.cmpt img{width:100%;height:150px;object-fit:cover;display:block;background:#E9EEF2}
+@media (max-width:560px){.cmpt{min-width:0;font-size:13px}.cmpt th{width:92px;min-width:92px;font-size:12px;padding:7px 6px}.cmpt td{min-width:136px;padding:7px 8px}.cmpt img{height:96px}.cmpt h3{font-size:15px}#compare{padding:12px;margin-left:-8px;margin-right:-8px}}
+.cmphint{display:none;font-size:12px;color:var(--muted);margin:-4px 0 8px}
+@media (max-width:620px){.cmphint{display:block}}
+.cmpt h3{margin:8px 0 2px;font-size:17px;font-weight:800;line-height:1.2}
+.cmpt .u{font-size:12px;color:var(--muted);font-weight:600}
+.cmpt .best{color:var(--blue);font-weight:800}
+.cmpt .best::after{content:" ★";font-size:11px}
+.cmpt .sec th{color:var(--ink);text-transform:uppercase;letter-spacing:.06em;font-size:12px;padding-top:18px}
+.cmpt .yes{color:var(--good);font-weight:800}
+.cmpt .no{color:#B8C2CA}
+.cmpt .diff{background:#F7FBFE}
+.cmpt .diff th{background:#F7FBFE}
+.cmpt .rm{font:inherit;font-size:12px;color:var(--muted);background:none;border:0;padding:4px 0;cursor:pointer;text-decoration:underline}
+.cmpact{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;align-items:center}
+.cmpact button,.cmpact a{font:inherit;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.04em;border:0;border-radius:6px;padding:10px 16px;cursor:pointer;text-decoration:none;background:#E9EEF2;color:var(--ink)}
+.cmpact .wa{background:#25D366;color:#fff}
+.cmpact .note2{font-size:12px;color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}
+.cmpmiss{font-size:13px;color:var(--warn);font-weight:700;margin:0 0 10px}
+@media print{
+  html.printcmp body>*:not(main),html.printcmp main .wrap>*:not(#compare),html.printcmp .cmpact,html.printcmp .rm,html.printcmp #cmpbar{display:none!important}
+  html.printcmp #compare{border:0;padding:0;margin:0}
+  html.printcmp .cmpt{min-width:0;font-size:11px}
+  html.printcmp .cmpt th{position:static}
+  html.printcmp body{padding:0;background:#fff}
+  html.printcmp .cmpprint{display:block!important}
+}
+html:has(#compare:not(:empty)) #cmpbar{display:none!important}
+.cmpprint{display:none;font-size:12px;margin-bottom:10px}
+
+/* --- klantweergave (aan het bureau) --- */
+.cmpact .klant{background:var(--blue);color:#fff}
+.cmpact details{display:inline-block}
+.cmpact summary{list-style:none;cursor:pointer;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.04em;background:#E9EEF2;border-radius:6px;padding:10px 16px}
+.cmpact summary::-webkit-details-marker{display:none}
+.cmpact details[open]{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.cmpdiff{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;user-select:none}
+.cmpdiff input{width:18px;height:18px;accent-color:var(--blue)}
+html.cmponlydiff .cmpt tr.same{display:none}
+.cmphead{display:none}
+html.cmpfull{overflow:hidden}
+html.cmpfull #compare{position:fixed;inset:0;z-index:200;margin:0;border:0;overflow:auto;padding:0 28px 40px;background:#fff}
+html.cmpfull #compare .cmphead{display:flex;position:sticky;top:0;z-index:3;background:var(--navy);color:#fff;margin:0 -28px 22px;padding:14px 28px;align-items:center;gap:18px;justify-content:space-between}
+html.cmpfull #compare .cmphead img{height:56px;width:56px;border-radius:8px}
+html.cmpfull #compare .cmphead b{font-size:22px;font-weight:800}
+html.cmpfull #compare .cmphead button{font:inherit;font-weight:800;font-size:15px;border:0;border-radius:8px;padding:12px 18px;cursor:pointer;background:#2A3A46;color:#fff}
+html.cmpfull #compare .cmphead .cmpdiff{font-size:15px;color:#fff}
+html.cmpfull #compare>.bar,html.cmpfull #compare .cmpact,html.cmpfull #compare .rm{display:none}
+html.cmpfull #compare .cmphint{display:none}
+html.cmpfull .cmpt{font-size:19px;min-width:0}
+html.cmpfull .cmpt th{font-size:16px;width:190px}
+html.cmpfull .cmpt td{padding:12px 14px}
+html.cmpfull .cmpt img{height:clamp(150px,26vh,300px)}
+html.cmpfull .cmpt h3{font-size:24px}
+html.cmpfull .cmpt .u{font-size:15px}
+html.cmpfull .cmpt tr.big td{font-size:26px;font-weight:800}
+@media (max-width:620px){html.cmpfull #compare{padding:0 10px 30px}html.cmpfull #compare .cmphead{margin:0 -10px 14px;padding:10px 12px;flex-wrap:wrap}html.cmpfull #compare .cmphead img{height:40px;width:40px}html.cmpfull #compare .cmphead [data-cmpprint]{display:none}html.cmpfull #compare .cmphead button{padding:10px 12px}html.cmpfull #compare .cmphead .cmpdiff{font-size:13px}html.cmpfull #compare .cmphead b{font-size:16px}html.cmpfull .cmpt{font-size:15px}html.cmpfull .cmpt th{width:96px;font-size:13px}html.cmpfull .cmpt tr.big td{font-size:19px}html.cmpfull .cmpt img{height:110px}}
+
+/* --- vergelijken: rustige kolommen --- */
+.cmpt{table-layout:fixed}
+.cmpt th,.cmpt td{overflow-wrap:anywhere;hyphens:auto}
+.cmpt col.lab{width:170px}
+.cmpt .car-h td{padding-bottom:14px}
+.cmpt .car-h img{height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center 60%}
+.cmpt .cprice{font-size:26px;font-weight:800;margin-top:10px;line-height:1.1}
+.cmpt .cprice.best{color:var(--blue)} .cmpt .cprice.best::after{content:" ★";font-size:14px}
+.cmpt .cmnd{font-size:13px;color:var(--muted);font-weight:600;margin-top:2px}
+.cmpt td+td{border-left:1px solid #E8ECEF}
+.oc{display:inline-block;font-size:13px;font-weight:700;padding:4px 9px;border-radius:6px;margin:0 6px 6px 0;line-height:1.3}
+.oc.plus{background:#E4F3EA;color:#17703D}
+.oc.min{background:#F2F4F6;color:#8A97A1}
+.oc.all{background:#EEF2F5;color:var(--ink)}
+html.cmponlydiff .cmpt tr.optrow{display:none}
+html:not(.cmponlydiff) .cmpt tr.optsum,html:not(.cmponlydiff) .cmpt tr.sec.optsumh{display:none}
+.cmpt tr.optsum td{padding-top:12px}
+html.cmpfull .cmpt .car-h img{height:auto;max-height:none}
+html.cmpfull .cmpt .car-h td{padding-left:10px;padding-right:10px}
+html.cmpfull .cmpt .cprice{font-size:34px}
+html.cmpfull .cmpt .cmnd{font-size:16px}
+html.cmpfull .oc{font-size:16px;padding:6px 11px}
+html.cmpfull .cmpt col.lab{width:200px}
+@media (max-width:620px){.cmpt,html.cmpfull .cmpt{min-width:520px!important}.cmpt col.lab,html.cmpfull .cmpt col.lab{width:88px!important}html.cmpfull .cmpt .cprice{font-size:21px}html.cmpfull .cmpt .car-h img{height:auto}html.cmpfull .cmpt h3{font-size:16px}html.cmpfull .cmpt .u,html.cmpfull .cmpt .cmnd{font-size:12px}html.cmpfull .oc{font-size:12px;padding:4px 8px}html.cmpfull .cmpt tr.big td{font-size:18px}html.cmpfull .cmpt td{padding:9px 8px}html.cmpfull #compare .cmphint{display:block}.cmpt .cprice{font-size:19px}.cmpt .cprice{font-size:19px}.cmpt .car-h img{height:auto}.oc{font-size:12px}}
+
+/* --- favorieten, lijkt hierop, proefrit/inruil --- */
+.car{position:relative}
+.fav{position:absolute;right:12px;top:12px;z-index:3;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);box-shadow:0 2px 8px rgba(0,0,0,.18);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.fav svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:2}
+.fav.on svg{fill:#E0245E;stroke:#E0245E}
+.acts{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 12px}
+.acts a,.acts button{font:inherit;font-size:13px;font-weight:700;border-radius:6px;padding:7px 11px;cursor:pointer;text-decoration:none;border:1px solid var(--line);background:#fff;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.acts .wa-act{background:#25D366;border-color:#25D366;color:#fff}
+.acts .like.on{border-color:var(--blue);color:var(--blue);background:#EAF6FD}
+.likebox{display:none;padding:0 20px 14px}
+.likebox.on{display:block}
+.likebox .li{display:grid;grid-template-columns:84px 1fr;gap:10px;align-items:center;padding:8px 0;border-top:1px solid #E2E2E2;text-decoration:none;color:var(--ink)}
+.likebox .li img,.likebox .li .ph{width:84px;aspect-ratio:3/2;object-fit:cover;display:block;background:#E9EEF2}
+.likebox .li b{display:block;font-size:14px;line-height:1.2}
+.likebox .li span{font-size:12px;color:var(--muted);font-weight:600}
+.likebox .li i{font-style:normal;font-weight:800;font-size:14px;color:var(--ink)}
+.likebox .why2{font-size:12px;color:var(--muted);margin:0 0 4px}
+.favbtn{font:inherit;font-size:14px;font-weight:700;border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
+.favbtn svg{width:16px;height:16px;fill:#E0245E}
+.favbtn.on{border-color:#E0245E;color:#E0245E}
+.bar .right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* --- offerte / PDF --- */
+.cmpoffer{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-end;background:#F2F5F7;border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 16px}
+.cmpoffer[hidden]{display:none}
+.cmpoffer>b{flex-basis:100%;font-size:15px}
+.cmpoffer label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}
+.cmpoffer label.wide{flex:1;min-width:220px}
+.cmpoffer input{font:inherit;font-size:15px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;min-width:200px}
+.cmpoffer .btns{display:flex;gap:8px}
+.cmpoffer button{font:inherit;font-weight:800;font-size:13px;border:0;border-radius:6px;padding:10px 14px;cursor:pointer;background:#E1E7EC}
+.cmpoffer button.go{background:var(--blue);color:#fff}
+.cmpoffer small{flex-basis:100%;color:var(--muted);font-size:12px}
+html.cmpfull #compare .cmpoffer{margin-top:4px}
+.pp-top{display:none}
+@media print{
+  @page{size:A4 landscape;margin:10mm}
+  html.printcmp *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html.printcmp .cmpoffer,html.printcmp .cmphead,html.printcmp .cmphint,html.printcmp #compare>.bar,html.printcmp .cmpmiss{display:none!important}
+  html.printcmp .cmpt{font-size:10.5px}
+  html.printcmp .cmpt .sec th{padding-top:8px}
+  html.printcmp .pp-top{display:flex!important;align-items:center;gap:18px;border-bottom:3px solid var(--blue);padding-bottom:10px;margin-bottom:12px}
+  html.printcmp .pp-top img{width:64px;height:64px}
+  html.printcmp .pp-co{font-size:11px;line-height:1.5;color:#333}
+  html.printcmp .pp-co b{display:block;font-size:14px;color:#000}
+  html.printcmp .pp-meta{margin-left:auto;text-align:right;font-size:11px;color:#333}
+  html.printcmp .pp-meta h1{margin:0 0 2px;font-size:20px;color:#000}
+  html.printcmp .pp-note{font-size:12px;margin:0 0 10px}
+  html.printcmp .pp-note:empty{display:none!important}
+  html.printcmp .pp-foot{display:block!important;font-size:10px;color:#555;margin-top:10px;border-top:1px solid #ccc;padding-top:6px}
+  html.printcmp .cmpt .car-h img{max-height:120px;width:auto;max-width:100%;margin:0 auto 0 0}
+  html.printcmp .cmpt td,html.printcmp .cmpt th{padding:4px 8px}
+  html.printcmp .cmpt tr{break-inside:avoid}
+  html.printcmp #compare{position:static!important;overflow:visible!important}
+}
 </style>
 <script data-goatcounter="https://janvanveenautos.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -210,17 +387,18 @@ if(emb){document.documentElement.classList.add("embedded");
   <div class="wrap">
     <div class="brandrow">
       <a class="jvv-logo" href="https://janvanveenautos.nl" target="_blank" rel="noopener"><img src="data:image/png;base64,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1WMQAvVCVaj+AZLQEmO01r7vfe/7q7/6q0YtAYA777z7O9/5dghu/oIFkaHb7YLQq1992jVf+GwI8aI/f9ecmXOMhoHG4EXvuOiKv7/iK9ffoEB94ZrrCSB6+PnPf1GW3tp0t9333G23RQDQaGQ33HDDl770pS988drCu36Ge3t7d0ScnJxc9ewqAHDOv+X8c2677bZbf/Sjk15+NAB86lOfWrduHTN4L97HJEk+9rGPXXDBeavWbHjnu96z/34HKIWHH3746aef/sXrvvSB97/3jjvufHrFc9qAZ/i///K9vPTGJCeddIoAlI6POOLIH/7whwcefNCyZcv6LmWr08uy+vZgFTOvXr2at3YdgZedcMLChQu/+MUv9mvOUCCG8NTTT1199dXOOWtt/+DSwp12OfigQwFgeHDoz97x9m987cbp06ZddumHHnn4IWHRBGf+yRkzpo8pwgVz537txi+/813vWLtuXbeXOy/dTu/ee+9LTSpBjjv6uP6GY/Guu9z07a8/+qvHn12+otlodNudxJgX0GLp33MtgxCI0fjBi999wQXnkYLAkHd6/3jFP4UIzsVNkxNCMGfenLvvvnvGjOHCyWWXf/jWH//o3LPPRoA0VRdf/E5E2LKlc94F58+cOVPkfGvg4QceNErnZbHTzgsjQH9Q22677/rPn75m08bxJEn6rdCUUj5GAFHKtLv5/Q89vNNO8xNrBGCXhfP7sYHvfveHX/nqV0dHR6eKYrCenvXmN73hTW+cN3fW2vWbzzzzzHq9vsuinTzDEYcedPDBBwnAvfc/9O73vu/GG2/ceeEcRLjlllvyPE/TdMk+S3yAxJK1zVpt90te+/q88LVGFqOvNzJX5kRAAGWeJ4pWPrt664EQhDPOPOO1f/LaVClL4FywVvdc+ZeXXNrp5kqbZ55Z0W1107GGtfil666d2jIxODjYqCc+wBVX/NP3v/89719hNEqUww475I4f39rudefNnRMFVq5e+8Y3v+nTn/70Qfvt89Ajv2QAa4z3ccbsWRFABJSByan8ui/f4L0XpFo99cGLyAtVSkj/A1ae10PheX2qlA4C/TtKmRC470tojO95x9suett5KYEAAMGnr77miWXLA1NU5qc/+3kJQASzZwyXHj546Qe++/3v2tTOmzcHAJwDUDDe6r3lwgt+9dgvlz39ZKdThAA/v/de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" alt="Jan van Veen Auto's, Je rijdt er graag voor om"></a>
-      <div class="stock"><b id="stockCount">0</b> occasions op voorraad · <span id="stockDate"></span> · <a href="https://janvanveenautos.nl" style="color:#fff">janvanveenautos.nl</a></div>
+      <div class="stock"><b id="stockCount">0</b> occasions op voorraad · <span id="stockDate"></span> · <a href="https://janvanveenautos.nl" style="color:#fff">janvanveenautos.nl</a> · <button type="button" class="langbtn" id="langbtn" lang="en">English</button></div>
     </div>
     <span class="slant">Slim zoeken</span>
     <h1>Typ je wensen, wij zoeken mee.</h1>
-    <p class="lede">Typ gewoon wat je wilt: budget, kilometerstand, soort auto en de opties die je belangrijk vindt. Merk hoeft niet.</p>
+    <p class="lede">Typ gewoon wat je wilt, in je eigen woorden: budget, soort auto, opties, of waar je de auto voor nodig hebt. Merk hoeft niet. <span lang="en">English works too.</span></p>
     <form class="searchbar" id="form" role="search">
       <label for="q" class="sr" style="position:absolute;left:-9999px">Zoekopdracht</label>
       <input id="q" type="search" autocomplete="off" placeholder="Bijv. SUV met trekhaak tot € 28.000 onder 120.000 km">
       <button type="submit" id="go">Zoeken</button>
     </form>
     <div class="examples" id="examples"><span>Probeer:</span></div>
+    <details class="ideas"><summary>Zo kun je allemaal zoeken</summary><div class="ideas-grid" id="ideas"></div></details>
   </div>
 </header>
 <div class="trust"><ul>
@@ -233,6 +411,8 @@ if(emb){document.documentElement.classList.add("embedded");
 <main>
   <div class="wrap">
     <div class="understood" id="understood"></div>
+    <div id="cmpbar" role="region" aria-label="Vergelijken"></div>
+    <section id="compare" aria-label="Vergelijking"></section>
     
     <div id="results"></div>
 <section class="about" aria-labelledby="over">
@@ -258,6 +438,11 @@ if(emb){document.documentElement.classList.add("embedded");
 <script>
 const STOCK_DATE="22-11-2026";
 let CARS=[["54549506","Audi A1","citycarver 25 TFSI epic Parkeersensoren Climate Control Navigatie Cruise Control",18900,"M","08-2020","H",61.7,"B",95,"zwart","Hatchback",0,"5.7","cdhqrsyB","390"],["55454170","Audi A1","Sportback 25 TFSI Pro Line Navigatie DAB+ App-Connect Virtual Cockpit",15750,"B","07-2022","H",110.1,"B",95,"wit","Hatchback",0,"4.7","cdqryB","215"],["57743832","Audi A1","Sportback 25 TFSI Pro Line DAB+ App-Connect Virtual Cockpit Cruise Control",16950,"B","10-2021","H",65.9,"B",95,"wit","Hatchback",0,"4.7","cqryB","232"],["57811594","Audi A1","Sportback 30 TFSI S Edition DAB+ App-Connect Parkeersensoren Adaptive Cruise",19850,"B","11-2022","H",72.9,"B",110,"wit","Hatchback",0,"4.8","bchmnqrtyBJM","266"],["58328113","Audi A1","Sportback 25 TFSI Epic App-Connect Cruise Control Airco",15850,"M","02-2020","H",83.6,"B",95,"rood","Hatchback",0,"4.7","chqry","327"],["54345746","Audi A3","Sportback Sportback 35 TFSI Advanced edition Stoelverwarming Navigatie Climate Control",20950,"B","02-2022","A",104.8,"H",150,"zwart","Hatchback",1500,"4.8","acdhjqrsyBJK","287"],["55491157","Audi A3","Sportback 40 TFSI e Advanced Edition LED Virtual Cockpit Parkeersensoren Navigatie DAB+",21750,"B","04-2022","A",107.3,"H",150,"zwart","Hatchback",1400,"1.4","acdhqrstyBJKL","292"],["55992605","Audi A3","Sportback 30 TFSI Advanced Edition LED Adaptive Cruise Camera DAB+",18450,"B","01-2022","A",114.2,"H",110,"blauw","Hatchback",1300,"4.3","bcdehqrstyBJK","252"],["57319069","Audi A3","Sportback 30 TFSI Advanced Edition Navigatie DAB+ App-Connect",19450,"B","02-2023","A",104.3,"H",110,"grijs","Hatchback",1300,"5.3","cdhqrsyBCJK","266"],["57125908","Audi A3","Sportback 2.0 TFSI S3 Quattro Pro Line Plus Panoramadak B&O Sportstoelen",18900,"M","04-2014","A",174.9,"B",301,"wit metallic","Hatchback",0,"6.9","cdhjmpstJLNO","390"],["57561878","Audi A3","Limousine 30 TFSI S-Tronic Advanced Edition LED Navigatie Climate Control Parkeersensoren",20950,"B","02-2023","A",78.9,"H",110,"grijs","Sedan",1300,"5.2","cdhqrstyBCJK","287"],["57707872","Audi A3","Sportback 30 TFSI S-Tronic Business Edition Navigatie App-Connect DAB+ Navigatie Parkeersensoren",18900,"B","06-2022","A",113.5,"H",110,"zwart","Hatchback",1300,"4.3","cdhqrsyBCJK","253"],["57872550","Audi A3","Sportback 35 TFSI 150pk Advanced Edition Navigatie Stoelverwarming LED Adaptive Cruise",20750,"B","08-2021","A",118.5,"H",150,"zwart","Hatchback",1500,"4.8","bcdhjqrstyBJKL","278"],["58027106","Audi A3","Sportback 30 TFSI S-Tronic Advanced Edition LED Navigatie Parkeersensoren DAB+",17950,"B","01-2022","A",129.7,"H",110,"zwart","Hatchback",1300,"4.3","cdghqrstyBJKL","241"],["58033741","Audi A3","Limousine 30 TFSI Advanced Edition Navigatie Parkeersensoren App-Connect DAB+",17850,"B","07-2021","A",120.3,"H",110,"zwart","Sedan",1300,"4.3","cdhqrsyBCJK","239"],["58272383","Audi A3","Sportback 30 TFSI S-Tronic Advanced Edition Virtual Cockpit Stoelverwarming Navigatie App-Connect",21900,"B","08-2023","A",77.7,"H",110,"grijs","Hatchback",1300,"5.3","cdhjqrsyBCJK","300"],["56325837","Audi A4","Avant 35 TFSI S Edition Competition LED Stoelverwarming Camera DAB+ Navigatie",23400,"B","06-2021","A",120.1,"H",150,"zwart","Stationwagon",1500,"5.7","cdeghjnqrstwBDIJLM","320"],["56521262","Audi A4","Avant 35 TFSI S Edition Competition S-Line LED Leder-Stof Virtual Cockpit Sfeerverlichting",23850,"M","03-2022","A",145.4,"H",150,"grijs","Stationwagon",1500,"5.6","cdhjnqrstwABIJLM","492"],["56580980","Audi A4","Avant 40 TFSI Advanced Edition Parkeersensoren LED Navigatie DAB+ App-Connect",26900,"M","07-2022","A",90.1,"H",204,"grijs","Stationwagon",1500,"5.7","bcdghqrstwBIJ","539"],["57743861","Audi A4","Avant 1.4 TFSI 150pk S-Tronic Sport Edition Navigatie Climate Control",14850,"M","07-2017","A",161.8,"B",150,"grijs","Stationwagon",1500,"5.3","cdhstwIJL","315"],["53016990","Audi Q2","30 TFSI Epic LED Navigatie Parkeersensoren Climate Control",16450,"B","01-2020","H",123.0,"B",116,"zwart","SUV",1300,"5.2","cdhstJ","220"],["53311420","Audi Q2","30 TFSI Pro Line App-Connect DAB+ Climate Control",17400,"B","03-2022","H",115.7,"B",110,"grijs","SUV",1300,"5.1","chqsB","238"],["55408135","Audi Q2","30 TFSI Pro Line Navigatie App-Connect DAB+",18750,"B","07-2020","H",67.2,"B",116,"grijs","SUV",1300,"5.2","cdhqsB","257"],["55861836","Audi Q2","30 TFSI Epic LED Navigatie Climate Control Parkeersensoren",16450,"M","06-2020","H",102.8,"B",116,"zwart","SUV",1300,"5.2","cdhstJL","339"],["56512734","Audi Q2","30 TFSI Advanced Edition Panoramadak Stoelverwarming App-Connect DAB+",17400,"B","08-2021","H",126.5,"B",110,"blauw","SUV",1300,"5.2","cdhjpqrswBJ","233"],["56324099","Audi Q2","30 TFSI Pro Line App-Connect DAB+ Climate Control Parkeersensoren",16900,"B","08-2021","H",109.8,"B",110,"wit","SUV",1300,"5.1","chqsBCL","231"],["57876872","Audi Q2","30 TFSI Epic LED Navigatie App-Connect DAB+ Parkeersensoren",17850,"B","10-2020","H",86.0,"B",116,"grijs","SUV",1300,"5.2","cdhqstBJ","239"],["58059520","Audi Q2","30 TFSI Pro Line Navigatie Climate Control Parkeersensoren",17850,"M","08-2020","H",78.3,"B",116,"zwart","SUV",1300,"5.2","cdhs","368"],["58113151","Audi Q2","30 TFSI Advanced Edition Navigatie App-Connect Virtual Cockpit",18450,"B","07-2022","H",98.7,"B",110,"grijs","SUV",1300,"5.1","bcdhqrsBCJ","252"],["57361822","Audi Q3","35 TFSI S Line Virtual Cockpit Sfeerverlichting Leder-Stof Navigatie",28400,"B","07-2020","A",101.9,"B",150,"zwart","SUV",1800,"5.8","cdghnqrstxyAILM","389"],["56085775","Audi Q3 Sportback","35 TFSI Business Edition Virtual Cockpit Navigatie Parkeersensoren App-Connect",28400,"B","07-2020","A",94.0,"H",150,"zwart","SUV",1800,"5.9","cdhqrstwyBK","381"],["58028148","Audi Q4 e-tron","40 Launch Edition Advanced 77 kWh SoH 93,38% Stoelverwarming Navigatie Parkeersensoren App-Connect",29750,"B","11-2021","A",80.0,"E",204,"zwart","SUV",1000,"","cdhjqrstuwyBJKL","399"],["58117406","Audi Q4 e-tron","40 Launch Edition 77 kWh SoH 92,92% Stoelverwarming Leder Parkeersensoren DAB+",25850,"B","12-2021","A",127.2,"E",204,"zwart","SUV",1000,"","cdhjmqrstwyBL","354"],["58273444","Audi Q4 e-tron","40 Launch Edition Advanced 77 kWh SoH 97,34% Leder Stoelverwarming Navigatie DAB+ Parkeersensoren",30750,"B","11-2022","A",69.6,"E",204,"grijs","SUV",1000,"","cdhjmqrstuwyBJKL","421"],["58100020","Audi Q7","4.0 TFSI SQ7 507pk Quattro LED Luchtvering Stoelmassage Trekhaak Panoramadak",82750,"B","10-2022","A",59.4,"B",507,"grijs","SUV",3500,"11.9","abcdefghjlmnopqrstuvwxyzABDEFIJKLMNO",""],["52122692","CUPRA Formentor","1.4 e-Hybrid VZ 245pk Copper Edition Camera Sfeerverlichting Leder-Stof",25750,"B","05-2023","A",79.7,"H",150,"grijs","SUV",1500,"1.5","bcdeghikmnprstuvwxyABCDIKL","345"],["57220720","CUPRA Formentor","1.4 e-Hybrid Business SoH 93,33% Camera Panoramadak Sfeerverlichting Navigatie App-Connect",23900,"B","05-2022","A",73.6,"H",150,"grijs","SUV",1500,"1.2","bcdehknpqrsvxyABIKL","327"],["57095083","SEAT Arona","1.0 TSI Style App-Connect Parkeersensoren DAB+",14250,"B","11-2022","H",79.7,"B",95,"wit","SUV",1000,"4.8","chqstyBI","195"],["57443895","SEAT Arona","1.0 TSI Style Business Intense Camera Navigatie DAB+ App-Connect",13250,"B","05-2021","H",102.2,"B",95,"grijs","SUV",1000,"4.7","bcdehiqsvxBCIL","185"],["58124863","SEAT Arona","1.0 TSI Style Climate Control Parkeersensoren Navigatie DAB+",14450,"B","10-2022","H",74.8,"B",95,"groen","SUV",1000,"4.8","cdhqsyBI","202"],["52701126","SEAT Ateca","1.5 TSI 150pk DSG Style Business Intense LED Camera Navigatie",23850,"B","01-2023","A",77.9,"B",150,"zwart","SUV",1600,"5.3","cdeghiqstvBIL","320"],["52989112","SEAT Ateca","1.5 TSI 150pk DSG Xperience Business Intense Virtual Cockpit LED Camera Stoelverwarming",23850,"B","01-2022","A",89.3,"B",150,"grijs","SUV",1600,"5.6","cdeghijkmqrstvwBIJL","320"],["53095735","SEAT Ateca","1.5 TSI 150pk FR Business Intense LED 360 Camera Navigatie App-Connect",17750,"B","11-2019","H",132.3,"B",150,"zwart","SUV",1800,"5.5","cdefghioqstvwBCIJLM","238"],["55586376","SEAT Ateca","1.5 TSI 150pk DSG FR Business Intense Navigatie Camera DAB+ App-Connect",16900,"M","08-2019","A",158.5,"B",150,"wit","SUV",1600,"5.4","acdefghioqstvwABCIJLMO","348"],["57424677","SEAT Ateca","1.4 EcoTSI 150pk 6-bak FR Alcantara Navigatie Parkeersensoren App-Connect",14400,"M","05-2018","H",170.2,"B",150,"wit","SUV",1800,"5.4","cdehoqstIJLM","305"],["57765849","SEAT Ateca","1.5 TSI 150pk Style Business Intense Camera Stoelverwarming DAB+ App-Connect",19400,"B","02-2021","H",93.3,"B",150,"zwart","SUV",1800,"5.5","cdeghijoqrsBIL","260"],["51067012","SEAT Ibiza","1.0 EcoTSI FR Parkeersensoren App-Connect Climate Control",13750,"B","01-2022","H",111.5,"B",95,"zwart","Hatchback",1000,"4.8","cghqsyBJLM","188"],["54914235","SEAT Ibiza","1.0 EcoTSI Style Business Intense Stoelverwarming Virtual Cockpit Navigatie DAB+ App-Connect",12850,"B","06-2022","H",104.4,"B",95,"grijs","Hatchback",1000,"4.5","cdghjqrstyBL","176"],["56206584","SEAT Ibiza","1.0 EcoTSI Style Virtual Cockpit Parkeersensoren DAB+ App-Connect",13400,"B","05-2023","H",95.6,"B",95,"zwart","Hatchback",1000,"5.2","chqrstyB","183"],["54880803","SEAT Ibiza","1.0 EcoTSI Style Business Connect Virtual Cockpit Stoelverwarming Parkeersensoren DAB+",12850,"B","01-2023","H",137.5,"B",95,"blauw","Hatchback",1000,"4.5","cghjqrsyBL","176"],["54959990","SEAT Ibiza","1.0 EcoTSI Style Virtual Cockpit App-Connect DAB+",12900,"B","06-2023","H",101.9,"B",95,"zwart","Hatchback",1000,"5.2","chqryB","176"],["56000673","SEAT Ibiza","1.0 EcoTSI Style App-Connect Virtual Cockpit DAB+",13450,"B","05-2023","H",88.6,"B",95,"zwart","Hatchback",1000,"5.2","chqrstyB","184"],["54710918","SEAT Ibiza","1.0 TSI FR Business Intense Camera Navigatie DAB+ Climate Control",13750,"B","03-2021","H",113.0,"B",95,"grijs","Hatchback",1000,"4.7","cdeghqsBJLM","188"],["57008757","SEAT Ibiza","1.0 TSI FR Business Intense Camera Navigatie Sfeerverlichting App-Connect",13250,"B","08-2021","H",119.0,"B",95,"zwart","Hatchback",1000,"4.7","cdeghqsAJLM","181"],["57101427","SEAT Ibiza","1.0 TSI FR Business Intense Navigatie Camera DAB+ App-Connect",14450,"B","08-2021","H",80.8,"B",95,"zwart","Hatchback",1000,"4.7","cdeghqsBJLM","198"],["57361367","SEAT Ibiza","1.0 EcoTSI Style App-Connect Parkeersensoren DAB+",13450,"B","05-2023","H",85.6,"B",95,"zwart","Hatchback",1000,"5.2","chqstyB","188"],["57573078","SEAT Ibiza","1.0 EcoTSI Style Parkeersensoren App-Connect Climate Control",13900,"B","10-2022","H",58.7,"B",95,"zwart","Hatchback",1000,"4.5","chqstyB","190"],["57628271","SEAT Ibiza","1.0 EcoTSI Style Parkeersensoren App-Connect DAB+ Virtual Cockpit",14400,"B","08-2023","H",61.7,"B",95,"zwart","Hatchback",1000,"5.2","chqryB","197"],["57872759","SEAT Ibiza","1.0 TSI FR Business Intense Camera Navigatie DAB+ App-Connect",11250,"B","08-2021","H",150.4,"B",95,"zwart","Hatchback",1000,"4.7","cdeghqsBJLM","154"],["57934125","SEAT Ibiza","1.0 EcoTSI Style Parkeersensoren App-Connect DAB+",12750,"B","09-2023","H",109.0,"B",95,"grijs","Hatchback",1000,"5.2","chqrtyB","174"],["57987368","SEAT Ibiza","1.0 EcoTSI Style Business Connect Stoelverwarming Parkeersensoren Navigatie",12450,"B","09-2023","H",121.3,"B",95,"zwart","Hatchback",1000,"5.2","cdghjqsyBCL","170"],["58155657","SEAT Ibiza","1.5 TSI 150pk DSG Sport FR LED Parkeersensoren App-Connect DAB+",17400,"B","11-2022","A",100.1,"B",150,"grijs","Hatchback",1200,"5","cghqrstyBJLM","238"],["58160632","SEAT Ibiza","1.0 TSI FR Business Intense Sfeerverlichting Navigatie Camera",11850,"B","08-2021","H",141.0,"B",95,"zwart","Hatchback",1000,"4.7","cdeghqsAJLM","166"],["58274206","SEAT Ibiza","1.0 EcoTSI Style Parkeersensoren Airco App-Connect DAB+",14250,"B","10-2023","H",56.3,"B",95,"grijs","Hatchback",1000,"5.2","chqrtyB","199"],["56625739","SEAT Leon","ST 1.0 TSI Style Ultimate Edition Panoramadak Camera App-Connect DAB+",12900,"B","02-2020","H",125.2,"B",116,"grijs","Stationwagon",1000,"4.7","cdeghpqsvyBCIKL","176"],["55915943","SEAT Leon","1.0 TSI FR Business Intense Camera Sfeerverlichting Navigatie LED",15250,"B","04-2022","H",125.2,"B",110,"blauw","Hatchback",1300,"4.9","bcdeghiqrstvxyABIJKLM","213"],["56507004","SEAT Leon","ST 1.0 EcoTSI Style Business Intense Navigatie DAB+ Parkeersensoren",10250,"M","09-2018","H",162.1,"B",116,"grijs","Stationwagon",1000,"4.8","cdghqsvBCIKL","217"],["57220825","SEAT Leon","Sportstourer 1.5 TSI Style Business Intense LED App-Connect Navigatie Camera",15400,"B","05-2021","H",124.5,"B",131,"zwart","Stationwagon",1400,"4.8","bcdeghiqrstvyBIKL","216"],["57766106","SEAT Leon","1.0 TSI Style Business Intense Camera Navigatie App-Connect DAB+",14400,"B","09-2021","H",112.8,"B",110,"zwart","Hatchback",1300,"4.6","bcdeghiqrsvyBKL","197"],["57876482","SEAT Leon","ST 1.2 TSI 105pk Reference Business Cruise Control Climate Control",6850,"M","06-2014","H",176.2,"B",105,"zwart","Stationwagon",1300,"4.9","cdsIL","153"],["57878573","SEAT Leon","Sportstourer 1.0 TSI 110pk Style Trekhaak App-Connect DAB+ Parkeersensoren",14950,"B","09-2023","H",104.5,"B",110,"grijs","Stationwagon",1300,"5.6","achqsvyBI","205"],["57957834","SEAT Leon","Sportstourer 1.0 TSI FR Business Intense Camera Navigatie Sfeerverlichting App-Connect",15400,"B","10-2022","H",123.0,"B",110,"grijs","Stationwagon",1300,"4.9","bcdeghiqrsvxyABIJKLM","211"],["58099864","SEAT Leon","Sportstourer 1.5 TSI FR LED Camera Stoelverwarming Navigatie App-Connect DAB+",15750,"B","06-2021","H",134.4,"B",131,"zwart","Stationwagon",1400,"5.6","cdehjqrstvyBIJLM","220"],["58124540","SEAT Leon","1.0 TSI FR Business Navigatie Parkeersensoren App-Connect DAB+",16850,"B","10-2022","H",83.8,"B",110,"grijs","Hatchback",1300,"4.9","cdhqrstvyBJLM","231"],["58273956","SEAT Leon","Sportstourer 1.0 TSI 110pk Style Business Intense Camera Navigatie App-Connect DAB+",11950,"B","11-2021","H",143.1,"B",110,"blauw","Stationwagon",1300,"4.8","bcdeghiqrsvyBIKL","167"],["58302318","SEAT Leon","Sportstourer 1.5 TSI Style Business Intense Camera Virtual Cockpit App-Connect DAB+",14850,"B","10-2022","H",140.8,"B",131,"grijs","Stationwagon",1400,"5.1","bcdeghiqrstvyBIKL","208"],["47565491","SEAT Tarraco","1.5 TSI 150pk DSG Style Camera DAB+ Navigatie Virtual Cockpit Stoelverwarming",21850,"B","07-2020","A",127.0,"B",150,"grijs","SUV",1800,"5.8","bcdeghjqrstvyBIL","299"],["53094276","SEAT Tarraco","1.5 TSI 150pk FR Business Intense Camera Navigatie App-Connect Virtual Cockpit",21950,"B","05-2021","H",120.4,"B",150,"grijs","SUV",1800,"5.9","bcdefghioqrsvxyBCDIJKLM","294"],["49259694","SEAT Tarraco","1.5 TSI 150pk DSG Style Virtual Cockpit Navigatie Camera Stoelverwarming",21850,"B","10-2020","A",129.0,"B",150,"grijs","SUV",1800,"5.8","bcdeghjqrstvyI","299"],["53431698","SEAT Tarraco","1.5 TSI 150pk FR Virtual Cockpit Climate Control App-Connect Trekhaak",21400,"B","02-2021","H",132.4,"B",150,"zwart","SUV",1800,"5.9","abcghiqrstvyDIJLM","293"],["57569495","Škoda Enyaq iV","80 Camera Sfeerverlichting Navigatie App-Connect",25750,"B","08-2021","A",93.9,"E",204,"zwart","SUV",1000,"","cdeghjkmqrstvyABI","352"],["57468960","Škoda Enyaq iV","80 SoH 90,39% Trekhaak Camera Panoramadak Sfeerverlichting Camera",25850,"B","06-2021","A",110.1,"E",204,"wit","SUV",1000,"","acdeghkmpqrstvyABI","354"],["57624330","Škoda Enyaq iV","80 SoH 95,65% Navigatie Camera Parkeersensoren App-Connect",30750,"B","05-2023","A",109.1,"E",204,"zwart","SUV",1000,"","cdeghmqrsvyABI","412"],["58064644","Škoda Enyaq iV","80 SoH 92,21% Trekhaak Camera Navigatie Sfeerverlichting Navigatie",25750,"B","07-2021","A",95.9,"E",204,"blauw","SUV",1000,"","acdeghkmqrsvyABI","352"],["56506752","Škoda Fabia","Combi 1.0 TSI Business Edition Navigatie App-Connect DAB+ Airco",11950,"B","01-2021","H",101.6,"B",95,"zwart","Stationwagon",1000,"4.5","cdhqBIL","163"],["57388381","Škoda Fabia","1.0 TSI Style Climate Control App-Connect DAB+ Parkeersensoren",8850,"M","08-2019","H",127.8,"B",95,"grijs","Hatchback",1000,"4.5","cdhqsBL","197"],["57730134","Škoda Fabia","Combi 1.0 TSI DSG Ambition Navigatie Parkeersensoren DAB+ App-Connect",14450,"B","10-2022","A",108.9,"B",95,"grijs","Stationwagon",1000,"5.6","cdhqBI","198"],["51441123","Škoda Kamiq","1.0 TSI 110pk Ambition Parkeersensoren Climate Control DAB+ Cruise Control",15400,"B","02-2022","H",94.0,"B",110,"zwart","SUV",1200,"4.7","chqsyBIL","211"],["55942024","Škoda Kamiq","1.0 TSI 110pk DSG Business Edition LED Virtual Cockpit Stoelverwarming DAB+ App-Connect",17400,"B","12-2020","A",88.1,"B",110,"zwart","SUV",1200,"4.8","acdghjoqrstvyBCIKLO","238"],["56206302","Škoda Kamiq","1.0 TSI Sport Business Virtual Cockpit Trekhaak Parkeersensoren App-Connect Stoelverwarming",15250,"B","12-2022","H",133.0,"B",110,"grijs","SUV",1200,"4.7","acghjmoqrsyBCIJL","209"],["56765697","Škoda Kamiq","1.0 TSI 116pk DSG Sport Business Stoelverwarming App-Connect DAB+",16650,"B","07-2020","A",116.5,"B",116,"zwart","SUV",1200,"5","chjoqrsyBCIJL","223"],["57707975","Škoda Kamiq","1.0 TSI 110pk DSG Ambition Parkeersensoren App-Connect DAB+",16850,"B","07-2021","A",111.0,"B",110,"zwart","SUV",1200,"4.7","chqstyBIL","226"],["55654529","Škoda Karoq","1.5 TSI 150pk ACT Sportline Business Camera Trekhaak Sfeerverlichting Stoelverwarming Adaptive Cruise LED",18750,"B","06-2020","H",143.3,"B",150,"blauw","SUV",1500,"5.4","abcdeghjqrstvABCIJLM","257"],["54907150","Škoda Karoq","1.5 TSI 150pk ACT Sportline Business Camera Stoelverwarming Sfeerverlichting",24850,"B","06-2022","H",102.4,"B",150,"grijs","SUV",1500,"5.6","cdeghjkqstuvABIJLM","333"],["58271741","Škoda Karoq","1.5 TSI 150pk DSG ACT Business Edition Navigatie Parkeersensoren Trekhaak",20950,"B","10-2022","A",138.2,"B",150,"grijs","SUV",1500,"6.2","acdhqsvwBIL","287"],["54041843","Škoda Kodiaq","1.5 TSI Sportline Business 7p. Camera Adaptive Cruise Stoelverwarming Camera",35950,"B","05-2023","A",61.3,"B",150,"grijs","SUV",1800,"7","abcdeghjnoqstuvABCDGIJLM","481"],["55587844","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business Alcantara Stoelverwarming Trekhaak Camera Stoelverwarming",30900,"B","07-2021","A",77.4,"B",150,"zwart","SUV",1800,"5.9","abcdeghjoqrstuvABCDIJLM","423"],["57128605","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business Adaptive Cruise Sfeerverlichting",26750,"B","02-2021","A",114.5,"B",150,"wit","SUV",1800,"5.9","bcdeghjnoqrstvwABCDIJLM","359"],["57370014","Škoda Kodiaq","1.5 TSI 150pk DSG Business Edition Camera Sfeerverlichting Navigatie App-Connect",25400,"B","11-2022","A",122.6,"B",150,"zwart","SUV",1800,"7","abcdeghnqsvABCIL","348"],["57358958","Škoda Kodiaq","1.5 TSI 150pk Sportline Business Trekhaak Camera Stoelverwarming Sfeerverlichting",23400,"B","05-2021","H",139.0,"B",150,"zwart","SUV",1800,"5.8","acdeghjoqrstuvABCDIJLM","320"],["56461312","Škoda Kodiaq","1.5 TSI 150pk Sportline Business 7p. Virtual Cockpit Camera Stoelverwarming Cruise Control",26400,"B","05-2021","H",138.5,"B",150,"grijs","SUV",1800,"5.8","acdeghjoqrstuvABCDGIJLM","361"],["56739544","Škoda Kodiaq","1.5 TSI DSG Sportline Business 7p. Leder Stoelverwarming Camera Trekhaak Adaptive Cruise",31750,"B","04-2022","A",124.9,"B",150,"zwart","SUV",1800,"6.1","abcdeghjkmoqrstuvwBCDGIJLM","426"],["57412067","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business Adaptive Cruise Camera Sfeerverlichting Virtual Cockpit",33400,"B","08-2023","A",87.1,"B",150,"grijs","SUV",1800,"7","bcdeghjnoqrstuvwABCDIJLM","447"],["57435770","Škoda Kodiaq","1.5 TSI DSG Business Edition Plus 7p. Panoramadak Alcantara Camera App-Connect DAB+",31900,"B","07-2021","A",96.8,"B",150,"zwart","SUV",1800,"5.8","bcdefghjknopqrstvwxABCDGILO","436"],["57699453","Škoda Kodiaq","1.5 TSI Business Edition Cruise Control App Connect Camera Trekhaak",22700,"B","02-2021","H",109.9,"B",150,"grijs","SUV",1800,"5.6","acdeghnqstvBCI","304"],["57707692","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business Trekhaak Panoramadak Sfeerverlichting Adaptive Cruise",30950,"B","02-2022","A",126.1,"B",150,"grijs","SUV",1800,"6","abcdeghjknopqrstuvwABCDIJLM","415"],["58058504","Škoda Kodiaq","1.5 TSI 150pk Business Edition 7p. Camera Virtual Cockpit App-Connect DAB+",26400,"B","07-2023","H",114.4,"B",150,"zwart","SUV",1800,"6.6","cdeghnqrstvBCGI","361"],["58273178","Škoda Kodiaq","1.5 TSI 150pk DSG Sportline Business 7p. Panoramdak Stoelverwarming Adaptive Cruise Sfeerverlichting",30550,"B","06-2021","A",106.8,"B",150,"grijs","SUV",1800,"6","bcdeghjnopqrstuvwABCDGIJLM","418"],["52884694","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Virtual Cockpit Parkeersensoren Navigatie DAB+ App-Connect",18750,"B","01-2023","A",111.7,"H",110,"grijs","Stationwagon",1300,"5.2","cdghqrstvyBIL","251"],["49661971","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Plus Camera Navigatie Adaptive Cruise DAB+",15450,"B","01-2022","A",153.8,"H",110,"wit","Stationwagon",1300,"4.3","bcdeghjqrsvxyBCIL","216"],["52812060","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Navigatie Parkeersensoren App-Connect DAB+",16950,"B","06-2021","A",109.5,"H",110,"zwart","Stationwagon",1300,"4.3","cdghqrsvwyBCIL","227"],["56400655","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Trekhaak Navigatie Parkeersensoren App-Connect",19250,"B","06-2023","A",115.1,"H",110,"grijs","Stationwagon",1300,"5.2","acdghqrsvwyBCI","263"],["56119476","Škoda Octavia","Combi 1.0 TSI 110pk Business Edition Plus Navigatie Parkeersensoren Sfeerverlichting",16750,"B","06-2021","H",110.8,"B",110,"grijs","Stationwagon",1300,"4.7","bcdghjqrsvwxyABCIL","229"],["56201354","Škoda Octavia","Combi 1.0 e-TSI 110pk DSG Ambition Navigatie Trekhaak App-Connect DAB+",18400,"B","07-2021","A",99.0,"H",110,"blauw","Stationwagon",1300,"4.3","acdhqrsvyBIL","252"],["56861565","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Navigatie App-Connect DAB+ Parkeersensoren",16900,"B","05-2022","A",128.3,"H",110,"wit","Stationwagon",1300,"4.3","cdghqrsvyBCI","227"],["56913410","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Navigatie Parkeersensoren Virtual Cockpit DAB+",19750,"B","07-2023","A",96.6,"H",110,"grijs","Stationwagon",1300,"5.2","abcdghqrsvwyBCI","265"],["57021616","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Plus Leder-Alcantara Sfeerverlichting Navigatie Parkeersensoren",20850,"B","09-2022","A",82.4,"H",110,"grijs","Stationwagon",1300,"5.2","bcdghjnoqrsvwxyABCIL","279"],["57230518","Škoda Octavia","Combi 1.5 e-TSI 150pk DSG Business Edition Plus Leder-Alcantara Adaptive Cruise Navigatie Camera",17400,"B","01-2022","A",152.8,"H",150,"zwart","Stationwagon",1500,"4.8","bcdeghjknoqrsvxyABCIL","238"],["57221717","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Navigatie Trekhaak Parkeersensoren App-Connect DAB+",16400,"B","08-2022","A",137.5,"H",110,"blauw","Stationwagon",1300,"4.3","acdhqrsvyBI","224"],["57647937","Škoda Octavia","Combi 1.0 TSI Greentech Business Edition Leder-Stof Stoelverwarming Navigatie App-Connect DAB+",15400,"B","07-2020","H",85.8,"B",116,"blauw","Stationwagon",1300,"4.8","cdhjnqsBCIL","211"],["57811296","Škoda Octavia","Combi 1.5 e-TSI 150pk DSG Business Edition Parkeersensoren Navigatie DAB+",23750,"B","03-2024","A",86.1,"H",150,"grijs","Stationwagon",1500,"5.4","cdghqrsvwyBCI","318"],["57877747","Škoda Octavia","Combi 1.0 TSI 110pk Ambition Navigatie App-Connect DAB+",14750,"B","09-2022","H",131.7,"B",110,"grijs","Stationwagon",1300,"4.7","cdhqrsvyBI","202"],["57877992","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Trekhaak Navigatie Parkeersensoren Navigatie DAB+",16950,"B","08-2022","A",126.6,"H",110,"zwart","Stationwagon",1300,"4.3","acdhqrsvyBI","227"],["57898452","Škoda Octavia","Combi 1.0 e-TSI DSG Sport Business Sfeerverlichting Adaptive Cruise Trekhaak Navigatie",17450,"B","12-2021","A",117.3,"H",110,"grijs","Stationwagon",1300,"4.3","abcdghjkqrsvyABIJL","234"],["58026961","Škoda Octavia","Combi 1.0 e-TSI DSG Business Edition Navigatie Parkeersensoren App-Connect DAB+",17450,"B","02-2022","A",108.7,"H",110,"grijs","Stationwagon",1300,"4.3","cdghqrsvyBCI","234"],["58125120","Škoda Octavia","Combi 1.0 TSI 110pk Ambition Navigatie Parkeersensoren Trekhaak App-Connect",14450,"B","10-2022","H",134.9,"B",110,"grijs","Stationwagon",1300,"4.7","acdhqrsvyBI","202"],["58155979","Škoda Octavia","Combi 1.0 TSI 110pk Ambition Navigatie Parkeersensoren Climate Control",15400,"B","07-2022","H",108.4,"B",110,"blauw","Stationwagon",1300,"4.7","cdhqrsvyBIL","216"],["58268756","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Navigatie Parkeersensoren Trekhaak",18750,"B","09-2023","A",111.5,"H",110,"grijs","Stationwagon",1300,"5.2","acdghqrsvyBIL","257"],["58269000","Škoda Octavia","Combi 1.0 TSI 110pk Ambition Navigatie Parkeersensoren Trekhaak App-Connect Virtual Cockpit",14250,"B","10-2022","H",136.9,"B",110,"blauw","Stationwagon",1300,"4.7","acdhqrsvyBI","199"],["58284612","Škoda Octavia","Combi 1.0 e-TSI DSG Ambition Trekhaak Navigatie App-Connect DAB+",16850,"B","09-2022","A",128.9,"H",110,"zwart","Stationwagon",1300,"4.3","acdhqrsvyBI","231"],["58295024","Škoda Octavia","Combi 1.4 TSI 150pk Greentech Style Trekhaak Stoelverwarming Navigatie DAB+ App-Connect",10850,"M","11-2017","H",167.3,"B",150,"wit","Stationwagon",1500,"5.3","acdghjqsBCL","230"],["54646089","Škoda Scala","1.0 TSI 116pk Ambition App-Connect Climate Control Cruise Control",11900,"M","01-2020","H",112.7,"B",116,"zwart","Hatchback",1200,"5","cqsty","252"],["57424497","Škoda Scala","1.5 TSI 150pk DSG Sport Business Stoelverwarming Camera Navigatie Parkeersensoren",16850,"B","06-2021","A",126.1,"B",150,"grijs","Hatchback",1250,"5.1","cdehjoqsyBCJL","231"],["56684979","Škoda Scala","1.0 TSI 110pk DSG Sport Business Navigatie Parkeersensoren Virtual Cockpit",14900,"B","04-2021","A",112.0,"B",110,"blauw","Hatchback",1200,"4.7","cdhoqrsyBCJL","204"],["58117777","Škoda Scala","1.0 TSI 116pk DSG Business Edition LED Navigatie Stoelverwarming Climate Control",13950,"B","07-2020","A",143.2,"B",116,"zwart","Hatchback",1200,"5.1","cdhjpqrstvyBCKL","195"],["58269734","Škoda Scala","1.0 TSI 110pk Business Edition LED Stoelverwarming Parkeersensoren App-Connect",14850,"B","10-2021","H",113.2,"B",110,"zwart","Hatchback",1200,"4.7","cdghjoqrstvyBCKL","208"],["55748157","Škoda Superb","Combi 1.5 TSI 150pk DSG ACT Business Edition Virtual Cockpit Navigatie DAB+ App-Connect",21950,"B","07-2022","A",76.5,"B",150,"zwart","Stationwagon",1600,"5.3","cdhqrsvBCI","300"],["58327312","Škoda Superb","Combi 1.5 TSI 150pk ACT Business Edition Trekhaak Stoelverwarming Navigatie Parkeersensoren",15450,"B","09-2021","H",153.0,"B",150,"zwart","Stationwagon",1600,"5.2","acdghjqrstvBCIL","216"],["57196848","Volkswagen Caddy","2.0 TDI L1H1 Navigatie App-Connect DAB+ Cruise Control",10400,"B","01-2019","H",117.0,"D",75,"zilver","Bestelauto",0,"4.7","acdqB","182"],["54493661","Volkswagen Caddy Cargo","2.0 TDI L1H1 Trend Parkeersensoren Airco Parkeersensoren Elektrische ramen",11250,"B","05-2021","H",130.7,"D",75,"wit","Bestelauto",0,"4.4","h","202"],["50262261","Volkswagen Golf","1.0 eTSI 110pk DSG Life Virtual Cockpit Navigatie Parkeersensoren",20450,"B","04-2023","A",93.0,"H",110,"grijs","Hatchback",1300,"5.2","bcdghqrstvyBCL","274"],["50317599","Volkswagen Golf","Variant 1.5 TSI Life Business Sfeerverlichting Navigatie Virtual Cockpit Parkeersensoren",17950,"B","09-2021","H",134.3,"B",131,"grijs","Stationwagon",1400,"5.1","bcdghjkqrstvxyABCDEIK","246"],["49738076","Volkswagen Golf","Variant 1.0 TSI 110pk Life Camera DAB+ Navigatie",17450,"B","01-2022","H",127.1,"B",110,"grijs","Stationwagon",1300,"4.7","bcdeghqrstvyBCIK","239"],["51221301","Volkswagen Golf","Variant 1.0 TSI Comfortline Business Panoramadak Stoelverwarming LED DAB+",16450,"B","07-2020","H",99.0,"B",116,"zwart","Stationwagon",1300,"4.8","bcdghjopqstBEIJL","225"],["55026886","Volkswagen Golf","1.0 TSI 110pk Life Sfeerverlichting Navigatie Parkeersensoren App-Connect",14750,"B","06-2022","H",147.0,"B",110,"zwart","Hatchback",1300,"4.6","bcdghqrsvyABC","202"],["55586828","Volkswagen Golf","Variant 1.0 eTSI DSG Life Sfeerverlichting Navigatie Parkeersensoren Camera",16900,"B","07-2022","A",121.6,"H",110,"grijs","Stationwagon",1300,"4.3","bcdeghqrsvyABCI","227"],["55745276","Volkswagen Golf","Variant 1.5 TSI 150pk DSG Highline R-Line Stoelverwarming LED Camera Virtual Cockpit",15750,"M","12-2017","A",132.9,"B",150,"grijs","Stationwagon",1500,"5","bcdeghjoqrstIJLMO","325"],["56952569","Volkswagen Golf","Variant 1.0 TSI DSG Highline Business R LED Panoramadak Stoelverwarming Navigatie Parkeersensoren",15900,"M","06-2017","A",78.3,"B",110,"grijs","Stationwagon",1300,"4.9","abcdeghjoprstBIJL","328"],["57002657","Volkswagen Golf","Variant 1.0 TSI 110pk Golf Trekhaak Parkeersensoren Stoelverwarming",14900,"M","08-2021","H",107.2,"B",110,"grijs","Stationwagon",1300,"5.5","aghjrstvyBI","316"],["57035690","Volkswagen Golf","Variant 1.0 TSI 116pk 6-bak Connected Series Navigatie Camera DAB+ App-Connect",7900,"M","09-2016","H",175.6,"B",116,"zwart","Stationwagon",1100,"4.3","cdeghqsBIJL","176"],["57567002","Volkswagen Golf","Variant 1.0 TSI Life Sfeerverlichting App-Connect Parkeersensoren Navigatie",14250,"B","06-2022","H",137.8,"B",110,"grijs","Stationwagon",1300,"4.7","bcdghqrsvyABCI","199"],["56698850","Volkswagen Golf","Variant 1.5 TSI 150pk DSG Highline Business R Virtual Cockpit Camera Navigatie DAB+",12900,"M","01-2019","A",199.2,"B",150,"zwart","Stationwagon",1500,"5.2","bcdeghoqrstvBIJLM","273"],["57470488","Volkswagen Golf","Variant 1.5 TSI 150pk Highline Virtual Cockpit Alcantara Parkeersensoren",13900,"M","09-2019","H",165.1,"B",150,"zwart","Stationwagon",1500,"5.2","abcdghjoqrstBIJL","295"],["57184875","Volkswagen Golf","1.0 eTSI DSG Life Sfeerverlichting Camera Navigatie App-Connect",20400,"B","01-2024","A",94.7,"H",110,"zwart","Hatchback",1300,"5.2","bcdeghqrsvyABC","273"],["57387210","Volkswagen Golf","1.0 TSI 110pk Life Parkeersensoren Sfeerverlichting Navigatie Adaptive Cruise",17400,"B","07-2021","H",56.2,"B",110,"zwart","Hatchback",1300,"4.6","bcdghqrsvyABC","238"],["56897492","Volkswagen Golf","1.0 TSI 110pk Life Sfeerverlichting Navigatie App-Connect DAB+",18750,"B","05-2023","H",84.6,"B",110,"zwart","Hatchback",1300,"5.4","bcdghqrsvyABC","251"],["57572977","Volkswagen Golf","1.5 TSI Comfortline Business Alcantara Camera Virtual Cockpit Stoelverwarming",11900,"M","02-2019","H",181.5,"B",131,"grijs","Hatchback",1400,"5","bcdeghjoqrsBEJ","252"],["57785852","Volkswagen Golf","1.0 eTSI DSG Life Business Alcantara Sfeerverlichting Navigatie Stoelverwarming",18950,"B","04-2023","A",113.2,"H",110,"zwart","Hatchback",1300,"5.2","bcdghjkoqrstvyABCDEKL","254"],["58157664","Volkswagen Golf","2.0 TSI 265PK GTI 8.5 Panoramadak Camera Stuur/Stoel Verwarming Sfeerverlichting",39850,"B","10-2024","A",36.4,"B",265,"zwart","Hatchback",1600,"7","bcdeghjkpqrstuvxyABCKL","533"],["58302193","Volkswagen Golf","Variant 1.0 TSI 110pk Life Parkeersensoren Navigatie Sfeerverlichting DAB+",14900,"B","01-2022","H",119.2,"B",110,"blauw","Stationwagon",1300,"4.7","abcdghqrsvyABCIL","209"],["57958040","Volkswagen ID.3","Pro 58 kWh SoH 91,38% Parkeersensoren App-Connect Sfeerverlichting Navigatie",20250,"B","08-2022","A",97.7,"E",145,"grijs","Hatchback",0,"","bcdghqsvyABCK","271"],["57599472","Volkswagen ID.4","Pro 77 kWh SoH 95,84% Navigatie Parkeersensoren App-Connect DAB+",27850,"B","02-2023","A",111.9,"E",204,"grijs","SUV",1000,"","bcdghqsvyBIK","373"],["57707461","Volkswagen ID.4","Life 77 kWh SoH 92,6% Stoelverwarming Navigatie Sfeerverlichting DAB+",24850,"B","09-2021","A",125.3,"E",204,"grijs","SUV",1000,"","bcdghjkqsvyABCK","333"],["57783867","Volkswagen ID.4","Business 77 kWh SoH 93,51% Stoelverwarming Camera Sfeerverlichting",26400,"B","10-2021","A",108.9,"E",204,"grijs","SUV",1000,"","bcdeghjnoqstuvyABKL","354"],["58267677","Volkswagen ID.4","Pro 77 kWh SoH 95,26% Warmtepomp Alcantara Camera Stoelverwarming Sfeerverlichting",24950,"B","12-2021","A",121.6,"E",204,"grijs","SUV",1000,"","bcdeghjoqsvyABCDHIJK","341"],["57555987","Volkswagen Passat","Variant 1.6 TDI DSG Highline Stoelverwarming Navigatie Camera App-Connect",11900,"B","06-2017","A",145.7,"D",120,"zwart","Stationwagon",1500,"4","bcdeghjnoqsIL","167"],["58268113","Volkswagen Passat","Variant 1.5 TSI DSG R-Line Business + Panoramadak LED Alcantara Stoelverwarming",19950,"B","05-2021","A",151.4,"B",150,"blauw","Stationwagon",1600,"5.4","bcdeghjnopqrstuvwyBCIKLM","273"],["53096042","Volkswagen Polo","1.0 TSI Highline Beats Parkeersensoren Adaptive Cruise App-Connect",9900,"M","12-2017","H",171.1,"B",95,"zwart","Hatchback",1000,"4.4","bcghqsBJO","221"],["51441212","Volkswagen Polo","1.0 TSI R-Line Edition LED Navigatie Parkeersensoren Climate Control DAB+",13950,"B","07-2021","H",118.4,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqstBLM","191"],["49253422","Volkswagen Polo","1.0 TSI R-Line Edition Camera Navigatie DAB+ App-Connect",14850,"B","09-2021","H",92.3,"B",95,"grijs","Hatchback",1000,"4.6","bcdeqBLM","203"],["49260104","Volkswagen Polo","1.0 TSI R-Line Edition Camera Climate Control Navigatie DAB+",14850,"B","08-2021","H",83.3,"B",95,"wit","Hatchback",1000,"4.6","bcdeghqsBLM","203"],["53959297","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren App-Connect DAB+",11850,"B","09-2021","H",128.6,"B",95,"wit","Hatchback",1000,"4.6","bcghqB","166"],["53093520","Volkswagen Polo","1.0 TSI R-Line Edition Navigatie Adaptive Cruise DAB+ Airco",13400,"B","10-2021","H",128.4,"B",95,"grijs","Hatchback",1000,"4.6","bcdqBLM","183"],["53691023","Volkswagen Polo","1.0 TSI Polo Virtual Cockpit App-Connect DAB+ Parkeersensoren",14750,"M","12-2021","H",88.4,"B",95,"zwart","Hatchback",1000,"4.6","cghqrtyB","313"],["55993891","Volkswagen Polo","1.0 TSI R-Line Camera Navigatie DAB+ Stoelverwarming Virtual Cockpit",17900,"B","07-2022","H",88.6,"B",95,"rood","Hatchback",1000,"4.6","bcdeghjoqrstyBLM","245"],["56008612","Volkswagen Polo","1.0 TSI Polo App-Connect Airco Virtual Cockpit",13900,"B","06-2022","H",123.4,"B",95,"wit","Hatchback",1000,"4.6","cqrtyB","195"],["56496515","Volkswagen Polo","1.0 TSI R-Line Business LED Stoelverwarming Camera DAB+ App-Connect",16400,"B","06-2022","H",130.7,"B",95,"blauw","Hatchback",1000,"4.6","bcdeghjqstuyBCKLM","220"],["56742790","Volkswagen Polo","1.0 TSI Highline R-Line Panoramadak LED Virtual Cockpit",17250,"B","08-2020","H",90.7,"B",95,"wit","Hatchback",1000,"4.6","abcdnpqrstBJLM","231"],["57305675","Volkswagen Polo","1.0 TSI Comfortline Navigatie App-Connect Adaptive Cruise",12650,"B","09-2021","H",113.8,"B",95,"wit","Hatchback",1000,"4.6","bcdqB","177"],["56432481","Volkswagen Polo","1.0 TSI Style LED Navigatie Parkeersensoren Climate Control DAB+",16250,"B","09-2022","H",106.4,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqrstuyB","218"],["56339801","Volkswagen Polo","1.0 TSI Life Parkeersensoren App-Connect DAB+ Adaptive Cruise",14400,"B","11-2021","H",109.7,"B",95,"zwart","Hatchback",1000,"4.6","bcghqrtyB","202"],["56596095","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren App-Connect DAB+ Navigatie",12900,"B","06-2021","H",117.7,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqB","176"],["56636168","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren App-Connect DAB+ Navigatie",12900,"B","11-2021","H",118.6,"B",95,"wit","Hatchback",1000,"4.6","bcdghqB","176"],["56965939","Volkswagen Polo","1.0 TSI Life Business Camera Stoelverwarming Navigatie DAB+ App-Connect",16250,"B","09-2022","H",86.1,"B",95,"zwart","Hatchback",1000,"4.6","bcdeghjqrsyBCK","218"],["57295156","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren Navigatie DAB+ App-Connect DAB+",12550,"B","03-2021","H",124.6,"B",95,"grijs","Hatchback",1000,"4.6","bcdghqB","176"],["57198067","Volkswagen Polo","1.0 TSI R-Line Edition Navigatie Parkeersensoren App-Connect DAB+",13900,"B","07-2021","H",110.6,"B",95,"grijs","Hatchback",1000,"4.6","bcdghqsBLM","195"],["56829673","Volkswagen Polo","1.0 TSI Comfortline Parkeersensoren Navigatie App-Connect DAB+",13450,"B","06-2021","H",107.3,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqBL","184"],["56948595","Volkswagen Polo","1.0 TSI Life Camera App-Connect Adaptive Cruise Airco",13750,"B","12-2021","H",115.6,"B",95,"zwart","Hatchback",1000,"4.6","bceqrtyB","188"],["57358773","Volkswagen Polo","1.0 TSI R-Line Navigatie Parkeersensoren App-Connect DAB+",16900,"B","09-2022","H",111.6,"B",95,"zwart","Hatchback",1000,"4.6","bcdghoqrsyBLM","231"],["57220620","Volkswagen Polo","1.0 TSI Life Parkeersensoren Navigatie Trekhaak App-Connect DAB+",14900,"B","09-2022","H",84.4,"B",95,"blauw","Hatchback",1000,"4.6","abcdghqryB","209"],["57365197","Volkswagen Polo","1.0 TSI Life Navigatie App-Connect DAB+",14900,"B","09-2023","H",88.8,"B",95,"blauw","Hatchback",1000,"5.2","bcdeqrtyB","209"],["57642078","Volkswagen Polo","1.0 TSI Comfortline Navigatie App-Connect DAB+ Airco",12950,"B","05-2021","H",98.3,"B",95,"wit","Hatchback",1000,"4.6","bcdqB","177"],["57730967","Volkswagen Polo","1.0 TSI Life Navigatie App-Connect DAB+",14400,"B","08-2022","H",112.4,"B",95,"zwart","Hatchback",1000,"4.6","bcdqryB","197"],["57785618","Volkswagen Polo","1.0 TSI Life Business Camera Stoelverwarming Climate Control",15850,"B","06-2022","H",96.9,"B",95,"zwart","Hatchback",1000,"4.6","bcdeghjqrsyBCK","217"],["57878750","Volkswagen Polo","1.0 TSI Comfortline Camera Climate Control Navigatie App-Connect",13400,"B","07-2021","H",113.0,"B",95,"grijs","Hatchback",1000,"4.6","bcdeghqsBL","183"],["58058781","Volkswagen Polo","1.0 TSI Highline Business R R-Line Virtual Cockpit Parkeersensoren Navigatie DAB+ App-Connect",14450,"B","01-2021","H",109.6,"B",95,"wit","Hatchback",1000,"4.6","bcdghiqrsBJLM","202"],["58157096","Volkswagen Polo","1.0 TSI Life Business Parkeersensoren Navigatie Stoelverwarming",15850,"B","06-2023","H",94.4,"B",95,"zwart","Hatchback",1000,"5.2","bcdghjqrsyBCK","222"],["58269306","Volkswagen Polo","1.0 TSI DSG Life Business Camera Stoelverwarming Virtual Cockpit Navigatie",18400,"B","11-2023","A",96.5,"B",95,"grijs","Hatchback",1000,"5.5","bcdeghjqrsyBCKL","252"],["58273714","Volkswagen Polo","1.0 TSI Life Business Camera Stoelverwarming Navigatie DAB+ App-Connect",13250,"B","11-2023","H",140.6,"B",95,"wit","Hatchback",1000,"5.2","bcdeghjqrsyBCK","185"],["58284918","Volkswagen Polo","1.0 TSI Highline Parkeersensoren Climate Control Navigatie App-Connect",13750,"B","10-2021","H",99.2,"B",95,"wit","Hatchback",1000,"4.7","bcdghqsABJL","192"],["58296069","Volkswagen Polo","1.0 TSI DSG R-Line IQ LED Panoramadak Camera Stoelverwarming Virtual Cockpit",19950,"B","10-2021","A",94.8,"B",95,"wit","Hatchback",1000,"4.6","bcdeghjopqrstyBJLM","273"],["58303240","Volkswagen Polo","1.0 TSI DSG Life Navigatie App-Connect DAB+",17250,"B","10-2022","A",91.4,"B",95,"zwart","Hatchback",1000,"4.6","bcdghqryBL","236"],["55367799","Volkswagen T-Cross","1.0 TSI Life Navigatie DAB+ App-Connect Climate Control",12900,"M","07-2019","H",144.0,"B",95,"zwart","SUV",1000,"4.9","bcdqsxyBI","273"],["57556089","Volkswagen T-Cross","1.0 TSI 116pk Style LED Parkeersensoren Navigatie Climate Control DAB+",17850,"B","02-2021","H",87.8,"B",116,"wit","SUV",1100,"4.9","bcdghnqstxBIJL","239"],["55128397","Volkswagen T-Roc","1.5 TSI 150pk DSG Life Navigatie Trekhaak Parkeersensoren App-Connect DAB+",22750,"B","03-2023","A",101.3,"B",150,"grijs","SUV",1500,"5","abcdghiqrsyBI","305"],["58268458","Volkswagen T-Roc","1.5 TSI 150pk DSG Life Camera App-Connect DAB+",20850,"B","11-2022","A",112.1,"B",150,"zwart","SUV",1500,"5","bcdeghiqrtyBIL","285"],["58296365","Volkswagen T-Roc","1.5 TSI 150pk DSG Sport LED Camera Navigatie App-Connect DAB+",24450,"B","08-2021","A",45.2,"B",150,"grijs","SUV",1500,"5.2","bcdeghjqrstwyABIJL","335"],["56496336","Volkswagen Taigo","1.0 TSI R-Line Business LED Camera Stoelverwarming App-Connect DAB+",18400,"B","11-2022","H",110.8,"B",110,"grijs","SUV",1100,"4.9","bcdeghjqrstuyBCIKLM","252"],["57407911","Volkswagen Taigo","1.0 TSI Life Camera Navigatie App-Connect DAB+",17250,"B","09-2022","H",59.7,"B",95,"zwart","SUV",1000,"4.7","deqrsyBIL","236"],["57369654","Volkswagen Taigo","1.0 TSI Life Camera Stoelverwarming Navigatie App-Connect DAB+",16850,"B","04-2022","H",83.6,"B",95,"zwart","SUV",1000,"4.7","deghjqryBI","231"],["57730373","Volkswagen Taigo","1.0 TSI Life Business Panoramadak Stoelverwarming Navigatie Parkeersensoren DAB+",17850,"B","10-2022","H",84.6,"B",95,"zwart","SUV",1000,"4.7","dghjpqrstyBCIKL","239"],["58099903","Volkswagen Taigo","1.0 TSI 110pk DSG Life Business Stoelverwarming Parkeersensoren Virtual Cockpit Navigatie",18950,"B","01-2023","A",95.6,"B",110,"zwart","SUV",1100,"4.9","dghjqrsyBCIK","259"],["58270901","Volkswagen Taigo","1.0 TSI Life Camera Sfeerverlichting Navigatie App-Connect DAB+",17750,"B","06-2022","H",75.5,"B",95,"grijs","SUV",1000,"4.7","adeghjqrstyABI","243"],["58272689","Volkswagen Taigo","1.0 TSI Life Camera Stoelverwarming Navigatie App-Connect",17250,"B","10-2022","H",76.2,"B",95,"zwart","SUV",1000,"4.7","deghjqrstvyBI","236"],["58326800","Volkswagen Taigo","1.0 TSI Life Business Stoelverwarming Navigatie App-Connect DAB+",16400,"B","10-2022","H",102.5,"B",95,"zwart","SUV",1000,"4.7","dghjqrsyBCIKL","224"],["58327775","Volkswagen Taigo","1.0 TSI 110pk DSG Life Camera Navigatie App-Connect DAB+",18550,"B","07-2023","A",95.4,"B",110,"grijs","SUV",1100,"5.8","deghjqryBIL","254"],["53142447","Volkswagen Tiguan","1.4 TSI 150pk DSG ACT Connected Series Panoramadak Alcantara Stoelverwarming Camera DAB+",13450,"M","02-2017","A",215.3,"B",150,"blauw","SUV",1800,"6","cdeghjopqstwyBEIL","285"],["52083580","Volkswagen Tiguan","1.5 TSI 150pk DSG R-Line Business+ Camera Stoelverwarming LED Adaptive Cruise",27950,"B","12-2020","A",93.7,"B",150,"zwart","SUV",1800,"5.8","bcdeghjoqrstuvwyBIJKLM","375"],["55397977","Volkswagen Tiguan","1.5 TSI 150pk DSG R-Line Business Panoramadak Camera Virtual Cockpit Stoelverwarming",32450,"B","04-2023","A",103.3,"B",150,"zwart","SUV",1800,"6.6","bcdeghjopqrstuvwyBCIKLM","424"],["55968349","Volkswagen Tiguan","1.4 TSI 150pk DSG ACT Highline Virtual Cockpit Stoelverwarming Navigatie",22400,"M","01-2018","A",136.2,"B",150,"grijs","SUV",1800,"6.1","bcdghjorstyIJL","462"],["57459702","Volkswagen Tiguan","1.5 TSI 150pk DSG Life Parkeersensoren Navigatie DAB+ App-Connect",24850,"B","06-2021","A",83.5,"B",150,"zwart","SUV",1800,"5.7","bcdghqsyBIL","340"],["57466564","Volkswagen Tiguan","1.5 TSI 150pk DSG R-Line Panoramadak Alcantara App-Connect DAB+",31750,"B","09-2022","A",97.8,"B",150,"grijs","SUV",1800,"5.8","bcdeghopqrsyBILM","434"],["55844180","Volkswagen Tiguan Allspace","1.5 TSI Highline Business R Panoramadak Stoelverwarming Virtual Cockpit",26400,"B","11-2020","A",127.4,"B",150,"zwart","SUV",1800,"5.9","bcdeghijopqrstvwyBCIKLM","361"],["56626351","Volkswagen Tiguan Allspace","1.5 TSI 150pk DSG Highline Business R R-Line Camera Virtual Cockpit DAB+ Trekhaak",27400,"B","09-2021","A",113.1,"B",150,"wit","SUV",1800,"5.9","abcdeghoqrstvwyBCIKLM","367"],["57456095","Volkswagen Tiguan Allspace","1.5 TSI 150pk DSG Elegance LED Alcantara Stoelverwarming Camera Navigatie",26400,"B","08-2022","A",106.6,"B",150,"grijs","SUV",1800,"5.7","bcdeghijoqrstuvwyABIL","361"],["57362731","Volkswagen Transporter","2.0 TDI 102pk L1H1 Comfortline Cruise Control Camera Airco",12750,"B","11-2019","H",134.9,"D",102,"wit","Bestelauto",0,"7.1","ceh","224"]];
+const EXTRA={"v":1,"o":[],"c":{}};
+// EXTRA: per auto {d:deuren,z:zitplaatsen,ar:actieradius,el:energielabel,apk,i:interieur,b:bekleding,cc,o:[optie-index]} - wordt door de dagelijkse update gevuld
+const X=c=>EXTRA.c[c[0]]||null;
+const __ot={};const optText=c=>{if(__ot[c[0]]!=null)return __ot[c[0]];const x=X(c);return __ot[c[0]]=(x&&x.o?x.o.map(i=>EXTRA.o[i]||"").join(" | ").toLowerCase():"");};
+let __ov=null;const OPTVOC=()=>__ov||(__ov=new Set(EXTRA.o.join(" ").toLowerCase().split(/[^a-z0-9à-ÿ\-+]+/).filter(w=>w.length>=4)));
 // index: 0 id,1 merk+model,2 uitvoering,3 prijs,4 B/M,5 mm-jjjj,6 A/H,7 km x1000,8 brandstof,9 pk,10 kleur,11 carrosserie,12 trekgewicht,13 verbruik,14 optiecodes
 const FLAGS=[
  ["trekhaak","Trekhaak",/trekhaak|trek\s?haak|aanhanger|caravan/],
@@ -272,20 +457,20 @@ const FLAGS=[
  ["stoelverw","Stoelverwarming",/stoel\s*verwarming|verwarmde\s*stoelen|stoelen\s*verwarmd/],
  ["stuurverw","Stuurverwarming",/stuur\s*verwarming|verwarmd\s*stuur/],
  ["achterbankverw","Verwarmde achterbank",/achterbank\s*verwarm/],
- ["leder","Leder",/(?<!half\s)(?<!half)\bleder(en)?\b|\bleer\b|\bleren\b/],
+ ["leder","Leder",/(?<!half\s)(?<!half)\bleder(en)?\b(\s*bekleding|\s*interieur|\s*stoelen)?|\bleer\b|\bleren\b(\s*bekleding|\s*stoelen)?/],
  ["halfleder","Half leder",/half\s*-?\s*leder/],
  ["alcantara","Alcantara",/alcantara/],
- ["panorama","Panoramadak",/panorama|\bpano\b|schuif\s*dak|glazen\s*dak|open\s*dak/],
+ ["panorama","Panoramadak",/panorama\w*|\bpano\b|schuif\s*dak|glazen\s*dak|open\s*dak/],
  ["carplay","CarPlay / Android Auto",/car\s*play|android\s*auto|app\s*-?\s*connect|apple/],
  ["vcockpit","Digitaal dashboard",/virtual\s*cockpit|digita(al|le)\s*(dashboard|teller|cockpit|instrument)/],
  ["climate","Climate control",/climate|clima|automatische\s*airco/],
  ["led","LED-koplampen",/\bled\b/],
  ["matrix","Matrix LED",/matrix/],
- ["keyless","Keyless",/keyless|sleutelloos|zonder\s*sleutel/],
+ ["keyless","Keyless",/keyless(\s*(entry|go|start|access))?|sleutelloos|zonder\s*sleutel/],
  ["eklep","Elektrische achterklep",/elektrische?\s*(achter)?klep/],
  ["dodehoek","Dodehoekdetectie",/dode\s*-?\s*hoek|blind\s*spot/],
  ["lane","Lane assist",/lane\s*assist|rijstrook/],
- ["hud","Head-up display",/head\s*-?\s*up|\bhud\b/],
+ ["hud","Head-up display",/head\s*-?\s*up(\s*-?\s*display)?|\bhud\b/],
  ["sfeer","Sfeerverlichting",/sfeer\s*verlichting|ambient/],
  ["dab","DAB+",/\bdab\+?/],
  ["draadloos","Draadloos laden",/draadloo?s\s*(laden|lader|opladen)|draadloze\s*lader/],
@@ -299,26 +484,37 @@ const FLAGS=[
  ["verkeersbord","Verkeersbordherkenning",/verkeersbord/],
  ["getint","Privacy glass",/privacy\s*glas|getint(e)?\s*(glas|ramen)/],
  ["sline","Sportief pakket (S/R-Line, FR, Sportline)",/s\s*-?\s*line|r\s*-?\s*line|\bfr\b|sportline|sportief\s*pakket/],
- ["vierwd","4x4",/4\s*x\s*4|quattro|4\s*motion|vierwiel|4wd|awd/],
+ ["vierwd","4x4",/4\s*x\s*4|quattro|4\s*motion|4\s*drive|vierwiel|4wd|awd/],
  ["premiumaudio","Premium audio",/b\s*&\s*o|bang|beats|canton|premium\s*audio|goed\s*geluid/]
 ];
 const code=i=>i<26?String.fromCharCode(97+i):String.fromCharCode(65+i-26);
 const FLAG_KEYS=FLAGS.map(f=>f[0]);
 const FLAG_LABEL=Object.fromEntries(FLAGS.map(f=>[f[0],f[1]]));
 const FLAG_CODE=Object.fromEntries(FLAGS.map((f,i)=>[f[0],code(i)]));
-const ADDONS={trekhaak:{label:"Vaste trekhaak",price:950}};
-const hasOpt=(c,o)=>c[14].includes(FLAG_CODE[o])||(o==="cruise"&&c[14].includes(FLAG_CODE.acc))||(o==="camera"&&c[14].includes(FLAG_CODE.cam360));
+// ===== PRIJZEN EXTRA'S: hier aanpassen =====
+const TREKHAAK_PRIJS={vast:950, afneembaar:1150};
+// Kleine auto's (eerste auto, tweede auto, stadsauto, kleine auto): pas deze lijst aan als je wilt
+const KLEINE_AUTOS=["up!","Polo","A1","Ibiza","Citigo","Mii"];
+// ============================================
+const ADDONS={trekhaak:{label:"Vaste trekhaak",price:TREKHAAK_PRIJS.vast}};
+const towPrice=f=>f&&f.towKind==="afneembaar"?TREKHAAK_PRIJS.afneembaar:TREKHAAK_PRIJS.vast;
+const towLabel=f=>f&&f.towKind==="afneembaar"?"Afneembare trekhaak":"Vaste trekhaak";
+const hasOpt=(c,o)=>c[14].includes(FLAG_CODE[o])||(o==="zeven"&&X(c)&&X(c).z>=7)||(o==="cruise"&&c[14].includes(FLAG_CODE.acc))||(o==="camera"&&c[14].includes(FLAG_CODE.cam360));
 const canAdd=(c,o)=>!!ADDONS[o]&&c[12]>0;
 const addons=(c,f)=>f.options.filter(o=>!hasOpt(c,o)&&canAdd(c,o));
-const totalPrice=(c,f)=>c[3]+addons(c,f).reduce((s,o)=>s+ADDONS[o].price,0);
+const totalPrice=(c,f)=>c[3]+addons(c,f).reduce((s,o)=>s+(o==="trekhaak"?towPrice(f):ADDONS[o].price),0);
 const SHOW_ORDER=["trekhaak","acc","navi","camera","cam360","pdca","stoelverw","stuurverw","panorama","carplay","vcockpit","climate","led","keyless","eklep","zeven","leder","halfleder","alcantara","sfeer","dodehoek","parkassist","massage","luchtvering","vierwd","sline","premiumaudio","dakrails","draadloos","warmtepomp","hud","matrix"];
 
-const BODY={SUV:/\bsuv\b|crossover|terreinauto|hoge\s*instap/,Stationwagon:/station(wagon)?|\bcombi\b|variant|\bbreak\b|estate|sports?tourer|\bavant\b|\bst\b/,Hatchback:/hatch(back)?|\bhb\b|compact(e)?\s*auto|stadsauto/,Sedan:/sedan|limousine/,Bestelauto:/bestel|\bbus\b|busje|cargo|transporter/};
-const FUEL={E:/elektris|\bev\b|electric|stekker/,H:/hybride|hybrid|e-?tsi|plug-?in|phev/,D:/diesel|\btdi\b/,B:/benzine|\btsi\b|\btfsi\b/};
-const FUEL_LABEL={E:"Elektrisch",H:"Hybride",D:"Diesel",B:"Benzine"};
+const BODY={SUV:/\bsuv\b|crossover|terrein(auto|wagen)|hoge\s*instap|hoge\s*zit|\bjeep\b/,Stationwagon:/station(wagon)?|\bcombi\b|variant|\bbreak\b|estate|sports?tourer|\bavant\b|\bst\b/,Hatchback:/hatch(back)?|\bhb\b|compact(e)?\s*auto/,Sedan:/sedan|limousine/,Bestelauto:/bestel\w*|\bbus\b|busje|cargo|transporter|grijs\s*kenteken/,Cabrio:/cabrio\w*|convertible|open\s*dak\s*auto/,"Coupé":/\bcoup[eé](?![a-z])/,MPV:/\bmpv\b|ruimtewagen|monovolume/,"Pick-up":/pick-?up/};
+const DRIVE_LABEL={fwd:"Voorwielaandrijving",rwd:"Achterwielaandrijving",awd:"Vierwielaandrijving (4x4)"};
+function driveOf(c){if(c[14].includes(FLAG_CODE.vierwd))return "awd";if(c[8]==="E"&&(/ID\.3|ID\.4|Enyaq/.test(c[1])||(/Q4/.test(c[1])&&/\b40\b/.test(c[2]))))return "rwd";return "fwd";}
+const STOP=new Set("ik we wij zoek zoeken zoekt gezocht wil willen graag een de het die dat deze met en of voor van tot uit in op aan bij om te dan als naar nog ook wel maar is zijn heeft hebben heb mag moet kan kunnen liefst liever bij voorkeur auto autos auto's wagen wagens occasion occasions iets wat welke jullie er hier mijn ons onze gezin kinderen budget prijs euro km kilometer kilometers pk jaar jaren oud ouder nieuw nieuwe mooie mooi goede goed leuke leuk stand rond ongeveer circa max maximaal minimaal vanaf onder boven geen zonder niet nooit behalve absoluut hoeft hoeven per maand mnd a b c d e f g h i j k l m n o p q r s t u v w x y z dus alsjeblieft aub svp hallo hoi dag bedankt display maandbedrag maandlasten mille duizend duurder goedkoper dak bekleding interieur stoelen optie opties uitvoering kleur model merk type soort kosten kost mag zijn rijden rijdt gebruik dagelijks woon werk verkeer lang lange afstand korte ritten stad snelweg vakantie hond honden kinderwagen fiets fietsen minder meer eerste dochter zoon vrouw man vriendin vriend moeder vader ruimte ruim ruime grote groot veel trekken plug kofferbak beginner beginnende jonge student klant klanten wens wensen ideaal betrouwbaar betrouwbare systeem airco i im looking want need would like please hi hello car cars vehicle vehicles an the any some something that which are have has do does you your me show find search get buy one got detectie andere ander anders daughter son wife husband mother father mom dad girlfriend boyfriend oude oud huidige gezinsauto voorraad leuks leuke leuk mooie aanbod hebben jullie ich suche brauche möchte bitte ein eine einen das der die ben lage hoge echt erg heel wel metallic kleur nieuwer jonger ouder later bouwjaar gelopen gereden".split(" "));
+
+const FUEL={L:/\blpg\b|autogas/,A:/\bcng\b|aardgas|g-?tec/,E:/elektris\w*|\bev\b|electric|stekker\w*|\bbev\b|volledig\s*elektrisch/,H:/hybride|hybrid|e-?tsi|plug-?in|phev/,D:/diesel|\btdi\b/,B:/benzine|\btsi\b|\btfsi\b/};
+const FUEL_LABEL={L:"LPG",A:"Aardgas (CNG)",E:"Elektrisch",H:"Hybride",D:"Diesel",B:"Benzine"};
 const BRANDS={"Audi":/\baudi\b/,"Volkswagen":/volkswagen|\bvw\b/,"SEAT":/\bseat\b/,"CUPRA":/cupra/,"Škoda":/skoda|škoda/};
-const COLORS=["zwart","wit","grijs","blauw","rood","groen","zilver"];
-const COLOR_RE={zwart:/\bzwart(e)?\b|\bdonker(e)?\s*kleur/,wit:/\bwit(te)?\b|parelmoer/,grijs:/\bgrij(s|ze)\b|antraciet|grafiet|\bgrey\b/,blauw:/\bblauw(e)?\b/,rood:/\bro(o)?d(e)?\b/,groen:/\bgroen(e)?\b/,zilver:/\bzilver(en|kleurig(e)?)?\b/};
+const COLORS=["zwart","wit","grijs","blauw","rood","groen","zilver","beige","bruin","oranje","geel","goud","paars"];
+const COLOR_RE={zwart:/\bzwart(e)?\b|\bdonker(e)?\s*kleur/,wit:/\bwit(te)?\b|parelmoer/,grijs:/\b(donker|licht|middel)?grij(s|ze)\b|antraciet|grafiet|\bgrey\b|\bgray\b/,blauw:/\b(donker|licht|metallic)?blauw(e)?\b/,rood:/\b(donker|licht)?ro(o)?d(e)?\b/,groen:/\b(donker|licht)?groen(e)?\b/,zilver:/\bzilver(en|kleurig(e)?|grijs)?\b/,beige:/\bbeige\b|\bcr[eè]me\b|champagne/,bruin:/\bbruin(e)?\b/,oranje:/\boranje\b/,geel:/\bge(e)?l(e)?\b/,goud:/\bgoud(en|kleurig(e)?)?\b/,paars:/\bpaars(e)?\b|\bviolet\b/};
 
 const brandOf=mm=>mm.split(" ")[0].replace("SEAT","SEAT");
 const modelOf=mm=>mm.split(" ").slice(1).join(" ");
@@ -328,63 +524,394 @@ const normModel=s=>s.toLowerCase().replace(/[\s\-.]/g,"");
 function parseNum(s){
   s=s.trim().toLowerCase();
   let mult=1;
-  if(/k$|duizend$|dzd$/.test(s)){mult=1000;s=s.replace(/\s*(k|duizend|dzd)$/,"")}
+  if(/k$|duizend$|dzd$|mille$/.test(s)){mult=1000;s=s.replace(/\s*(k|duizend|dzd|mille)$/,"")}
   if(/^\d{1,3}([.\s]\d{3})+$/.test(s)) s=s.replace(/[.\s]/g,"");
   else s=s.replace(",",".");
   const n=parseFloat(s);return isNaN(n)?null:n*mult;
 }
 
+
+// ===== Engels en Duits: vertaal de zoekopdracht eerst naar Nederlands =====
+const LANG_EN=[
+ [/\bstation\s*-?\s*wagon\b|\bestate(\s*car)?\b|\bwagon\b|\btouring\b/g," stationwagon "],
+ [/\bfamily\s*car\b|\bfor\s*(the|my|a)\s*family\b|\bfamily\b/g," gezin "],
+ [/\bfirst\s*car\b/g," eerste auto "],[/\bsecond\s*car\b/g," tweede auto "],[/\b(small|city|compact|little)\s*car\b/g," kleine auto "],
+ [/\b(detachable|removable)\b/g," afneembare "],[/\bfixed(?=\s*tow)/g," vaste "],
+ [/\btow\s*-?\s*bar\b|\btow(ing)?\s*(hook|hitch|ball)\b|\btrailer\s*hitch\b/g," trekhaak "],
+ [/\btowing\s*(capacity|weight)\b|\btow\s*weight\b|\bcan\s*tow\b/g," trekgewicht "],
+ [/\bheated\s*(front\s*)?seats?\b|\bseat\s*heating\b/g," stoelverwarming "],[/\bheated\s*steering\s*wheel\b/g," stuurverwarming "],
+ [/\bsat\s*-?\s*nav\b|\bnavigation(\s*system)?\b/g," navigatie "],
+ [/\bpanoramic\s*(sun|glass)?\s*roof\b|\bpanorama\s*roof\b|\bsun\s*-?\s*roof\b|\bglass\s*roof\b|\bmoon\s*roof\b/g," panoramadak "],
+ [/\bparking\s*sensors?\b|\bpark\s*distance\s*control\b/g," parkeersensoren "],[/\bpark(ing)?\s*assist(ant)?\b|\bself\s*-?\s*parking\b/g," parkeerassistent "],
+ [/\b(reversing|rear\s*-?\s*view|backup|back\s*-?\s*up|rear)\s*camera\b/g," achteruitrijcamera "],[/\bsurround\s*view\b|\bbird'?s?\s*eye\b/g," 360 camera "],
+ [/\bclimate\s*control\b|\bautomatic\s*air\s*-?\s*con(ditioning)?\b|\bdual\s*zone\b/g," climate control "],[/\bair\s*-?\s*con(ditioning)?\b|\ba\/c\b/g," airco "],
+ [/\bhalf\s*-?\s*leather\b|\bpart\s*-?\s*leather\b/g," half leder "],[/\bleather(\s*(seats|interior|upholstery))?\b/g," leder "],
+ [/\b(electric|power)\s*(tailgate|boot|trunk)\b/g," elektrische achterklep "],[/\bblind\s*-?\s*spot(\s*(monitor\w*|assist|detection))?\b/g," dodehoek "],
+ [/\blane\s*(assist|keep\w*|departure)\b/g," lane assist "],[/\bhead\s*-?\s*up(\s*display)?\b/g," head-up "],[/\bambient\s*light\w*\b/g," sfeerverlichting "],
+ [/\bwireless\s*(phone\s*)?charg\w*\b/g," draadloos laden "],[/\b(electric|power|memory)\s*seats?\b/g," elektrische stoelen "],[/\bmassage\s*seats?\b/g," massage "],
+ [/\bair\s*suspension\b/g," luchtvering "],[/\bheat\s*pump\b/g," warmtepomp "],[/\broof\s*(rails|bars)\b/g," dakrails "],[/\bsports?\s*seats\b/g," sportstoelen "],
+ [/\btraffic\s*sign\s*recognition\b/g," verkeersbordherkenning "],[/\bprivacy\s*glass\b|\btinted\s*windows\b/g," privacy glas "],
+ [/\b(all|four)\s*-?\s*wheel\s*drive\b/g," 4x4 "],[/\brear\s*-?\s*wheel\s*drive\b/g," achterwielaandrijving "],[/\bfront\s*-?\s*wheel\s*drive\b/g," voorwielaandrijving "],
+ [/\b(7|seven)\s*-?\s*seat(s|er)?\b|\bthird\s*row\b/g," 7 zitplaatsen "],[/\b(\d)\s*seats\b/g," $1 zitplaatsen "],[/\b(\d)\s*-?\s*doors?\b/g," $1 deurs "],
+ [/\bpremium\s*(sound|audio)\b|\bsound\s*system\b/g," premium audio "],[/\bled\s*(head\s*)?lights?\b/g," led "],[/\bcruise\s*control\b/g," cruise control "],
+ [/\bautomatic(\s*(gearbox|transmission))?\b|\bauto\s*gearbox\b/g," automaat "],[/\bmanual(\s*(gearbox|transmission))?\b|\bstick\s*-?\s*shift\b/g," handgeschakeld "],
+ [/\bpetrol\b|\bgasoline\b/g," benzine "],[/\bplug\s*-?\s*in\s*hybrid\b|\bhybrid\b/g," hybride "],[/\b(fully\s*)?electric(\s*(car|vehicle))?\b|\bbattery\s*electric\b/g," elektrisch "],
+ [/\bdark\s*blue\b|\bnavy\b/g," blauw "],[/\bblack\b/g," zwart "],[/\bwhite\b/g," wit "],[/\bgr[ae]y\b/g," grijs "],[/\bblue\b/g," blauw "],[/\bred\b/g," rood "],[/\bgreen\b(?!\s*car)/g," groen "],
+ [/\bsilver\b/g," zilver "],[/\bbrown\b/g," bruin "],[/\borange\b/g," oranje "],[/\byellow\b/g," geel "],[/\bgold\b/g," goud "],[/\bpurple\b/g," paars "],
+ [/\bnot\s*older\s*than\b/g," niet ouder dan "],[/\bnewer\s*than\b/g," nieuwer dan "],[/\bolder\s*than\b/g," ouder dan "],[/\byounger\s*than\b/g," jonger dan "],[/\byears?\s*old\b/g," jaar oud "],
+ [/\bless\s*than\b/g," minder dan "],[/\bmore\s*than\b/g," meer dan "],[/\bno\s*more\s*than\b|\bat\s*most\b/g," hooguit "],[/\bat\s*least\b/g," minimaal "],[/\bcheaper\s*than\b/g," goedkoper dan "],
+ [/\bunder\b|\bbelow\b/g," onder "],[/\bup\s*to\b/g," tot "],[/\bmaximum\b/g," maximaal "],[/\bminimum\b/g," minimaal "],[/\bover(?=\s*[€\d])|\babove(?=\s*[€\d])/g," boven "],
+ [/\bstarting\s*(at|from)\b|\bfrom(?=\s*[€\d])/g," vanaf "],[/\bbetween\b/g," tussen "],[/\baround\b|\babout\b|\bapprox(imately)?\b|\broughly\b/g," rond "],
+ [/\beuros?\b|\beur\b/g," euro "],[/\b(\d+)\s*(b?hp|horse\s*power)\b/g," $1 pk "],[/\bper\s*month\b|\ba\s*month\b|\bmonthly\b|\bp\/m\b/g," per maand "],
+ [/\blow\s*mileage\b/g," weinig km "],[/\bmileage\b|\bodometer\b/g," kilometerstand "],[/\bkilomet(er|re)s?\b|\bkms\b/g," km "],
+ [/\bcheapest\b/g," goedkoopste "],[/\bnewest\b|\blatest\b/g," nieuwste "],[/\blowest\s*(mileage|km)\b/g," minste km "],
+ [/\b(most\s*)?(fuel\s*)?(efficient|economical)\b|\blow\s*(fuel\s*)?consumption\b/g," zuinig "],[/\bcheap\b|\baffordable\b|\bbudget\s*friendly\b/g," goedkoop "],
+ [/\bdogs?\b/g," hond "],[/\b(horse|boat)\s*trailer\b/g," paardentrailer "],[/\bbike\s*(rack|carrier)\b|\bbicycle\s*(rack|carrier)\b/g," fietsendrager "],
+ [/\bski(ing)?\b|\bwinter\s*sports?\b/g," wintersport "],[/\bcommut\w*\b|\blong\s*distances?\b|\bmotorway\b|\bhighway\b/g," woon werk "],
+ [/\bin\s*(the\s*)?(city|town)\b|\bcity\s*driving\b/g," in de stad "],[/\b(young|new|beginner|novice)\s*drivers?\b|\blearner\b/g," jonge bestuurder "],
+ [/\belderly\b|\beasy\s*(to\s*get\s*in|entry|access)\b/g," makkelijk instappen "],[/\bluxury\b|\bluxurious\b|\bfully\s*loaded\b/g," luxe "],[/\bsafe(ty)?\b/g," veilig "],[/\bquiet\b/g," stil "],
+ [/\bcompany\s*car\b|\bbusiness(\s*car)?\b|\bvat\s*(deductible|car)\b/g," zakelijk "],[/\bmargin\s*car\b/g," marge "],
+ [/\b(lots\s*of\s*)?space\b|\bspacious\b|\b(big|large)\s*(boot|trunk)\b|\bcargo\s*space\b|\broomy\b/g," veel ruimte "],[/\bkids\b|\bchildren\b|\bchild\s*seats?\b/g," kinderen "],
+ [/\bsporty\b|\bfun\s*to\s*drive\b/g," sportief "],[/\bfast\b|\bquick\b/g," snel "],[/\bpowerful\b/g," krachtig "],[/\beco(\s*-?\s*friendly)?\b|\benvironment(ally)?\s*friendly\b|\bgreen\s*car\b/g," duurzaam "],
+ [/\bholiday\b|\bvacation\b|\broad\s*-?\s*trip\b/g," vakantie "],[/\bconvertible\b|\bcabriolet\b/g," cabrio "],[/\bcoupe\b/g," coupé "],[/\bphone\s*(connection|mirroring)\b/g," telefoon koppelen "],
+ [/\bwithout\b/g," zonder "],[/\bexcept\b/g," behalve "],[/\bno\b/g," geen "],[/\bnot\b/g," niet "],[/\bwith\b/g," met "],[/\band\b/g," en "],[/\bor\b/g," of "],[/\bbut\b/g," maar "],[/\bfor\b/g," voor "]
+];
+const LANG_DE=[
+ [/\banh[äa]nger\s*-?\s*kupplung\b|\bahk\b/g," trekhaak "],[/\bsitzheizung\b/g," stoelverwarming "],[/\blenkradheizung\b/g," stuurverwarming "],
+ [/\bnavigationssystem\b|\bnavi\b/g," navigatie "],[/\bautomatik(getriebe)?\b/g," automaat "],[/\bschaltgetriebe\b|\bschalter\b|\bmanuell\b/g," handgeschakeld "],
+ [/\bkombi\b/g," stationwagon "],[/\bschwarz\b/g," zwart "],[/\bwei(ß|ss)\b/g," wit "],[/\bgrau\b/g," grijs "],[/\bblau\b/g," blauw "],[/\bsilber\b/g," zilver "],
+ [/\bunter\b/g," onder "],[/\bbis\b/g," tot "],[/\bab(?=\s*[€\d])/g," vanaf "],[/\b[üu]ber(?=\s*[€\d])/g," boven "],[/\bmit\b/g," met "],[/\bohne\b/g," zonder "],[/\bkein(e|en|er)?\b/g," geen "],[/\bund\b/g," en "],[/\boder\b/g," of "],
+ [/\bbenzin(er)?\b/g," benzine "],[/\belektro(auto)?\b/g," elektrisch "],[/\bleder(sitze|ausstattung)?\b/g," leder "],[/\bpanoramadach\b|\bschiebedach\b/g," panoramadak "],
+ [/\br[üu]ckfahrkamera\b/g," achteruitrijcamera "],[/\beinparkhilfe\b/g," parkeersensoren "],[/\babstandstempomat\b/g," adaptive cruise "],[/\btempomat\b/g," cruise control "],
+ [/\bklimaautomatik\b/g," climate control "],[/\ballrad(antrieb)?\b/g," 4x4 "],[/\b(7|sieben)\s*-?\s*sitzer\b/g," 7 zitplaatsen "],[/\bfamilienauto\b|\bfamilie\b/g," gezin "],
+ [/\bg[üu]nstig\b|\bbillig\b/g," goedkoop "],[/\bsparsam\b/g," zuinig "],[/\b(\d+)\s*ps\b/g," $1 pk "],[/\bbaujahr\b/g," bouwjaar "],[/\bhund\b/g," hond "],[/\bwohnwagen\b/g," caravan "],
+ [/\bfahrradtr[äa]ger\b/g," fietsendrager "],[/\bkilometerstand\b/g," kilometerstand "],[/\bschwarzes?\b/g," zwart "]
+];
+const EN_HINT=/\b(something|sporty|above|below|hp|bhp|seater|gearbox|price|month|daughter|son|wife|my|need|show|any|find|first|second|tow|heated|petrol|diesel car|towing|cheaper|newer|older|seven|doors|the|with|without|under|cheap|black|white|towbar|tow bar|heated|seats|automatic|petrol|looking|want|need|car|cars|mileage|leather|sunroof|navigation|estate|family|electric|hybrid|between|around|less|more|than|and|or)\b/;
+const DE_HINT=/\b(mit|ohne|unter|bis|und|oder|kein|sitzheizung|anh[äa]ngerkupplung|automatik|schwarz|wei(ß|ss)|kombi|g[üu]nstig|ps)\b/;
+function translateQuery(t,f){
+  const en=(t.match(new RegExp(EN_HINT.source,"g"))||[]).length, de=(t.match(new RegExp(DE_HINT.source,"g"))||[]).length;
+  const nlHint=(t.match(/\b(met|zonder|onder|een|de|het|en|of|tot|geen|niet|voor|auto)\b/g)||[]).length;
+  if(en>0&&en>=nlHint){for(const [re,to] of LANG_EN)t=t.replace(re,to);if(typeof EN==="undefined"||!EN)f._life.push("Zoekopdracht in het Engels begrepen");}
+  else if(de>0&&de>=nlHint){for(const [re,to] of LANG_DE)t=t.replace(re,to);f._life.push("Zoekopdracht in het Duits begrepen");}
+  return t;
+}
+
+// ===== Tikfouten: verbeter woorden die bijna een bekend woord zijn =====
+const FIXWORDS="automaat automatisch automatische handgeschakeld stoelverwarming stuurverwarming navigatie navigatiesysteem trekhaak panoramadak achteruitrijcamera parkeersensoren parkeerhulp parkeerassistent adaptive climate carplay keyless alcantara elektrisch elektrische hybride diesel benzine stationwagon hatchback cabrio sportback kilometer kilometers kilometerstand zitplaatsen zuinig zuinige goedkoop goedkope goedkoopste maandbedrag dodehoek dodehoekdetectie sfeerverlichting luchtvering warmtepomp dakrails sportstoelen achterklep afneembare wintersport caravan fietsendrager volkswagen cupra kodiaq karoq kamiq octavia superb tiguan allspace touran passat arteon ibiza arona ateca tarraco formentor taigo enyaq sportief sportieve krachtig maximaal minimaal ongeveer bouwjaar gezinsauto achterwielaandrijving voorwielaandrijving vierwielaandrijving quattro massage verwarming verwarmde inparkeren parkeren actieradius energielabel variant zuinigste goedkoopste duurste sterkste krachtigste snelste nieuwste jongste transporter tweedehands occasion leasen privacy verkeersbordherkenning head-up display matrix virtual cockpit trekgewicht".split(" ");
+const COMMONNL=new Set("zwaar zware zwaarder prijs prijzen ander andere anders kinder kinderen minder groot grote groter nieuw nieuwe oudere ouder jonger kleur kleuren graag zoeken zoek wagen motor motoren eigen eerste tweede derde hebben willen kunnen moeten beter beste mooie mooier lekker lekkere fijne snelle stille ruime ruimer lange korte hoger lager boven onder tussen vanaf zonder samen alleen gewoon echte prima super handig handige comfort comfortabel praktisch praktische dealer garage garantie onderhoud schade eigenaar kosten belasting verzekering".split(" "));
+function dl(a,b,max){if(Math.abs(a.length-b.length)>max)return max+1;const d=[];for(let i=0;i<=a.length;i++){d[i]=[i];}for(let j=0;j<=b.length;j++)d[0][j]=j;
+  for(let i=1;i<=a.length;i++){let rowMin=99;for(let j=1;j<=b.length;j++){const c=a[i-1]===b[j-1]?0:1;d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);
+    if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1);if(d[i][j]<rowMin)rowMin=d[i][j];}if(rowMin>max)return max+1;}return d[a.length][b.length];}
+function fixTypos(t,f){
+  const VOC=window.__voc||(window.__voc=(()=>{const s=new Set();CARS.forEach(c=>(c[1]+" "+c[2]).toLowerCase().split(/[^a-z0-9\-+.]+/).forEach(w=>{w=w.replace(/[.]+$/,"");if(w.length>=2&&!/^\d+$/.test(w))s.add(w)}));return s;})()); const OV=OPTVOC();
+  return t.replace(/[a-zà-ÿ][a-zà-ÿ\-]{4,}/g,w=>{
+    if(STOP.has(w)||COMMONNL.has(w)||VOC.has(w)||OV.has(w)||FIXWORDS.includes(w))return w;
+    const max=w.length>=9?2:1; let best=null,bd=9,tie=false;
+    for(const c of FIXWORDS){if(c.length<5)continue;if(c.length<6&&w.length<5)continue;const d=dl(w,c,max);if(d<bd){bd=d;best=c;tie=false;}else if(d===bd&&c!==best)tie=true;}
+    if(best&&bd<=max&&!tie&&!(w.length<6&&bd>0&&best.length>=6&&w.length+1<best.length)){f._fixed.push(w+" → "+best);return best;}
+    return w;});
+}
 function localParse(q){
   let t=" "+q.toLowerCase().replace(/€/g," € ")+" ";
-  const f={maxPrice:null,minPrice:null,maxKm:null,minYear:null,maxYear:null,body:[],brands:[],models:[],transmission:null,fuel:[],options:[],minPower:null,colors:[],maxCons:null,eco:false};
-  const take=re=>{let hit=false;t=t.replace(new RegExp(re.source,"g"),()=>{hit=true;return " ";});return hit;};
+  const f={maxPrice:null,minPrice:null,maxKm:null,minYear:null,maxYear:null,body:[],brands:[],models:[],transmission:null,fuel:[],options:[],minPower:null,maxPower:null,powers:[],notPowers:[],towKind:null,small:false,engine:null,_info:[],doors:null,minRange:null,label:null,optTerms:[],_life:[],_fixed:[],_boost:[],_boostFuel:[],minKm:null,minTow:null,vat:null,colors:[],maxCons:null,eco:false,notOptions:[],notColors:[],notFuel:[],notBrands:[],notModels:[],notBody:[],drive:null,notDrive:null,maxMonthly:null,terms:[],notTerms:[],_unknown:[]};
+  t=t.replace(/\bkodiak\b/g,'kodiaq').replace(/\bkarok\b/g,'karoq').replace(/\bta?r+ac+o\b/g,'tarraco').replace(/\bt\s?roc\b/g,'t-roc').replace(/\bt\s?cross\b/g,'t-cross').replace(/\boctavio\b/g,'octavia').replace(/\benyak\b/g,'enyaq').replace(/\btiguan\s*all\s*space\b/g,'tiguan allspace').replace(/\bhead\s*up\b/g,'head-up');
+  {const W={tien:10,elf:11,twaalf:12,dertien:13,veertien:14,vijftien:15,zestien:16,zeventien:17,achttien:18,negentien:19,twintig:20,eenentwintig:21,tweeëntwintig:22,tweeentwintig:22,drieëntwintig:23,drieentwintig:23,vierentwintig:24,vijfentwintig:25,zesentwintig:26,dertig:30,vijfendertig:35,veertig:40,vijftig:50};
+   t=t.replace(/\b([a-zë]+)\s*duizend\b/g,(m,w)=>W[w]?" "+W[w]*1000+" ":m);
+   t=t.replace(/\bhonderd\s*duizend\b/g," 100000 ");
+   const S={een:1,twee:2,drie:3,vier:4,vijf:5,zes:6,zeven:7,acht:8,negen:9};
+   t=t.replace(/\b(twee|drie|vier|vijf|zes|zeven|acht|negen)\s*(?=-?\s*(jaar|zit|deur|persoon|pers\b|kinder))/g,(m,w)=>" "+S[w]+" ");}
+  t=translateQuery(t,f);
+  t=fixTypos(t,f);
+  const isNeg=i=>{const before=t.slice(Math.max(0,i-80),i);let m=null;for(const x of before.matchAll(/\b(geen|zonder|niet|nooit|behalve|uitgezonderd)\b/g))m=x;if(!m)return false;const gap=before.slice(m.index+m[0].length);
+    return /^(\s|,|[a-z0-9\-.]+\s*(?:,|\bof\b|\ben\b|\bnoch\b)|\bof\b|\ben\b|\bnoch\b|\been\b|\bde\b|\bhet\b|\book\b|\becht\b|\babsoluut\b|\bper\s*se\b|\bzo\s*n\b)*$/.test(gap);};
+  const take=re=>{let hit=0;t=t.replace(new RegExp(re.source,"g"),(m,...a)=>{const off=a[a.length-2];const s=isNeg(off)?-1:1;if(hit!==1)hit=s;return " ".repeat(m.length);});return hit;};
+  {const d1=take(/achterwiel\w*|achter-?\s*aandrijving|\brwd\b/);if(d1>0)f.drive="rwd";else if(d1<0)f.notDrive="rwd";
+   const d2=take(/voorwiel\w*|voor-?\s*aandrijving|\bfwd\b/);if(d2>0)f.drive="fwd";else if(d2<0)f.notDrive="fwd";}
+  {const a=/afneemba+r\w*|uitneemba+r\w*/.test(t), v=/vaste\s*trek|vast\s*trek/.test(t); f.towKind=a?"afneembaar":(v?"vast":null);
+   if(a||v){take(/afneemba+r\w*|uitneemba+r\w*|vaste?(?=\s*trek)/); if(!/trek\s?haak/.test(t)) f.options.push("trekhaak");}}
+  // situaties en wensen in eigen woorden (vóór opties en kleuren)
+  {const L=(re,label,fn)=>{const m=re.exec(t);if(!m||isNeg(m.index))return;fn();if(label)f._life.push(label);t=t.replace(new RegExp(re.source,"g"),x=>" ".repeat(x.length));};
+   const body=(...b)=>{for(const x of b)if(!f.body.includes(x))f.body.push(x);};
+   const opt=k=>{if(!f.options.includes(k))f.options.push(k);};
+   const boost=(...k)=>f._boost.push(...k);
+   L(/\bhond(en|je)?\b|\bbench\b/,"Hond: ruime achterbak (stationwagon of SUV)",()=>body("Stationwagon","SUV"));
+   L(/paarden\s*-?\s*trailer|boot\s*-?\s*trailer|paardentrailer|boottrailer|paarden\s*-?\s*wagen/,"Zware aanhanger: trekhaak, minstens 1.800 kg",()=>{opt("trekhaak");if(!f.minTow)f.minTow=1800;});
+   L(/\bcaravan\w*/,"Caravan: trekhaak, minstens 1.200 kg",()=>{opt("trekhaak");if(!f.minTow)f.minTow=1200;});
+   L(/fiets(en)?\s*-?\s*drager|fietsen\s*mee(nemen)?|e-?bikes?\s*mee/,"Fietsendrager: trekhaak",()=>opt("trekhaak"));
+   L(/wintersport|\bski[eë]?n\b|\bskiën\b|sneeuw|de\s*bergen\s*in/,"Wintersport: stoelverwarming, 4x4 telt mee",()=>{opt("stoelverw");boost("vierwd","stuurverw");});
+   L(/woon\s*-?\s*werk|forens\w*|veel\s*(kilometers|km)\s*(per|in\s*het)\s*(jaar|dag|week)|lange\s*afstand\w*|veel\s*snelweg/,"Veel kilometers: zuinig en comfortabel eerst",()=>{f.eco=true;boost("acc","lane");});
+   L(/(in\s*de\s*)?stad\b(?!s)|krap(pe)?\s*parkeer\w*|makkelijk\s*parkeren|smalle\s*straten/,"Stad: compact, parkeersensoren tellen mee",()=>{body("Hatchback");boost("pdca","camera","parkassist");});
+   L(/jonge?\s*bestuurder|beginnende?\s*bestuurder|net\s*(mijn\s*|het\s*|z'?n\s*|haar\s*)?rijbewijs|eerste\s*auto|starters?\s*auto|beginnersauto/,"Eerste auto: kleine auto, goedkoopste eerst",()=>{f.small=true;f._sort="prijs";});
+   L(/klein(e)?\s*auto\w*|kleintje|stadsauto\w*|stadsautootje/,"",()=>{f.small=true;});
+   L(/oudere|senior\w*|hoge\s*instap|makkelijk\s*in\s*-?\s*(en\s*uit\s*)?stappen|rugklachten|knie[eë]n/,"Makkelijk instappen: SUV en automaat",()=>{body("SUV");if(!f.transmission)f.transmission="A";});
+   L(/\bluxe\b|luxueu\w*|chique|premium\s*gevoel|alles\s*erop\s*en\s*eraan|vol\s*(uitgerust|opties)/,"Luxe: leder, panoramadak en extra's eerst",()=>boost("leder","panorama","acc","vcockpit","stoelverw","keyless","premiumaudio","hud","massage"));
+   L(/veilig(e|heid|st)?\b|veiligheidssystemen/,"Veilig: rijhulpsystemen eerst",()=>boost("acc","lane","dodehoek","camera","cam360","verkeersbord"));
+   L(/\bstil(le)?\b|geruisloos|rustig\s*rijden/,"Stil: elektrisch en hybride eerst",()=>f._boostFuel.push("E","H"));
+   L(/(ik\s*)?ben\s*(erg\s*|heel\s*)?lang|lange\s*(mensen|bestuurder|persoon|benen)|twee\s*meter|2\s*meter/,"Lang: veel hoofd- en beenruimte",()=>body("SUV","Stationwagon"));
+   L(/kinderzitje\w*|kinder\s*-?\s*wagen|buggy|baby|tweeling/,"Kinderen: ruim en praktisch",()=>{body("SUV","Stationwagon");f._family=true;});
+   L(/bijtelling/,"Lage bijtelling: elektrisch",()=>{if(!f.fuel.includes("E"))f.fuel.push("E");});
+   L(/klussen|klusser|bouwmarkt|laadruimte|veel\s*spullen|verhuizen|vervoeren/,"Veel laadruimte: stationwagon, SUV of bestelauto",()=>body("Stationwagon","SUV","Bestelauto"));
+   L(/tweede\s*auto|boodschappen\s*auto|voor\s*de\s*boodschappen/,"Tweede auto: kleine auto, goedkoopste eerst",()=>{f.small=true;f._sort="prijs";});
+   L(/milieu\w*|duurzaam|groen(er)?\s*rijden|uitstootvrij|co2/,"Duurzaam: elektrisch of hybride",()=>{for(const x of ["E","H"])if(!f.fuel.includes(x))f.fuel.push(x);});
+   L(/vakantie\w*|lange\s*reizen|road\s*-?\s*trip|naar\s*(frankrijk|spanje|italië|italie|oostenrijk|zwitserland|duitsland)/,"Op vakantie: ruim en comfortabel",()=>{body("SUV","Stationwagon");boost("acc","trekhaak");});
+   L(/sportie\w*|sportauto|fun\s*to\s*drive|rijplezier|scheuren/,"Sportief: sportpakket en vermogen eerst",()=>boost("sline","sportstoel"));
+   L(/niet\s*te\s*(zwaar|snel|sterk|krachtig)(e)?(\s*motor)?|rustig(e)?\s*motor/,"Niet te zwaar: tot 116 pk",()=>{if(!f.maxPower)f.maxPower=116;});
+   L(/stoel\s*-?\s*massage|rugmassage/,"Massagestoelen",()=>opt("massage"));
+   L(/apple|iphone|android\s*telefoon|telefoon\s*koppelen|spotify|whatsapp\s*voorlezen/,"Telefoon koppelen: CarPlay of Android Auto",()=>opt("carplay"));
+   L(/koud(e)?\s*(winter|ochtend|handen)|winterklaar|vries\w*/,"Koude ochtenden: stoel- en stuurverwarming",()=>{opt("stoelverw");boost("stuurverw","warmtepomp");});
+   L(/zelf\s*(in)?parkeren|parkeert\s*zelf|slecht\s*in\s*parkeren|niet\s*goed\s*(kan\s*)?parkeren/,"Parkeren: camera en parkeerhulp",()=>{opt("camera");boost("parkassist","cam360","pdcv");});
+  }
+  {const I=(re,msg)=>{if(re.test(t)){if(!f._info.includes(msg))f._info.push(msg);t=t.replace(new RegExp(re.source,"g"),x=>" ".repeat(x.length));}};
+   I(/\bnap\b|kilometerstand\s*(klopt|logisch|gecontroleerd|echt)|teller\s*(klopt|teruggedraaid)/,"Alle occasions hebben NAP: de kilometerstand is gecontroleerd.");
+   I(/bovag|garantie\w*/,"Jan van Veen Auto's is BOVAG-lid. Vraag ons naar de garantie bij jouw auto.");
+   I(/(1e|eerste|één|1)\s*eigenaar|aantal\s*eigenaren|rookvrij|schadevrij|ongevalvrij|ongeval\w*|dealer\s*onderhouden|onderhoudshistorie|historie|onderhoudsboekje|onderhouden/,"Historie, eigenaren en onderhoud staan niet in Slim zoeken. Vraag het ons gerust via WhatsApp of 0418-673026.");
+   I(/inruil\w*|mijn\s*(oude\s*|huidige\s*)?auto\s*(inleveren|verkopen)/,"Inruilen? Stuur ons je kenteken en kilometerstand via WhatsApp, dan doen we een voorstel.");
+   I(/financier\w*|lening|afbetal\w*|private\s*lease|leasen/,"Financieren kan: het maandbedrag staat bij elke auto. Zoek bijvoorbeeld op “max 300 per maand”.");
+   I(/proefrit\w*|proef\s*rijden|bezichtig\w*|komen\s*kijken/,"Een proefrit plannen? App of bel ons: 0418-673026.");
+  }
   // opties (acc vóór gewone cruise)
-  for(const [k,,re] of FLAGS){ if(k==="led"&&/matrix/.test(t)) continue; if(take(re)) f.options.push(k); }
+  for(const [k,,re] of FLAGS){ if(k==="led"&&/matrix/.test(t)){ take(/\bled\b/); continue; } const s=take(re); if(s>0) f.options.push(k); else if(s<0) f.notOptions.push(k); }
+  if(f.options.includes("vierwd")){f.options=f.options.filter(o=>o!=="vierwd");f.drive="awd";}
+  if(f.notOptions.includes("vierwd")){f.notOptions=f.notOptions.filter(o=>o!=="vierwd");f.notDrive="awd";}
   if(f.options.includes("acc")) f.options=f.options.filter(o=>o!=="cruise");
   if(f.options.includes("halfleder")) f.options=f.options.filter(o=>o!=="leder");
   if(f.options.includes("cam360")&&!f.options.includes("camera")) {}
-  for(const [b,re] of Object.entries(BODY)) if(take(re)) f.body.push(b);
-  if(/gezin|familie|kinderwagen|ruimte|grote\s*kofferbak/.test(t)&&!f.body.length){f.body.push("SUV","Stationwagon");f._family=true;}
-  if(take(/automaat|automatic|automatische\s*(versnelling|bak)|\bdsg\b|s-?tronic/)) f.transmission="A";
-  else if(take(/handgeschakeld|handbak|schakel(auto|bak)?|\bhand\b/)) f.transmission="H";
-  for(const [k,re] of Object.entries(FUEL)) if(take(re)) f.fuel.push(k);
-  for(const [b,re] of Object.entries(BRANDS)) if(take(re)) f.brands.push(b);
-  t=t.replace(/\bkodiak\b/g,'kodiaq').replace(/\bkarok\b/g,'karoq').replace(/\bta?r+ac+o\b/g,'tarraco').replace(/\bt\s?roc\b/g,'t-roc').replace(/\bt\s?cross\b/g,'t-cross').replace(/\boctavio\b/g,'octavia').replace(/\benyak\b/g,'enyaq').replace(/\btiguan\s*all\s*space\b/g,'tiguan allspace');
+  for(const [b,re] of Object.entries(BODY)){const s=take(re); if(s>0) f.body.push(b); else if(s<0) f.notBody.push(b);}
+  if(/gezin|familie|kinderwagen|kinderen|\bkids\b|ruimte|grote\s*kofferbak/.test(t)&&!f.body.length){f.body.push("SUV","Stationwagon");f._family=true;}
+  {const a=take(/automaat|automatisch(e)?(?!\s*(airco|inparkeren|parkeren|dimmend|klep))|automatic|automatische\s*(versnelling|bak)|\bdsg\b|s-?tronic|zonder\s*koppeling/);if(a>0)f.transmission="A";else if(a<0)f.transmission="H";
+   else{const h=take(/handgeschakeld|handbak|schakel(auto|bak)?|\bhand\b|met\s*koppeling/);if(h>0)f.transmission="H";else if(h<0)f.transmission="A";}}
+  for(const [k,re] of Object.entries(FUEL)){const s=take(re); if(s>0) f.fuel.push(k); else if(s<0) f.notFuel.push(k);}
+  if(/\b(vw|volkswagen)\s*e?-?up\b|\be?-?up!/.test(t)){f.models.push("up!");t=t.replace(/\b(vw|volkswagen)\s*e?-?up\b|\be?-?up!/g," volkswagen ");}
+  for(const [b,re] of Object.entries(BRANDS)){const s=take(re); if(s>0) f.brands.push(b); else if(s<0) f.notBrands.push(b);}
   for(const m of MODELS){const nm=normModel(m);const parts=m.toLowerCase().split(" ");
     const re=new RegExp("\\b"+parts.map(p=>p.replace(/[.\-]/g,"[.\\-\\s]?")).join("\\s*")+"\\b");
-    if(re.test(t)||(nm.length>2&&new RegExp("\\b"+nm+"\\b").test(t.replace(/[\-.]/g,"")))){f.models.push(m);t=t.replace(re," ");}}
-  for(const c of COLORS) if(take(COLOR_RE[c])) f.colors.push(c);
-  t=t.replace(/(niet\s*ouder\s*dan|max(imaal)?\.?|hooguit)\s*(\d{1,2})\s*jaar(\s*oud)?/g,(m,a,b,n)=>{f.minYear=new Date().getFullYear()-(+n);return " ";});
+    const mm=re.exec(t);
+    if(mm){(isNeg(mm.index)?f.notModels:f.models).push(m);t=t.replace(re,x=>" ".repeat(x.length));}
+    else if(nm.length>2&&new RegExp("\\b"+nm+"\\b").test(t.replace(/[\-.]/g,""))){f.models.push(m);}}
+  {const ALL=["Golf Sportsvan","Tiguan Allspace","Golf Variant","Passat Variant","ID. Buzz","Q4 e-tron","Q8 e-tron","e-tron GT","e-tron","Scirocco","Touareg","Touran","Sharan","Arteon","Amarok","Crafter","Transporter","Caddy","Beetle","Jetta","ID.3","ID.4","ID.5","ID.7","Polo","Golf","T-Cross","T-Roc","Taigo","Tiguan","Passat","A1","A3","A4","A5","A6","A7","A8","Q2","Q3","Q5","Q7","Q8","TT","Citigo","Fabia","Scala","Kamiq","Karoq","Kodiaq","Octavia","Superb","Enyaq","Elroq","Rapid","Yeti","Mii","Ibiza","Arona","Leon","Ateca","Tarraco","Alhambra","Born","Formentor","Tavascan","Terramar"];
+   for(const m of ALL){ if(f.models.some(x=>x.toLowerCase().startsWith(m.toLowerCase()))||MODELS.some(x=>x.toLowerCase()===m.toLowerCase()||x.toLowerCase().startsWith(m.toLowerCase()+" "))) continue;
+     const re=new RegExp("\\b"+m.toLowerCase().replace(/[.\-]/g,"[.\\-\\s]?").replace(/\s+/g,"\\s*")+"\\b"); const mm=re.exec(t);
+     if(mm){(isNeg(mm.index)?f.notModels:f.models).push(m);t=t.replace(re,x=>" ".repeat(x.length));}}
+   if(/\b(vw|volkswagen)\s*e?-?up\b|\bup!/.test(t)){f.models.push("up!");t=t.replace(/\b(vw|volkswagen)\s*e?-?up\b|\bup!/," ");}}
+  for(const c of COLORS){const s=take(COLOR_RE[c]); if(s>0) f.colors.push(c); else if(s<0) f.notColors.push(c);}
+  t=t.replace(/(niet\s*ouder\s*dan|jonger\s*dan|max(imaal)?\.?|hooguit)\s*(\d{1,2})\s*jaar(\s*oud)?/g,(m,a,b,n)=>{f.minYear=new Date().getFullYear()-(+n);return " ";});
+  t=t.replace(/(ouder\s*dan|minimaal|minstens)\s*(\d{1,2})\s*jaar(\s*oud)?/g,(m,a,n)=>{f.maxYear=new Date().getFullYear()-(+n);return " ";});
+  t=t.replace(/\b(\d{1,2})\s*jaar\s*oud\b/g,(m,n)=>{f.minYear=new Date().getFullYear()-(+n);return " ";});
+  t=t.replace(/\b([2-5])\s*-?\s*deur(s|en|s?\b)|\b(twee|drie|vier|vijf)\s*-?\s*deur(s|en)?/g,(m,n,x,w)=>{f.doors=+n||{twee:2,drie:3,vier:4,vijf:5}[w];return " ";});
   // verbruik
   t=t.replace(/1\s*op\s*(\d{1,2})\b/g,(m,n)=>{f.maxCons=Math.round(1000/+n)/10;f.eco=true;return " ";});
   t=t.replace(/(\d{1,2}(?:[.,]\d)?)\s*(l|liter|ltr)\b(\s*\/\s*100(\s*km)?)?/g,(m,n)=>{const v=parseFloat(n.replace(",","."));if(v>0&&v<15){f.maxCons=v;f.eco=true;return " ";}return m;});
-  if(take(/zuinig(e|er|ste)?|la(ag|ge)\s*verbruik|weinig\s*verbruik|goedkoop\s*(rijden|in\s*gebruik)|lage\s*brandstofkosten/)){f.eco=true;if(!f.maxCons)f.maxCons=5;}
+  if(take(/zuinigste|zo\s*zuinig\s*mogelijk/)){f.eco=true;}
+  if(take(/zuinig(e|er)?|la(ag|ge)\s*verbruik|weinig\s*verbruik|goedkoop\s*(rijden|in\s*gebruik)|lage\s*brandstofkosten/)){f.eco=true;if(!f.maxCons)f.maxCons=5;}
+  // bereiken: "tussen 15.000 en 20.000", "15-20k", "tussen 100 en 150 pk", "tussen 2019 en 2022"
+  t=t.replace(/(?:tussen|van)\s*€?\s*([\d.,]+\s*k?)\s*(?:en|tot|-|–)\s*€?\s*([\d.,]+\s*k?)\s*(pk|km|kilometer|euro|€)?/g,(m,a,b,u)=>{
+    let x=parseNum(a),y=parseNum(b);if(x==null||y==null)return m;
+    if(/k\s*$/.test(b)&&!/k\s*$/.test(a)&&x<1000)x*=1000;
+    if(u==="pk"){f.minPower=x;f.maxPower=y;return " ";}
+    if(u&&/km|kilometer/.test(u)){f.minKm=x<1000?x*1000:x;f.maxKm=y<1000?y*1000:y;return " ";}
+    if(x>=1995&&y<=2030&&!u){f.minYear=x;f.maxYear=y;return " ";}
+    if(x<1000)x*=1000;if(y<1000)y*=1000;f.minPrice=x;f.maxPrice=y;return " ";});
+  t=t.replace(/€?\s*(\d{1,3})\s*(?:-|–|tot)\s*(\d{1,3})\s*(k|duizend)\b/g,(m,a,b)=>{f.minPrice=+a*1000;f.maxPrice=+b*1000;return " ";});
+  t=t.replace(/\b(uit|van|bouwjaar)\s*((?:19|20)\d{2})\b(?!\s*(?:of|tot|en|t\/m|-|–|\+))/g,(m,a,y)=>{f.minYear=+y;f.maxYear=+y;return " ";});
+  t=t.replace(/((?:19|20)\d{2})\s*(?:-|–|tot\s*en\s*met|t\/m|tot)\s*((?:19|20)\d{2})/g,(m,a,b)=>{f.minYear=Math.min(+a,+b);f.maxYear=Math.max(+a,+b);return " ";});
+  t=t.replace(/niet\s*ouder\s*dan\s*((?:19|20)\d{2})/g,(m,y)=>{f.minYear=+y;return " ";});
+  t=t.replace(/(?:nieuwer|jonger)\s*dan\s*((?:19|20)\d{2})|\bna\s*((?:19|20)\d{2})/g,(m,a,b)=>{f.minYear=+(a||b)+1;return " ";});
+  t=t.replace(/ouder\s*dan\s*((?:19|20)\d{2})|\b(?:van\s*)?voor\s*((?:19|20)\d{2})/g,(m,a,b)=>{f.maxYear=+(a||b)-1;return " ";});
+  t=t.replace(/((?:19|20)\d{2})\s*(?:of|en)\s*(?:nieuwer|jonger|later|\+)|((?:19|20)\d{2})\s*\+/g,(m,a,b)=>{f.minYear=+(a||b);return " ";});
+  // trekgewicht
+  t=t.replace(/(?:trekgewicht|trekvermogen|aanhanger|caravan|trekken|kan)[^\d]{0,25}(\d[\d.]{2,5})\s*(kg|kilo)?|(\d[\d.]{2,5})\s*(kg|kilo)\s*(?:(?:kan|kunnen|moet|mag)\s*)?(?:trek\w*|aanhang\w*|geremd)/g,(m,a,u,b)=>{const v=parseNum(a||b);if(v>=300&&v<=4000){f.minTow=v;return " ";}return m;});
+  t=t.replace(/(\d[\d.]{2,4})\s*(kg|kilo)\b/g,(m,a)=>{const v=parseNum(a);if(v>=500&&v<=3500){f.minTow=v;return " ";}return m;});
+  // btw of marge
+  if(take(/btw[\s-]*(auto|verrekenbaar)|zakelijk\w*|ondernemer\w*|\bzzp\w*|voor\s*de\s*zaak|bedrijfsauto|van\s*de\s*zaak|\bbtw\b/))f.vat="B";
+  else if(take(/marge(auto)?/))f.vat="M";
+  // weinig kilometers
+  if(take(/weinig\s*(km|kilometers?|gereden)|lage\s*km[\s-]*stand|laag\s*km/)&&!f.maxKm)f.maxKm=80000;
+  // sorteren
+  if(take(/duurste|zo\s*duur\s*mogelijk|hoogste\s*prijs/))f._sort="duur";
+  else if(take(/meeste\s*(pk|vermogen|paardenkracht\w*)|sterkste|krachtigste|snelste/))f._sort="pk";
+  else if(take(/(net|nieuw|pas|vers|laatst|recent)\s*(binnen(gekomen)?|ingekocht|binnengekomen)|nieuwste\s*(aanbod|binnenkomers)|laatste\s*(binnenkomers|aanwinsten)|wat\s*is\s*er\s*nieuw(\s*binnen(gekomen)?)?/))f._sort="binnen";
+  else if(take(/goedkoopste|zo\s*goedkoop\s*mogelijk|laagste\s*prijs|goedko+pe?\b|betaalbaa?r\w*|niet\s*te\s*duur|voordelig\w*/))f._sort="prijs";
+  else if(take(/nieuwste|zo\s*nieuw\s*mogelijk|jongste/))f._sort="nieuw";
+  else if(take(/minste\s*(km|kilometers?)|laagste\s*(km|kilometerstand)/))f._sort="km";
+  // vermogen: 95 pk, 95 of 110 pk, boven/onder 110 pk, tot 85 pk, vanaf 150 pk, 95-110 pk, rond de 110 pk, 110 pk of meer, 81 kW
+  {
+    const U='(pk|hp|paardenkracht(?:en)?|kw)';
+    const PV=(n,u)=>{n=+n;return /kw/.test(u||"")?Math.round(n*1.36):n;};
+    const D='\\s*(?:de|het|een)?\\s*';
+    const R=(src)=>new RegExp(src,'g');
+    // reeks: 95-110 pk, 95 tot 110 pk, 95 t/m 110 pk
+    t=t.replace(R('(\\d{2,3})\\s*(?:pk|hp|kw)?\\s*(?:-|–|tot\\s*en\\s*met|t\\/m|tot)\\s*(\\d{2,3})\\s*'+U+'\\b'),(m,a,b,u)=>{const x=PV(a,u),y=PV(b,u);f.minPower=Math.min(x,y);f.maxPower=Math.max(x,y);return " ";});
+    // ongeveer: rond de 110 pk
+    t=t.replace(R('(?:rond(?:om)?|ongeveer|zo\\s*\'?n|circa|ca\\.?|±|plusminus)'+D+'(\\d{2,3})\\s*'+U+'\\b'),(m,n,u)=>{const v=PV(n,u);f.minPower=v-10;f.maxPower=v+10;return " ";});
+    // 110 pk of meer / 110+ pk / 110 pk+
+    t=t.replace(R('(\\d{2,3})\\s*(?:\\+\\s*'+U+'|'+U+'\\s*(?:\\+|(?:of|en)\\s*(?:meer|hoger|sterker|krachtiger|daarboven)))'),(m,n,u1,u2)=>{f.minPower=PV(n,u1||u2);return " ";});
+    // 110 pk of minder
+    t=t.replace(R('(\\d{2,3})\\s*'+U+'\\s*(?:of|en)\\s*(?:minder|lager|zwakker|daaronder)'),(m,n,u)=>{f.maxPower=PV(n,u);return " ";});
+    // niet boven / niet meer dan = hooguit; niet onder / niet minder dan = minstens
+    t=t.replace(R('\\bniet\\s?(?:meer\\s*dan|boven|hoger\\s*dan|sterker\\s*dan)'+D+'(\\d{2,3})\\s*'+U+'\\b'),(m,n,u)=>{f.maxPower=PV(n,u);return " ";});
+    t=t.replace(R('\\bniet\\s?(?:minder\\s*dan|onder|lager\\s*dan|zwakker\\s*dan)'+D+'(\\d{2,3})\\s*'+U+'\\b'),(m,n,u)=>{f.minPower=PV(n,u);return " ";});
+    // boven / meer dan (strikt)
+    t=t.replace(R('(?:meer\\s*dan|boven|sterker\\s*dan|krachtiger\\s*dan|hoger\\s*dan|>)'+D+'(\\d{2,3})\\s*'+U+'\\b'),(m,n,u)=>{f.minPower=PV(n,u)+1;f._pmin='Meer dan '+PV(n,u)+' pk';return " ";});
+    // vanaf / minimaal (inclusief)
+    t=t.replace(R('(?:vanaf|minimaal|minstens|minimum|ten\\s*minste|min\\.?|>=|≥)'+D+'(\\d{2,3})\\s*'+U+'\\b'),(m,n,u)=>{f.minPower=PV(n,u);return " ";});
+    // onder / minder dan (strikt)
+    t=t.replace(R('(?:minder\\s*dan|onder|lager\\s*dan|zwakker\\s*dan|beneden|<)'+D+'(\\d{2,3})\\s*'+U+'\\b'),(m,n,u)=>{f.maxPower=PV(n,u)-1;f._pmax='Minder dan '+PV(n,u)+' pk';return " ";});
+    // tot / max (inclusief)
+    t=t.replace(R('(?:niet\\s*meer\\s*dan|tot\\s*en\\s*met|t\\/m|tot|maximaal|maximum|max\\.?|hooguit|hoogstens|<=|≤)'+D+'(\\d{2,3})\\s*'+U+'\\b'),(m,n,u)=>{f.maxPower=PV(n,u);return " ";});
+    // geen 95 pk
+    t=t.replace(R('\\b(?:geen|niet|behalve)\\s?(?:de\\s)?(\\d{2,3})\\s*'+U+'\\b'),(m,n,u)=>{f.notPowers.push(PV(n,u));return " ";});
+    // precies: 95 pk, 95 of 110 pk, 95, 110 en 150 pk
+    t=t.replace(R('(\\d{2,3})\\s*(?:'+U+')?((?:\\s*(?:,|of|en|\\/)\\s*\\d{2,3}\\s*(?:pk|hp|kw)?)*)\\s*'+U+'\\b'),(m,a,u0,rest,u)=>{
+      const nums=[a,...(rest.match(/\d{2,3}/g)||[])].map(n=>PV(n,u));
+      for(const v of nums) if(!f.powers.includes(v)) f.powers.push(v);
+      return " ";});
+    if(take(/veel\s*(pk|vermogen|paardenkracht\w*)|sterk\w*|krachtig\w*|snel(le|ler)?\b|sportie\w*\s*motor/)&&!f.minPower&&!f.powers.length)f.minPower=150;
+    if(take(/weinig\s*(pk|vermogen)|klein\s*motortje|zwak\w*|rustig\s*motortje/)&&!f.maxPower&&!f.powers.length)f.maxPower=110;
+  }
   // vermogen
-  t=t.replace(/(\d{2,3})\s*(pk|hp)\b/g,(m,n)=>{f.minPower=+n;return " ";});
+  // actieradius (staat niet in onze gegevens): niet als kilometerstand lezen
+  t=t.replace(/(\d[\d.]*)\s*km\s*(?:bereik|actieradius|range|rijbereik)|(?:bereik|actieradius|range|rijbereik)\s*(?:van\s*)?(?:minimaal\s*|min\.?\s*|minstens\s*|meer\s*dan\s*)?(\d[\d.]*)?\s*(?:km)?/g,(m,a,b)=>{const v=parseNum(a||b||"");if(v&&v<1500)f.minRange=v;else f._unknown.push("actieradius");return " ";});
+  t=t.replace(/energie\s*-?\s*label\s*([a-g])\b|\blabel\s*([a-g])\b/g,(m,a,b)=>{f.label=(a||b).toUpperCase();return " ";});
+  t=t.replace(/(\d{2})\s*(?:inch|"|”|duims?)(?:\s*(?:velgen|wielen))?/g,(m,n)=>{f.optTerms.push(n+" inch");return " ";});
+  t=t.replace(/(\d+(?:[.,]\d+)?)\s*d\s*km\b/g,(m,n)=>" "+Math.round(parseFloat(n.replace(",","."))*1000)+" km ");
+  t=t.replace(/(\d+(?:[.,]\d+)?)\s*ton\b(\s*km)?/g,(m,n)=>" "+Math.round(parseFloat(n.replace(",","."))*100000)+" km ");
+  t=t.replace(/\b(de|een|geen)\s*ton\b(\s*km|\s*gelopen|\s*gereden)?/g,(m,a)=>(a==="geen"?" onder ":" ")+"100000 km ");
+  t=t.replace(/\d[\d.]*\s*(km|kilometer)\s*(per\s*(dag|week|maand|jaar)|p\.?\s*\/?\s*(d|w|j)\b|enkele\s*reis|retour|heen\s*en\s*terug|naar\s*(mijn\s*|het\s*)?werk|woon\s*-?\s*werk|rijden\s*per)/g," ");
+  t=t.replace(/\b\d{1,2}\s*(kinder\w*|kids|personen|mensen|honden|fietsen|e-?bikes|stoelen|koffers|golftassen|zitjes)\b/g," ");
+  t=t.replace(/\b(19|20)\d{2}\s*(?=cc\b)|\b\d{3,4}\s*cc\b/g," ");
+  t=t.replace(/(?<![\d.,])([0-9])[.,]([0-9])(?![\d.,])\s*(tsi|tfsi|tdi|tgi|tsi\s*evo|l|ltr|liter|motor)?\b/g,(m,a,b,u)=>{f.engine=a+"."+b;return u&&/tsi|tfsi/.test(u)?" "+u+" ":(u&&/tdi/.test(u)?" tdi ":" ");});
   // getallen
-  const numRe=/(\d{1,3}(?:[.\s]\d{3})+|\d+(?:[.,]\d+)?)(\s*(?:k|duizend|dzd)\b)?/g;
+  const numRe=/(\d{1,3}(?:[.\s]\d{3})+|\d+(?:[.,]\d+)?)(\s*(?:k|duizend|dzd|mille)\b)?/g;
   const nums=[];let m;while((m=numRe.exec(t))){nums.push({s:m[0],i:m.index,e:m.index+m[0].length});}
   nums.forEach((n,ix)=>{
     const before=t.slice(Math.max(ix?nums[ix-1].e:0,n.i-28),n.i);
     const after=t.slice(n.e,Math.min(ix<nums.length-1?nums[ix+1].i:t.length,n.e+22));
     const v=parseNum(n.s);if(v==null) return;
-    if(/^\s*(per\s*maand|p\/?m|\/\s*mnd|maand)/.test(after)) return;
-    const isMax=/(tot|max|maximaal|onder|minder\s*dan|niet\s*meer\s*dan|hooguit|beneden|<|budget|max\.)\s*(de|het|een)?\s*(€|euro|km)?\s*$/.test(before);
+    if(/^\s*(euro\s*|€\s*|,-\s*)?(per\s*maand|p\/?m\b|pm\b|\/\s*mnd|\/\s*maand|maand|in\s*de\s*maand)/.test(after)||/(maandbedrag|maandlasten|per\s*maand|lease\w*)[^\d]*$/.test(before)){if(v<3000)f.maxMonthly=v;return;}
+    const isMax=/(tot|max|maximaal|onder|goedkoper\s*dan|niet\s*duurder\s*dan|minder\s*dan|niet\s*meer\s*dan|hooguit|beneden|<|budget|max\.)\s*(de|het|een)?\s*(€|euro|km)?\s*$/.test(before);
     const isMin=/(vanaf|minimaal|boven|meer\s*dan|min\.?|>|na|nieuwer\s*dan)\s*(de|het|een|bouwjaar)?\s*(€|euro)?\s*$/.test(before);
+    const approx=/(rond|rondom|ongeveer|circa|ca\.?|zo\s*'?n|±|plusminus|om\s*en\s*nabij)\s*(de|het)?\s*(€|euro)?\s*$/.test(before);
     const kmCtx=/^\s*(km|kilometer|k\s*km)/.test(after)||/(km|kilometer|kilometerstand|tellerstand|teller|gelopen|gereden)[^€]*$/.test(before);
     const euroCtx=/^\s*(€|euro|eur\b|,-)/.test(after)||/(€|euro|budget|prijs|kosten|betalen)\s*\w*\s*\w*\s*$/.test(before);
     const yearLike=v>=1995&&v<=2027&&!/[.\s]/.test(n.s.trim())&&!/k/.test(n.s);
-    if(kmCtx&&!euroCtx){ const km=v<1000?v*1000:v; if(isMin) {} else f.maxKm=km; return;}
+    if(kmCtx&&!euroCtx){ const km=v<1000?v*1000:v; if(isMin&&!isMax) f.minKm=km; else f.maxKm=km; return;}
     if(yearLike&&!euroCtx){ if(/^\s*(of\s*)?(ouder|eerder)/.test(after)||/(tot|max|uiterlijk)\s*$/.test(before)) f.maxYear=v; else f.minYear=v; return;}
+    if(v<1000&&!euroCtx&&!isMax&&!isMin&&!approx&&!/k|duizend|mille|dzd/.test(n.s)) return;
     let price=v<1000&&!euroCtx?v*1000:v; if(price<1000) price*=1000;
-    if(price>=2000){ if(isMin) f.minPrice=price; else f.maxPrice=price; }
+    if(price>=2000){ if(approx){f.minPrice=Math.round(price*0.9/500)*500;f.maxPrice=Math.round(price*1.1/500)*500;} else if(isMin&&!isMax) f.minPrice=price; else f.maxPrice=price; }
   });
+  {const VOC=window.__voc||(window.__voc=(()=>{const s=new Set();CARS.forEach(c=>(c[1]+" "+c[2]).toLowerCase().split(/[^a-z0-9\-+.]+/).forEach(w=>{w=w.replace(/[.]+$/,"");if(w.length>=2&&!/^\d+$/.test(w))s.add(w)}));return s;})());
+   const re=/[a-z][a-z0-9\-+.]*[a-z0-9+]|[a-z]/g;let m;while((m=re.exec(t))){const w=m[0];if(STOP.has(w))continue;
+     if(VOC.has(w)){(isNeg(m.index)?f.notTerms:f.terms).push(w);}else if(w.length>=4&&OPTVOC().has(w)){if(!isNeg(m.index))f.optTerms.push(w);}else if(w.length>2)f._unknown.push(w);}}
+  for(const k of ["options","notOptions","body","fuel","colors","models","brands"]) f[k]=[...new Set(f[k])];
   return f;
 }
 
 let PHOTOS={};
 fetch('fotos.json').then(r=>r.ok?r.json():{}).then(p=>{PHOTOS=p||{};if(filters)run();}).catch(()=>{});
 let filters=null, lastQuery="", sortBy="relevant";
+
+// ===== Taal: NL (standaard) of EN. ?lang=en of de knop bovenaan =====
+let PAGE_LANG="nl";
+try{const u=new URLSearchParams(location.search).get("lang");if(u==="en"||u==="nl"){PAGE_LANG=u;localStorage.setItem("jvv-lang",u);}else{PAGE_LANG=localStorage.getItem("jvv-lang")||"nl";}}catch(e){}
+const EN=PAGE_LANG==="en";
+const TL=(nl,en)=>EN?en:nl;
+const EN_TERM={"trekhaak":"Towbar","adaptive cruise":"Adaptive cruise","cruise control":"Cruise control","navigatie":"Navigation","camera":"Camera","360° camera":"360° camera","parkeersensoren voor":"Front parking sensors","parkeersensoren":"Parking sensors","parkeerassistent":"Park assist","stoelverwarming":"Heated seats","stuurverwarming":"Heated steering wheel","verwarmde achterbank":"Heated rear seats","leder":"Leather","half leder":"Part leather","alcantara":"Alcantara","panoramadak":"Panoramic roof","carplay / android auto":"CarPlay / Android Auto","digitaal dashboard":"Digital cockpit","climate control":"Climate control","led-koplampen":"LED headlights","matrix led":"Matrix LED","keyless":"Keyless","elektrische achterklep":"Electric tailgate","dodehoekdetectie":"Blind spot monitor","lane assist":"Lane assist","head-up display":"Head-up display","sfeerverlichting":"Ambient lighting","dab+":"DAB+","draadloos laden":"Wireless charging","elektrische stoelen":"Electric seats","massagestoelen":"Massage seats","luchtvering":"Air suspension","7 zitplaatsen":"7 seats","warmtepomp":"Heat pump","dakrails":"Roof rails","sportstoelen":"Sports seats","verkeersbordherkenning":"Traffic sign recognition","privacy glass":"Privacy glass","sportief pakket (s/r-line, fr, sportline)":"Sport package (S/R-Line, FR, Sportline)","4x4":"4x4","premium audio":"Premium audio",
+ "automaat":"Automatic","handgeschakeld":"Manual","benzine":"Petrol","diesel":"Diesel","hybride":"Hybrid","elektrisch":"Electric","lpg":"LPG","aardgas (cng)":"CNG",
+ "stationwagon":"Estate","hatchback":"Hatchback","suv":"SUV","sedan":"Saloon","bestelauto":"Van","cabrio":"Convertible","coupé":"Coupé","mpv":"MPV","pick-up":"Pick-up",
+ "zwart":"Black","wit":"White","wit metallic":"White metallic","grijs":"Grey","blauw":"Blue","rood":"Red","groen":"Green","zilver":"Silver","beige":"Beige","bruin":"Brown","oranje":"Orange","geel":"Yellow","goud":"Gold","paars":"Purple",
+ "voorwielaandrijving":"Front-wheel drive","achterwielaandrijving":"Rear-wheel drive","vierwielaandrijving (4x4)":"All-wheel drive (4x4)","afneembaar":"Detachable","vast":"Fixed","marge":"Margin","incl. btw":"Incl. VAT","margeauto":"Margin car","btw-auto":"VAT car","btw-auto (zakelijk)":"VAT car (business)"};
+const capLike=(src,en)=>src[0]===src[0].toLowerCase()&&src[0]!==src[0].toUpperCase()?en.toLowerCase().replace(/^(carplay|led|dab|suv|mpv|lpg|cng)/i,m=>m.toUpperCase()):en;
+const term=x=>{const k=x.toLowerCase().trim();return EN_TERM[k]?capLike(x.trim(),EN_TERM[k]):x;};
+const EN_LIFE={"Hond: ruime achterbak (stationwagon of SUV)":"Dog: spacious boot (estate or SUV)","Zware aanhanger: trekhaak, minstens 1.800 kg":"Heavy trailer: towbar, at least 1,800 kg","Caravan: trekhaak, minstens 1.200 kg":"Caravan: towbar, at least 1,200 kg","Fietsendrager: trekhaak":"Bike rack: towbar","Wintersport: stoelverwarming, 4x4 telt mee":"Winter sports: heated seats, 4x4 ranks higher","Veel kilometers: zuinig en comfortabel eerst":"Lots of driving: economical and comfortable first","Stad: compact, parkeersensoren tellen mee":"City: compact, parking sensors rank higher","Eerste auto: kleine auto, goedkoopste eerst":"First car: small car, cheapest first","Makkelijk instappen: SUV en automaat":"Easy to get in: SUV and automatic","Luxe: leder, panoramadak en extra's eerst":"Luxury: leather, panoramic roof and extras first","Veilig: rijhulpsystemen eerst":"Safe: driver assistance first","Stil: elektrisch en hybride eerst":"Quiet: electric and hybrid first","Lang: veel hoofd- en beenruimte":"Tall: lots of head- and legroom","Kinderen: ruim en praktisch":"Children: spacious and practical","Lage bijtelling: elektrisch":"Low company car tax: electric","Veel laadruimte: stationwagon, SUV of bestelauto":"Lots of cargo space: estate, SUV or van","Tweede auto: kleine auto, goedkoopste eerst":"Second car: small car, cheapest first","Duurzaam: elektrisch of hybride":"Sustainable: electric or hybrid","Op vakantie: ruim en comfortabel":"Holidays: spacious and comfortable","Sportief: sportpakket en vermogen eerst":"Sporty: sport package and power first","Massagestoelen":"Massage seats","Telefoon koppelen: CarPlay of Android Auto":"Phone connection: CarPlay or Android Auto","Koude ochtenden: stoel- en stuurverwarming":"Cold mornings: heated seats and steering wheel","Parkeren: camera en parkeerhulp":"Parking: camera and parking aid","Niet te zwaar: tot 116 pk":"Not too powerful: up to 116 hp","Zoekopdracht in het Engels begrepen":"Understood your search in English","Zoekopdracht in het Duits begrepen":"Understood your search in German"};
+const EN_INFO=[["Alle occasions hebben NAP: de kilometerstand is gecontroleerd.","All our used cars come with NAP: the mileage has been verified."],["Jan van Veen Auto's is BOVAG-lid. Vraag ons naar de garantie bij jouw auto.","Jan van Veen Auto's is a BOVAG member. Ask us about the warranty for your car."],["Historie, eigenaren en onderhoud staan niet in Slim zoeken. Vraag het ons gerust via WhatsApp of 0418-673026.","History, owners and service records are not in Smart search. Just ask us via WhatsApp or +31 418 673026."],["Inruilen? Stuur ons je kenteken en kilometerstand via WhatsApp, dan doen we een voorstel.","Trade-in? Send us your licence plate and mileage via WhatsApp and we'll make you an offer."],["Financieren kan: het maandbedrag staat bij elke auto. Zoek bijvoorbeeld op \u201cmax 300 per maand\u201d.","Financing is possible: the monthly amount is shown with every car. Try \u201cmax 300 per month\u201d."],["Een proefrit plannen? App of bel ons: 0418-673026.","Want a test drive? Message or call us: +31 418 673026."]];
+const whyEN=w=>{let m;
+  if(m=/^([\d.]+) km meer gereden$/.exec(w))return m[1]+" km more mileage";
+  if(m=/^€ ([\d.]+) boven budget( \(incl\. trekhaak\))?$/.exec(w))return "€ "+m[1]+" over budget"+(m[2]?" (incl. towbar)":"");
+  if(m=/^bouwjaar (\d+)$/.exec(w))return "year "+m[1];
+  if(m=/^is een (.+)$/.exec(w))return "is a "+term(m[1]);
+  if(m=/^is (.+)$/.exec(w))return "is "+term(m[1]);
+  if(m=/^heeft (.+)$/.exec(w))return "has "+term(m[1]).toLowerCase();
+  if(m=/^geen (.+) vermeld$/.exec(w))return "no "+m[1]+" listed";
+  if(m=/^geen (.+)$/.exec(w))return "no "+term(m[1]).toLowerCase();
+  if(m=/^trekt ([\d.]+) kg$/.exec(w))return "tows "+m[1]+" kg";
+  if(m=/^€ (\d+) per maand$/.exec(w))return "€ "+m[1]+" per month";
+  if(m=/^verbruik 1 op (\d+)$/.exec(w))return m[1]+" km/l";
+  if(m=/^kleur (.+)$/.exec(w))return "colour "+term(m[1]).toLowerCase();
+  if(m=/^(\d+) pk$/.exec(w))return m[1]+" hp";
+  if(m=/^(\d+) km actieradius$/.exec(w))return m[1]+" km range";
+  if(m=/^energielabel (.+)$/.exec(w))return "energy label "+m[1];
+  if(m=/^(\d)-deurs$/.exec(w))return m[1]+" doors";
+  const fixed={"ander merk":"other brand","ander model":"other model","minder km":"less mileage","trekgewicht onbekend":"towing capacity unknown","maandbedrag onbekend":"monthly amount unknown","verbruik onbekend":"consumption unknown","geen kleine auto":"not a small car","andere motor":"other engine","niet elektrisch":"not electric","actieradius onbekend":"range unknown","onder minimumprijs":"below minimum price"};
+  return fixed[w]||term(w);};
+const EN_EXACT={"Slim zoeken":"Smart search","Typ je wensen, wij zoeken mee.":"Type what you want, we'll find it.","Zoeken":"Search","Probeer:":"Try:","Zo kun je allemaal zoeken":"All the ways you can search","Zoekopdracht":"Search query",
+ "klantbeoordeling":"customer rating","jaar occasionspecialist":"years of used-car expertise","occasions op voorraad ·":"used cars in stock ·","live bijgewerkt":"live updated",
+ "Resultaten":"Results","Geen exacte match":"No exact match","op je zoekopdracht":"for your search","Sorteer":"Sort","Best passend":"Best match","Prijs laag-hoog":"Price low-high","Minste km":"Lowest mileage","Prijs hoog-laag":"Price high-low","Meeste pk":"Most power","Laatst binnen":"Newest arrivals","Nieuwste eerst":"Newest first",
+ "Bijna":"Almost","Niets dat precies past":"Nothing matches exactly","Haal een wens weg met het kruisje hierboven, of bekijk hieronder wat er net buiten valt.":"Remove a wish with the \u00d7 above, or see below what comes close.","Of laat je wens achter:":"Or leave us your wish:","we houden het voor je in de gaten en bellen je zodra er iets binnenkomt.":"we'll keep an eye out and call you as soon as something comes in.","Stuur via WhatsApp":"Send via WhatsApp","Mail ons je zoekwens":"Email us your wish","of bel 0418-673026":"or call +31 418 673026",
+ "Bekijk auto \u2192":"View car \u2192","Vergelijk":"Compare","Vergelijken":"Compare","Met trekhaak":"With towbar","Trekhaak mogelijk":"Towbar possible","+ Trekhaak te monteren":"+ Towbar can be fitted",
+ "Gezocht op:":"Searching for:","Geen wensen herkend. Probeer bijvoorbeeld een budget, een soort auto of een optie.":"No wishes recognised yet. Try a budget, a type of car or an option.",
+ "Wissen":"Clear","Kies nog 1":"Pick 1 more","Verwijder":"Remove","Verwijder uit vergelijking":"Remove from comparison","De auto":"The car","Bouwjaar":"Year","Kilometerstand":"Mileage","Transmissie":"Transmission","Brandstof":"Fuel","Vermogen":"Power","Verbruik (opgave)":"Consumption (stated)","Aandrijving":"Drive","Carrosserie":"Body type","Kleur":"Colour","Trekgewicht":"Towing capacity","\u2713 Aanwezig":"\u2713 Yes","+ Te monteren":"+ Can be fitted","Niet mogelijk":"Not possible","Verschil in uitrusting":"Differences in equipment","Heeft w\u00e9l":"Has","Niet vermeld":"Not listed","Hebben ze allemaal":"All have","Niets extra":"Nothing extra","Mist niets":"Misses nothing","Opties en uitrusting":"Options and equipment","Zitplaatsen":"Seats","Deuren":"Doors","Actieradius":"Range","Energielabel":"Energy label","APK tot":"MOT until","Interieur":"Interior",
+ "Toon aan klant":"Full screen","Alleen verschillen":"Only differences","Print / PDF":"Print / PDF","Print":"Print","Delen\u2026":"Share\u2026","Kopieer link":"Copy link","Link gekopieerd \u2713":"Link copied \u2713","Sluiten \u2715":"Close \u2715","Mail":"Email",
+ "Veeg de tabel opzij om alle auto's te zien \u2192":"Swipe the table to see all cars \u2192","Opties zoals vermeld in de advertentie. \u2605 = beste waarde van deze auto's. Aandrijving en verbruik zijn een indicatie.":"Options as listed in the advert. \u2605 = best value among these cars. Drive type and consumption are indicative.",
+ "Je kunt maximaal 3 auto's vergelijken. Haal er eerst een weg.":"You can compare up to 3 cars. Remove one first.",
+ "Wie zijn wij":"About us","Persoonlijk advies van ons team in Zuilichem":"Personal advice from our team in Zuilichem","Al 31 jaar zijn we specialist in jonge occasions van Audi, Volkswagen, SEAT en \u0160koda. Elke auto gaat door onze eigen werkplaats en wordt in onze eigen fotostudio vastgelegd, zodat je ziet wat je krijgt.":"For 31 years we have specialised in young used Audi, Volkswagen, SEAT and \u0160koda cars. Every car goes through our own workshop and is photographed in our own studio, so you see exactly what you get.","Bekijk het volledige aanbod":"View all our stock","WhatsApp ons":"WhatsApp us",
+ "Niet gevonden wat je zoekt? Bel of":"Can't find what you're looking for? Call or","Bellen":"Call","Typ gewoon wat je wilt, in je eigen woorden: budget, soort auto, opties, of waar je de auto voor nodig hebt. Merk hoeft niet.":"Just type what you want, in your own words: budget, type of car, options, or what you need the car for. No need to pick a brand.","English works too.":"Nederlands kan ook.",
+ "Budget en maandbedrag":"Budget and monthly amount","In je eigen woorden":"In your own words","Precies wat je wilt":"Exactly what you want","Juist niet":"What you don't want","Ook in het Engels en Duits":"Also in Dutch and German","Handig om te weten":"Good to know"};
+const EN_PAT=[
+ [/^(\d+) auto's passen$/,m=>m[1]+" cars match"],[/^1 auto past$/,()=>"1 car matches"],[/^(\d+) auto's missen precies één wens$/,m=>m[1]+" cars miss just one wish"],[/^1 auto mist precies één wens$/,()=>"1 car misses just one wish"],
+ [/^of € ([\d.]+) \/mnd$/,m=>"or € "+m[1]+" /month"],[/^of € ([\d.]+) \/mnd · (.+)$/,m=>"or € "+m[1]+" /month · "+term(m[2])],[/^\+(\d+) opties$/,m=>"+"+m[1]+" options"],[/^1 op (\d+)$/,m=>m[1]+" km/l"],[/^(\d+) pk$/,m=>m[1]+" hp"],[/^1 op (\d+) \u2605$/,m=>m[1]+" km/l \u2605"],[/^(\d+) pk \u2605$/,m=>m[1]+" hp \u2605"],
+ [/^\u2713 (.+)$/,m=>"\u2713 "+term(m[1])],[/^\u2717 (.+)$/,m=>"\u2717 "+term(m[1])],[/^stand (.+)$/,m=>"updated "+m[1]],[/^Mist: (.+)$/,m=>"Misses: "+whyEN(m[1])],
+ [/^Trekhaak erop: vast (€ [\d.,\-]+) · afneembaar (€ [\d.,\-]+)$/,m=>"Add a towbar: fixed "+m[1]+" · detachable "+m[2]],[/^(Afneembare|Vaste) trekhaak erop: (€ [\d.,\-]+) · totaal (€ [\d.,\-]+)$/,m=>(m[1]==="Afneembare"?"Detachable":"Fixed")+" towbar: "+m[2]+" · total "+m[3]],
+ [/^vast (€ [\d.,\-]+) · afneembaar (€ [\d.,\-]+)$/,m=>"fixed "+m[1]+" · detachable "+m[2]],
+ [/^Tot (€ .+)$/,m=>"Up to "+m[1]],[/^Vanaf (€ .+)$/,m=>"From "+m[1]],[/^Max ([\d.]+) km$/,m=>"Max "+m[1]+" km"],[/^Min\. ([\d.]+) km$/,m=>"Min "+m[1]+" km"],[/^Bouwjaar (\d+) of nieuwer$/,m=>"Year "+m[1]+" or newer"],[/^Bouwjaar t\/m (\d+)$/,m=>"Year up to "+m[1]],[/^Bouwjaar (\d+)$/,m=>"Year "+m[1]],[/^Bouwjaar (\d+)[-\u2013](\d+)$/,m=>"Year "+m[1]+"-"+m[2]],
+ [/^Max\. € (\d+) per maand$/,m=>"Max € "+m[1]+" per month"],[/^Meer dan (\d+) pk$/,m=>"More than "+m[1]+" hp"],[/^Minder dan (\d+) pk$/,m=>"Less than "+m[1]+" hp"],[/^Min\. (\d+) pk$/,m=>"Min "+m[1]+" hp"],[/^Max\. (\d+) pk$/,m=>"Max "+m[1]+" hp"],[/^Geen (\d+) pk$/,m=>"Not "+m[1]+" hp"],
+ [/^Trekt min\. ([\d.]+) kg$/,m=>"Tows at least "+m[1]+" kg"],[/^Kleine auto \((.+)\)$/,m=>"Small car ("+m[1]+")"],[/^([\d.]+) motor$/,m=>m[1]+" engine"],[/^(\d)-deurs$/,m=>m[1]+" doors"],[/^Actieradius min\. (\d+) km$/,m=>"Range at least "+m[1]+" km"],[/^Energielabel (.+)$/,m=>"Energy label "+m[1]],
+ [/^Zuinig: 1 op (\d+) of beter$/,m=>"Economical: "+m[1]+" km/l or better"],[/^Zuinigste eerst$/,()=>"Most economical first"],[/^Goedkoopste eerst$/,()=>"Cheapest first"],[/^Duurste eerst$/,()=>"Most expensive first"],[/^Meeste pk eerst$/,()=>"Most power first"],[/^Minste km eerst$/,()=>"Lowest mileage first"],[/^Laatst binnengekomen eerst$/,()=>"Newest arrivals first"],
+ [/^Niet gebruikt: (.+)$/,m=>"Not used: "+m[1]],[/^Verbeterd: (.+)$/,m=>"Corrected: "+m[1]],[/^Vertaald: (.+)$/,m=>"Understood: "+m[1].split(" \u00b7 ").map(x=>EN_LIFE[x]||x).join(" \u00b7 ")],
+ [/^(\d+) auto's naast elkaar$/,m=>m[1]+" cars side by side"],[/^(\d) van (\d) gekozen$/,m=>m[1]+" of "+m[2]+" selected"],[/^Bekijk \((\d)\)$/,m=>"View ("+m[1]+")"],[/^Vergelijking · (\d) auto's$/,m=>"Comparison · "+m[1]+" cars"],
+ [/^ons op 0418-673026 of mail (\S+), dan zoeken we met je mee\..*$/,m=>"us on +31 418 673026 or email "+m[1]+" and we'll help you search. Options as listed in the advert; feel free to ask if in doubt. Prices incl. VAT or margin as indicated."],
+ [/^Verwijder (.+)$/,m=>"Remove "+trText(m[1])],[/^Bijv\. SUV met trekhaak tot € 28\.000 onder 120\.000 km$/,()=>"E.g. SUV with towbar under € 28,000, below 120,000 km"],[/^Snelle acties$/,()=>"Quick actions"],[/^Vergelijking$/,()=>"Comparison"],
+ [/^Niet (.+)$/,m=>"Not "+term(m[1]).toLowerCase()],[/^Geen (.+)$/,m=>"No "+term(m[1]).toLowerCase()],
+ [/^(Eén auto uit de gedeelde link is|(\d+) auto's uit de gedeelde link zijn) inmiddels verkocht of niet meer beschikbaar\.$/,m=>(m[2]?m[2]+" cars from the shared link have":"One car from the shared link has")+" since been sold or is no longer available."],
+ [/^De auto's uit deze vergelijking zijn inmiddels verkocht\..*$/,()=>"The cars in this comparison have since been sold. Search again below or call us on +31 418 673026."]
+];
+function trText(x){
+  const k=x.trim(); if(!k)return x;
+  if(EN_EXACT[k])return EN_EXACT[k];
+  for(const [re,fn] of EN_PAT){const m=re.exec(k);if(m)return fn(m);}
+  const tt=term(k); if(tt!==k)return tt;
+  let y=k; for(const [nl,en] of EN_INFO) y=y.split(nl).join(en); if(y!==k)return y;
+  return x;
+}
+function translateNode(root){
+  if(!EN||!root)return;
+  const walk=n=>{
+    if(n.nodeType===3){const v=n.nodeValue;const t=v.trim();if(!t||!/[a-zA-Z]/.test(t))return;const r=trText(t);if(r!==t){const nv=v.replace(t,r);if(nv!==v)n.nodeValue=nv;}return;}
+    if(n.nodeType!==1||n.tagName==="SCRIPT"||n.tagName==="STYLE")return;
+    if(n.closest&&n.closest(".car .head h3, .car .uitv, .cmpt h3, .cmpt .u"))return;
+    for(const a of ["placeholder","aria-label","title"]){const v=n.getAttribute&&n.getAttribute(a);if(v){const r=trText(v);if(r!==v)n.setAttribute(a,r);}}
+    for(const c of n.childNodes)walk(c);};
+  walk(root);
+}
+
+let CMP=[]; const CMP_MAX=3;
+let FAV=[];try{FAV=JSON.parse(localStorage.getItem("jvv-fav")||"[]");}catch(e){}
+let FAVVIEW=false;
+const saveFav=()=>{try{localStorage.setItem("jvv-fav",JSON.stringify(FAV));}catch(e){}};
+const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.2 0 3.6 1.2 4.3 2.4.7-1.2 2.1-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>';
+function similar(c){
+  const yr=x=>+x[5].slice(3);
+  return CARS.filter(x=>x[0]!==c[0]&&x[11]===c[11]&&Math.abs(x[3]-c[3])<=c[3]*0.2)
+    .map(x=>[x,Math.abs(x[3]-c[3])/c[3]*100+Math.abs(x[7]-c[7])/8+Math.abs(yr(x)-yr(c))*3+(x[6]!==c[6]?18:0)+(x[8]!==c[8]?12:0)+(modelOf(x[1])===modelOf(c[1])?6:0)])
+    .sort((a,b)=>a[1]-b[1]).slice(0,3).map(a=>a[0]);
+}
+function waCar(c){
+  const link="https://janvanveenautos.nl/occasions-kopen/"+c[0];
+  const t=TL("Hallo Jan van Veen Auto's, ik heb interesse in de "+c[1]+" "+cleanUitv(c[2])+" ("+fmtEUR(c[3])+").\n"+link+"\n\nIk wil graag een proefrit plannen.",
+             "Hello Jan van Veen Auto's, I'm interested in the "+c[1]+" "+cleanUitv(c[2])+" ("+fmtEUR(c[3])+").\n"+link+"\n\nI'd like to book a test drive.");
+  return "https://wa.me/31418673026?text="+encodeURIComponent(t);
+}
 const $=id=>document.getElementById(id);
 const fmtEUR=n=>"€ "+n.toLocaleString("nl-NL")+",-";
 const fmtKm=n=>Math.round(n*1000).toLocaleString("nl-NL")+" km";
@@ -402,7 +929,31 @@ function checks(c,f){
   if(f.models.length) out.push({ok:f.models.includes(modelOf(c[1])), near:false, why:"ander model"});
   if(f.transmission) out.push({ok:c[6]===f.transmission, near:false, why:c[6]==="A"?"automaat":"handgeschakeld"});
   if(f.fuel.length) out.push({ok:f.fuel.includes(c[8]), near:false, why:FUEL_LABEL[c[8]]});
+  if(f.notPowers&&f.notPowers.length) out.push({ok:!f.notPowers.includes(c[9]), near:false, why:c[9]+" pk"});
+  if(f.powers&&f.powers.length) out.push({ok:f.powers.includes(c[9]), near:f.powers.some(p=>Math.abs(c[9]-p)<=10), why:c[9]+" pk"});
   if(f.minPower) out.push({ok:c[9]>=f.minPower, near:c[9]>=f.minPower*0.9, why:c[9]+" pk"});
+  if(f.maxPower) out.push({ok:c[9]>0&&c[9]<=f.maxPower, near:c[9]>0&&c[9]<=f.maxPower*1.12, why:c[9]+" pk"});
+  if(f.minKm) out.push({ok:c[7]*1000>=f.minKm, near:false, why:"minder km"});
+  if(f.minTow) out.push({ok:c[12]>=f.minTow, near:c[12]>=f.minTow*0.85, why:c[12]?"trekt "+c[12]+" kg":"trekgewicht onbekend"});
+  for(const o of f.notOptions) out.push({ok:!hasOpt(c,o), near:false, why:"heeft "+FLAG_LABEL[o].toLowerCase()});
+  if(f.notColors.length) out.push({ok:!f.notColors.some(k=>c[10].includes(k)), near:false, why:"is "+c[10]});
+  if(f.notFuel.length) out.push({ok:!f.notFuel.includes(c[8]), near:false, why:FUEL_LABEL[c[8]]});
+  if(f.notBrands.length) out.push({ok:!f.notBrands.includes(brandOf(c[1])), near:false, why:brandOf(c[1])});
+  if(f.notModels.length) out.push({ok:!f.notModels.includes(modelOf(c[1])), near:false, why:modelOf(c[1])});
+  if(f.notBody.length) out.push({ok:!f.notBody.includes(c[11]), near:false, why:c[11]});
+  if(f.drive) out.push({ok:driveOf(c)===f.drive, near:false, why:DRIVE_LABEL[driveOf(c)].toLowerCase()});
+  if(f.notDrive) out.push({ok:driveOf(c)!==f.notDrive, near:false, why:DRIVE_LABEL[driveOf(c)].toLowerCase()});
+  if(f.engine) out.push({ok:(" "+c[2]+" ").includes(" "+f.engine+" ")||(X(c)&&X(c).cc&&Math.abs(X(c).cc/1000-+f.engine)<0.06), near:true, why:"andere motor"});
+  if(f.small) out.push({ok:KLEINE_AUTOS.includes(modelOf(c[1])), near:false, why:"geen kleine auto"});
+  if(f.doors) out.push({ok:!X(c)||!X(c).d||X(c).d===f.doors, near:false, why:X(c)?X(c).d+"-deurs":""});
+  if(f.minRange) out.push({ok:c[8]==="E"&&(!X(c)||!X(c).ar||X(c).ar>=f.minRange), near:c[8]==="E", why:c[8]==="E"?(X(c)&&X(c).ar?X(c).ar+" km actieradius":"actieradius onbekend"):"niet elektrisch"});
+  if(f.label) out.push({ok:!X(c)||!X(c).el||X(c).el.toUpperCase().startsWith(f.label), near:true, why:X(c)&&X(c).el?"energielabel "+X(c).el:""});
+  for(const w of f.optTerms){const ot=optText(c);const re=/^(\d+) inch$/.exec(w);const hit=re?new RegExp(re[1]+'\\s*("|”|inch|\'\')').test(ot+" "+(c[2]||"").toLowerCase()):(ot+" "+c[2].toLowerCase()).includes(w);out.push({ok:hit, near:true, why:"geen "+w+" vermeld"});}
+  if(f.maxMonthly){const mb=+(String(c[15]||"").replace(/\./g,""));out.push({ok:mb>0&&mb<=f.maxMonthly, near:mb>0&&mb<=f.maxMonthly*1.1, why:mb?"€ "+mb+" per maand":"maandbedrag onbekend"});}
+  const hay=(" "+c[1]+" "+c[2]+" ").toLowerCase();
+  for(const w of f.terms) out.push({ok:hay.includes(" "+w+" ")||hay.includes(w), near:true, why:"geen "+w});
+  for(const w of f.notTerms) out.push({ok:!hay.includes(w), near:false, why:"is "+w});
+  if(f.vat) out.push({ok:c[4]===f.vat, near:false, why:c[4]==="M"?"margeauto":"btw-auto"});
   if(f.maxCons){ const doel=Math.round(100/f.maxCons), kpl=c[13]!==""&&+c[13]>0?Math.round(100/+c[13]):0; out.push({ok:c[8]==="E"||kpl>=doel, near:kpl>=doel-2, why:c[13]?"verbruik 1 op "+Math.round(100/+c[13]):"verbruik onbekend"}); }
   if(f.colors.length) out.push({ok:f.colors.some(k=>c[10].includes(k)), near:false, why:"kleur "+c[10]});
   for(const o of f.options){ const has=hasOpt(c,o)||canAdd(c,o);
@@ -419,7 +970,7 @@ function run(){
     if(!fails.length) exact.push(c);
     else if(fails.length===1&&fails[0].near) near.push([c,fails[0]]);
   }
-  const sorter={relevant:(a,b)=>score(b)-score(a)||a[3]-b[3],prijs:(a,b)=>a[3]-b[3],km:(a,b)=>a[7]-b[7],nieuw:(a,b)=>b[5].slice(3)+b[5].slice(0,2)>a[5].slice(3)+a[5].slice(0,2)?1:-1};
+  const sorter={relevant:(a,b)=>score(b)-score(a)||a[3]-b[3],prijs:(a,b)=>a[3]-b[3],duur:(a,b)=>b[3]-a[3],pk:(a,b)=>b[9]-a[9],binnen:(a,b)=>(+b[0])-(+a[0]),km:(a,b)=>a[7]-b[7],nieuw:(a,b)=>b[5].slice(3)+b[5].slice(0,2)>a[5].slice(3)+a[5].slice(0,2)?1:-1};
   exact.sort(sorter[sortBy]); near.sort((x,y)=>sorter[sortBy](x[0],y[0]));
   const n=exact.length;
   if(lastQuery&&lastQuery!==window.__lc){window.__lc=lastQuery;
@@ -427,20 +978,29 @@ function run(){
     const kind=none?"niet-begrepen/":(n?null:(near.length?"alleen-bijna/":"geen-resultaat/"));
     try{ if(kind&&window.goatcounter&&goatcounter.count) goatcounter.count({path:kind+lastQuery.toLowerCase().replace(/\s+/g," ").slice(0,90),title:(none?"Niet begrepen: ":n?"":near.length?"Alleen bijna: ":"Niets gevonden: ")+lastQuery,event:true}); }catch(e){}
   }
-  const waWens=`https://wa.me/31418673026?text=${encodeURIComponent("Hallo Jan van Veen Auto's, ik zoek: "+lastQuery+". Laten jullie het weten als er iets binnenkomt?")}`;
+  const waWens=`https://wa.me/31418673026?text=${encodeURIComponent(TL("Hallo Jan van Veen Auto's, ik zoek: "+lastQuery+". Laten jullie het weten als er iets binnenkomt?","Hello Jan van Veen Auto's, I'm looking for: "+lastQuery+". Could you let me know when something comes in?"))}`;
   const mailWens=`mailto:info@janvanveenautos.nl?subject=${encodeURIComponent("Zoekwens via Slim zoeken")}&body=${encodeURIComponent("Hallo Jan van Veen Auto's,\n\nIk zoek: "+lastQuery+"\n\nLaat het me weten als er iets binnenkomt.\n\nNaam:\nTelefoon:\n")}`;
+  const favN=FAV.filter(id=>carById(id)).length;
+  const favBtn=`<button type="button" class="favbtn${FAVVIEW?" on":""}" data-favview="1">${HEART} ${TL("Favorieten","Favourites")} (${favN})</button>`;
+  if(FAVVIEW){
+    const favs=FAV.map(carById).filter(Boolean), gone=FAV.length-favs.length;
+    res.innerHTML=`<div class="bar"><h2><span class="slant">${TL("Favorieten","Favourites")}</span>${favs.length} ${TL(favs.length===1?"auto bewaard":"auto's bewaard",favs.length===1?"car saved":"cars saved")}</h2><span class="right">${favBtn}</span></div>`+
+      (gone?`<p class="cmpmiss">${TL(gone===1?"Eén bewaarde auto is inmiddels verkocht.":gone+" bewaarde auto's zijn inmiddels verkocht.",gone===1?"One saved car has since been sold.":gone+" saved cars have since been sold.")}</p>`:"")+
+      (favs.length?`<div class="grid">${favs.map(c=>card(c)).join("")}</div>`:`<div class="empty"><p>${TL("Nog geen favorieten. Tik op het hartje bij een auto om hem te bewaren.","No favourites yet. Tap the heart on a car to save it.")}</p></div>`);
+    return;
+  }
   let h=`<div class="bar"><h2><span class="slant">Resultaten</span>${n?n+" "+(n===1?"auto past":"auto's passen"):"Geen exacte match"} <small>op je zoekopdracht</small></h2>
-  <label class="sort" for="sort">Sorteer <select id="sort"><option value="relevant">Best passend</option><option value="prijs">Prijs laag-hoog</option><option value="km">Minste km</option><option value="nieuw">Nieuwste eerst</option></select></label></div>`;
+  <span class="right">${favN?favBtn:""}<label class="sort" for="sort">Sorteer <select id="sort"><option value="relevant">Best passend</option><option value="prijs">Prijs laag-hoog</option><option value="km">Minste km</option><option value="duur">Prijs hoog-laag</option><option value="pk">Meeste pk</option><option value="binnen">Laatst binnen</option><option value="nieuw">Nieuwste eerst</option></select></label></span></div>`;
   if(n) h+=`<div class="grid">${exact.slice(0,120).map(c=>card(c)).join("")}</div>`;
   else h+=`<div class="empty"><h3>Niets dat precies past</h3><p>Haal een wens weg met het kruisje hierboven, of bekijk hieronder wat er net buiten valt.</p><p><b>Of laat je wens achter:</b> we houden het voor je in de gaten en bellen je zodra er iets binnenkomt.</p><p style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><a class="wensbtn wa" href="${waWens}" target="_blank" rel="noopener">Stuur via WhatsApp</a><a class="wensbtn" href="${mailWens}">Mail ons je zoekwens</a><span style="color:var(--muted);font-size:13px">of bel 0418-673026</span></p></div>`;
   if(near.length){
     h+=`<div class="section-gap near"><div class="bar"><h2><span class="slant">Bijna</span><small>${near.length} ${near.length===1?"auto mist":"auto's missen"} precies één wens</small></h2></div><div class="grid">${near.slice(0,30).map(([c,f])=>card(c,f)).join("")}</div></div>`;
   }
   res.innerHTML=h;
-  $("sort").value=sortBy;
-  $("sort").onchange=e=>{sortBy=e.target.value;run();};
+  if($("sort"))$("sort").value=sortBy;
+  if($("sort"))$("sort").onchange=e=>{sortBy=e.target.value;run();};
 }
-function score(c){return (filters.eco?(c[8]==="E"?6:(c[13]?-+c[13]*3:-30)):0) + filters.options.filter(o=>hasOpt(c,o)).length*10 + addons(c,filters).length*4 - c[7]/50;}
+function score(c){return (filters._boost||[]).filter(o=>hasOpt(c,o)).length*6 + ((filters._boostFuel||[]).includes(c[8])?8:0) + (filters.eco?(c[8]==="E"?6:(c[13]?-+c[13]*3:-30)):0) + filters.options.filter(o=>hasOpt(c,o)).length*10 + addons(c,filters).length*4 - c[7]/50;}
 
 function imgFallback(img){if(img.src.startsWith('data:')){img.src=`https://janvanveenautos.nl/webservices/feed_images/${img.closest('a').href.split('/').pop()}/${img.closest('a').href.split('/').pop()}-0.jpg`;return;}const n=+img.dataset.n+1;if(n<=3){img.dataset.n=n;img.src=img.src.replace(/-\d+\.jpg/,"-"+n+".jpg");}else img.replaceWith(Object.assign(document.createElement('span'),{className:'ph'}));}
 const OPT_WORDS=/\s(Navigatie|Camera|360|Stoelverwarming|Stuur\/Stoel|Trekhaak|LED|Matrix|Virtual Cockpit|Panoramadak|Panorama|App-?Connect|App Connect|DAB\+?|Climate Control|Parkeersensoren|Sfeerverlichting|Adaptive Cruise|Cruise Control|Alcantara|Leder(-Stof|-Alcantara)?|Airco|Warmtepomp|Luchtvering|Stoelmassage|B&O|Sportstoelen|Elektrische ramen|Keyless|Carplay|Stuurverwarming)\b.*$/i;
@@ -449,22 +1009,25 @@ function card(c,fail){
   const has=k=>c[14].includes(FLAG_CODE[k]);
   const wanted=filters.options;
   const shown=[];
-  wanted.forEach(k=>shown.push(hasOpt(c,k)?`<span class="o hit">✓ ${FLAG_LABEL[k]}</span>`:canAdd(c,k)?`<span class="o add">+ ${ADDONS[k].label} te monteren</span>`:`<span class="o miss">✗ ${FLAG_LABEL[k]}</span>`));
+  wanted.forEach(k=>shown.push(hasOpt(c,k)?`<span class="o hit">✓ ${FLAG_LABEL[k]}</span>`:canAdd(c,k)?`<span class="o add">+ ${k==="trekhaak"?"Trekhaak te monteren":ADDONS[k].label+" te monteren"}</span>`:`<span class="o miss">✗ ${FLAG_LABEL[k]}</span>`));
   const adds=addons(c,filters), tp=totalPrice(c,filters);
   let extra=0;
   for(const k of SHOW_ORDER){ if(wanted.includes(k)||!has(k)) continue; if(extra<4){shown.push(`<span class="o">${FLAG_LABEL[k]}</span>`);} extra++; }
   const more=extra>4?`<span class="o">+${extra-4} opties</span>`:"";
   const fuel=FUEL_LABEL[c[8]], tr=c[6]==="A"?"Automaat":"Handgeschakeld";
   const pic=PHOTOS[c[0]]||`https://janvanveenautos.nl/webservices/feed_images/${c[0]}/${c[0]}-0.jpg`;
-  return `<article class="car">
+  return `<article class="car"><button type="button" class="fav${FAV.includes(c[0])?" on":""}" data-fav="${c[0]}" aria-pressed="${FAV.includes(c[0])}" aria-label="${TL("Bewaar als favoriet","Save as favourite")}">${HEART}</button>
     <a class="pic" href="https://janvanveenautos.nl/occasions-kopen/${c[0]}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">${adds.length?`<span class="slant">Trekhaak mogelijk</span>`:(hasOpt(c,"trekhaak")&&filters.options.includes("trekhaak")?`<span class="slant">Met trekhaak</span>`:"")}${pic?`<img class="photo" src="${pic}" alt="" loading="lazy" referrerpolicy="no-referrer" data-n="0" onerror="imgFallback(this)">`:`<span class="ph"></span>`}</a>
     <div class="head"><h3>${c[1]}</h3><div class="uitv">${cleanUitv(c[2])}</div>
     <div class="pr">${fmtEUR(c[3])}${c[15]?` <span>of € ${c[15]} /mnd</span>`:""}<small>${c[4]==="M"?"Marge":"Incl. BTW"}</small></div></div>
-    ${adds.length?`<div class="addline">${adds.map(o=>ADDONS[o].label+" erop voor "+fmtEUR(ADDONS[o].price)).join(", ")} · totaal ${fmtEUR(tp)}</div>`:""}
+    ${adds.length?`<div class="addline">${filters.towKind?`${towLabel(filters)} erop: ${fmtEUR(towPrice(filters))} · totaal ${fmtEUR(tp)}`:`Trekhaak erop: vast ${fmtEUR(TREKHAAK_PRIJS.vast)} · afneembaar ${fmtEUR(TREKHAAK_PRIJS.afneembaar)}`}</div>`:""}
     ${fail?`<div class="why">Mist: ${fail.why}</div>`:""}
     <div class="specs"><span>${c[5]}</span><span>${fmtKm(c[7])}</span><span>${tr}</span><span>${fuel}</span>${c[9]?`<span>${c[9]} pk</span>`:""}${c[13]?`<span>1 op ${Math.round(100/+c[13])}</span>`:""}</div>
     <div class="opts">${shown.join("")}${more}</div>
-    <div class="foot"><span style="color:var(--muted)">${c[11]} · ${c[10]}</span><a href="https://janvanveenautos.nl/occasions-kopen/${c[0]}" target="_blank" rel="noopener">Bekijk auto →</a></div>
+    <div class="specs" style="color:var(--muted)"><span>${c[11]}</span><span>${c[10]}</span></div>
+    <div class="acts"><a class="wa-act" href="${waCar(c)}" target="_blank" rel="noopener" data-wacar="${c[0]}">${TL("Proefrit of inruil","Test drive or trade-in")}</a><button type="button" class="like" data-like="${c[0]}">${TL("Lijkt hierop","Similar cars")}</button></div>
+    <div class="likebox" id="like-${c[0]}"></div>
+    <div class="foot">${cmpBtn(c[0])}<a href="https://janvanveenautos.nl/occasions-kopen/${c[0]}" target="_blank" rel="noopener">Bekijk auto →</a></div>
   </article>`;
 }
 
@@ -483,33 +1046,211 @@ function renderChips(){
   filters.models.forEach(b=>add(b,"models",b));
   if(filters.transmission) add(filters.transmission==="A"?"Automaat":"Handgeschakeld","transmission");
   filters.fuel.forEach(b=>add(FUEL_LABEL[b],"fuel",b));
-  if(filters.minPower) add("Min. "+filters.minPower+" pk","minPower");
+  if(filters.towKind) add(filters.towKind==="afneembaar"?"Afneembaar":"Vast","towKind",null,"opt");
+  if(filters.powers&&filters.powers.length) filters.powers.forEach(v=>add(v+" pk","powers",v));
+  if(filters.notPowers&&filters.notPowers.length) filters.notPowers.forEach(v=>add("Geen "+v+" pk","notPowers",v,"neg"));
+  if(filters.minPower) add(filters._pmin&&filters.maxPower==null?filters._pmin:"Min. "+filters.minPower+" pk","minPower");
+  if(filters.maxPower) add(filters._pmax&&filters.minPower==null?filters._pmax:"Max. "+filters.maxPower+" pk","maxPower");
+  if(filters.eco&&!filters.maxCons) add("Zuinigste eerst","eco");
+  if(filters._sort) add({prijs:"Goedkoopste eerst",nieuw:"Nieuwste eerst",km:"Minste km eerst",duur:"Duurste eerst",pk:"Meeste pk eerst",binnen:"Laatst binnengekomen eerst"}[filters._sort]||"Gesorteerd","_sort");
+  if(filters.minKm) add("Vanaf "+Math.round(filters.minKm).toLocaleString("nl-NL")+" km","minKm");
+  if(filters.minTow) add("Trekt min. "+filters.minTow.toLocaleString("nl-NL")+" kg","minTow");
+  filters.notOptions.forEach(o=>add("Geen "+FLAG_LABEL[o].toLowerCase(),"notOptions",o,"neg"));
+  filters.notColors.forEach(b=>add("Niet "+b,"notColors",b,"neg"));
+  filters.notFuel.forEach(b=>add("Geen "+FUEL_LABEL[b].toLowerCase(),"notFuel",b,"neg"));
+  filters.notBrands.forEach(b=>add("Geen "+b,"notBrands",b,"neg"));
+  filters.notModels.forEach(b=>add("Geen "+b,"notModels",b,"neg"));
+  filters.notBody.forEach(b=>add("Geen "+b.toLowerCase(),"notBody",b,"neg"));
+  if(filters.drive) add(DRIVE_LABEL[filters.drive],"drive");
+  if(filters.engine) add(filters.engine+" motor","engine");
+  if(filters.small) add("Kleine auto ("+KLEINE_AUTOS.filter(m=>MODELS.includes(m)).join(", ")+")","small");
+  if(filters.doors) add(filters.doors+"-deurs","doors");
+  if(filters.minRange) add("Actieradius min. "+filters.minRange+" km","minRange");
+  if(filters.label) add("Energielabel "+filters.label,"label");
+  (filters.optTerms||[]).forEach(w=>add("\u201c"+w+"\u201d","optTerms",w,"opt"));
+  if(filters.notDrive) add("Geen "+DRIVE_LABEL[filters.notDrive].toLowerCase(),"notDrive",null,"neg");
+  if(filters.maxMonthly) add("Max. € "+filters.maxMonthly+" per maand","maxMonthly");
+  filters.terms.forEach(w=>add("\u201c"+w+"\u201d","terms",w,"opt"));
+  filters.notTerms.forEach(w=>add("Geen \u201c"+w+"\u201d","notTerms",w,"neg"));
+  if(filters.vat) add(filters.vat==="B"?"Btw-auto (zakelijk)":"Margeauto","vat");
   if(filters.maxCons) add("Zuinig: 1 op "+Math.round(100/filters.maxCons)+" of beter","maxCons");
   filters.colors.forEach(b=>add(b[0].toUpperCase()+b.slice(1),"colors",b));
   filters.options.forEach(o=>add(FLAG_LABEL[o],"options",o,"opt"));
-  u.innerHTML=chips.length?`<span class="lbl">Gezocht op:</span>${chips.join("")}`:`<span class="lbl">Geen wensen herkend. Probeer bijvoorbeeld een budget, een soort auto of een optie.</span>`;
+  const unk=(filters._unknown||[]).filter((w,i,a)=>a.indexOf(w)===i);
+  u.innerHTML=(chips.length||(filters._life||[]).length||(filters._info||[]).length)?`<span class="lbl">Gezocht op:</span>${chips.join("")}${(filters._info||[]).length?`<span class="unk info">${filters._info.join(" ")}</span>`:""}${(filters._fixed||[]).length?`<span class="unk life">Verbeterd: ${filters._fixed.join(", ")}</span>`:""}${(filters._life||[]).length?`<span class="unk life">Vertaald: ${filters._life.join(" · ")}</span>`:""}${unk.length?`<span class="unk">Niet gebruikt: ${unk.join(", ")}</span>`:""}`:`<span class="lbl">Geen wensen herkend. Probeer bijvoorbeeld een budget, een soort auto of een optie.</span>`;
   u.querySelectorAll("button").forEach(b=>b.onclick=()=>{const k=b.dataset.k,v=b.dataset.v;
-    if(Array.isArray(filters[k])) filters[k]=filters[k].filter(x=>x!==v); else filters[k]=null;
+    if(Array.isArray(filters[k])) filters[k]=filters[k].filter(x=>String(x)!==v); else filters[k]=null;
     renderChips();run();});
 }
 
 function search(q){
   q=q.trim(); if(!q) return;
-  lastQuery=q; sortBy="relevant";
+  lastQuery=q; sortBy="relevant"; FAVVIEW=false;
   try{ if(window.goatcounter&&goatcounter.count) goatcounter.count({path:"zoek/"+q.toLowerCase().replace(/\s+/g," ").slice(0,90),title:q,event:true}); }catch(e){}
-  filters=localParse(q); renderChips(); run();
+  filters=localParse(q); if(filters._sort) sortBy=filters._sort; renderChips(); run();
   if(window.innerWidth<560) setTimeout(()=>{const u=$("understood");if(u) u.scrollIntoView({behavior:"smooth",block:"start"});},60);
   try{localStorage.setItem("jvv-last",q);}catch(e){}
 }
 
-document.addEventListener("click",e=>{const w=e.target.closest&&e.target.closest(".wensbtn");if(w){try{goatcounter.count({path:"wens/"+(w.classList.contains("wa")?"whatsapp":"mail")+"/"+lastQuery.toLowerCase().slice(0,80),title:"Zoekwens via "+(w.classList.contains("wa")?"WhatsApp":"mail")+": "+lastQuery,event:true});}catch(err){}}
+document.addEventListener("click",e=>{
+  const fv=e.target.closest&&e.target.closest("[data-fav]");
+  if(fv){e.preventDefault();const id=fv.dataset.fav;const i=FAV.indexOf(id);if(i>=0)FAV.splice(i,1);else{FAV.push(id);try{goatcounter.count({path:"favoriet/"+id,title:"Favoriet: "+(carById(id)||[,""])[1],event:true});}catch(err){}}saveFav();
+    document.querySelectorAll('[data-fav="'+id+'"]').forEach(b=>{b.classList.toggle("on",FAV.includes(id));b.setAttribute("aria-pressed",FAV.includes(id));});
+    if(FAVVIEW){run();return;} const fb=document.querySelector("[data-favview]");const nn=FAV.filter(x=>carById(x)).length; if(fb){fb.innerHTML=HEART+" "+TL("Favorieten","Favourites")+" ("+nn+")";} else if(nn) run(); return;}
+  const fview=e.target.closest&&e.target.closest("[data-favview]");
+  if(fview){FAVVIEW=!FAVVIEW;run();const r=$("results");if(r)setTimeout(()=>r.scrollIntoView({behavior:"smooth",block:"start"}),40);return;}
+  const lk=e.target.closest&&e.target.closest("[data-like]");
+  if(lk){const c=carById(lk.dataset.like);const box=$("like-"+lk.dataset.like);if(!c||!box)return;
+    const on=!box.classList.contains("on");box.classList.toggle("on",on);lk.classList.toggle("on",on);
+    if(on&&!box.innerHTML){const sim=similar(c);const pic=x=>PHOTOS[x[0]]||`https://janvanveenautos.nl/webservices/feed_images/${x[0]}/${x[0]}-0.jpg`;
+      box.innerHTML=sim.length?`<p class="why2">${TL("Zelfde soort auto, vergelijkbare prijs:","Same type of car, similar price:")}</p>`+sim.map(x=>`<a class="li" href="https://janvanveenautos.nl/occasions-kopen/${x[0]}" target="_blank" rel="noopener"><img src="${pic(x)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'"><span><b>${x[1]}</b>${cleanUitv(x[2])}<br><i>${fmtEUR(x[3])}</i> · ${x[5]} · ${fmtKm(x[7])}</span></a>`).join(""):`<p class="why2">${TL("Geen vergelijkbare auto's op voorraad.","No similar cars in stock.")}</p>`;
+      try{goatcounter.count({path:"lijkt-hierop/"+c[0],title:"Lijkt hierop: "+c[1],event:true});}catch(err){}}
+    return;}
+  const wc=e.target.closest&&e.target.closest("[data-wacar]");
+  if(wc){try{goatcounter.count({path:"proefrit/"+wc.dataset.wacar,title:"Proefrit/inruil: "+(carById(wc.dataset.wacar)||[,""])[1],event:true});}catch(err){}}
+  const w=e.target.closest&&e.target.closest(".wensbtn");if(w){try{goatcounter.count({path:"wens/"+(w.classList.contains("wa")?"whatsapp":"mail")+"/"+lastQuery.toLowerCase().slice(0,80),title:"Zoekwens via "+(w.classList.contains("wa")?"WhatsApp":"mail")+": "+lastQuery,event:true});}catch(err){}}
 const a=e.target.closest&&e.target.closest('a[href*="/occasions-kopen/"]');if(!a)return;const art=a.closest("article");const t=art?art.querySelector("h3")?.textContent:"";try{ if(window.goatcounter&&goatcounter.count) goatcounter.count({path:"klik/"+a.href.split("/").pop(),title:"Bekeken: "+t,event:true}); }catch(err){}});
 $("form").addEventListener("submit",e=>{e.preventDefault();search($("q").value);});
-const EX=["SUV met trekhaak tot 28.000 en onder de 120.000 km","Audi A3 met adaptive cruise","7-zitter automaat met camera","Stationwagon automaat stoelverwarming tot 18.000","Elektrisch met trekhaak","Polo met navigatie onder 14.000","Zuinige automaat tot 20.000"];
+const EX=["SUV met trekhaak tot 28.000 en onder de 120.000 km","Gezinsauto met trekhaak","Caravan trekken, automaat","Eerste auto voor mijn dochter","Niet zwart, geen diesel, max 300 per maand","Zuinig voor woon-werk, boven 110 pk","7-zitter met camera"];
+const IDEAS=EN?{
+ "Budget and monthly amount":["Under 15k","Around 20000 automatic","Max 300 per month","Cheapest SUV"],
+ "In your own words":["First car for my daughter","Spacious for 2 kids","Easy to get in for my mother","Economical for commuting","Something luxurious with leather","Going skiing"],
+ "Exactly what you want":["Polo 95 hp automatic","Over 110 hp with towbar","Golf 1.5 TSI from 2021","7 seater with panoramic roof","Electric with heat pump"],
+ "What you don't want":["Not black, no diesel","SUV without towbar","No Polo or Golf but Volkswagen"],
+ "Also in Dutch and German":["SUV met trekhaak tot 25000","Stationwagon automaat stoelverwarming","Kombi Automatik mit Sitzheizung"],
+ "Good to know":["Newest arrivals","Most power","Detachable towbar","Can I trade in my car?"]
+}:{
+ "Budget en maandbedrag":["Onder 15k","Rond de 20.000 automaat","Max 300 per maand","Goedkoopste SUV"],
+ "In je eigen woorden":["Eerste auto voor mijn dochter","Ruim voor 2 kinderen","Makkelijk instappen voor mijn moeder","Zuinig voor woon-werk","Iets luxe met leder","Op wintersport"],
+ "Precies wat je wilt":["Polo 95 pk automaat","Boven 110 pk met trekhaak","Golf 1.5 TSI uit 2021","7-zitter met panoramadak","Elektrisch met warmtepomp"],
+ "Juist niet":["Niet zwart, geen diesel","SUV zonder trekhaak","Geen Polo of Golf maar wel Volkswagen"],
+ "Ook in het Engels en Duits":["SUV with towbar under 25000","Automatic estate with heated seats","Kombi Automatik mit Sitzheizung"],
+ "Handig om te weten":["Net binnen","Meeste pk","Afneembare trekhaak","Kan ik mijn auto inruilen?"]
+};
+{const g=$("ideas");for(const [h,list] of Object.entries(IDEAS)){const d=document.createElement("div");d.innerHTML="<h4>"+h+"</h4>";for(const x of list){const b=document.createElement("button");b.type="button";b.textContent=x;b.onclick=()=>{$("q").value=x;search(x);};d.appendChild(b);}g.appendChild(d);}}
+if(EN){EX.length=0;EX.push("SUV with towbar under 28000 and below 120000 km","Family car with towbar","Caravan towing, automatic","First car for my daughter","Not black, no diesel, max 300 a month","Economical for commuting, over 110 hp","7 seater with camera");}
 EX.forEach(x=>{const b=document.createElement("button");b.type="button";b.className="ex";b.textContent=x;b.onclick=()=>{$("q").value=x;search(x);};$("examples").appendChild(b);});
 $("stockCount").textContent=CARS.length; $("stockDate").textContent="stand "+STOCK_DATE; 
+document.documentElement.lang=EN?"en":"nl";
+{const b=$("langbtn");if(EN){b.textContent="Nederlands";b.lang="nl";}b.onclick=()=>{const to=EN?"nl":"en";try{localStorage.setItem("jvv-lang",to);localStorage.removeItem("jvv-last");}catch(e){}const u=new URL(location.href);u.searchParams.set("lang",to);u.searchParams.delete("vergelijk");u.searchParams.delete("klant");location.href=u.toString();};}
+if(EN){translateNode(document.body);new MutationObserver(ms=>{for(const m of ms){if(m.type==="characterData")translateNode(m.target);else m.addedNodes.forEach(n=>translateNode(n));}}).observe(document.body,{childList:true,subtree:true,characterData:true});}
 let start=EX[0]; try{start=localStorage.getItem("jvv-last")||start;}catch(e){}
 $("q").value=start; lastQuery=start; filters=localParse(start); renderChips(); run();
+
+
+// ---------- Vergelijken (max. 3 auto's naast elkaar) ----------
+const carById=id=>CARS.find(c=>c[0]===id);
+function cmpBtn(id){const on=CMP.includes(id);
+  return `<span style="display:flex;gap:6px;align-items:center"><button type="button" class="cmpbtn${on?" on":""}" data-cmp="${id}" aria-pressed="${on}">${on?TL("Vergelijken","Selected"):TL("Vergelijk","Compare")}</button>${on&&CMP.length>1?`<button type="button" class="cmpgo" data-cmpgo="1">Bekijk (${CMP.length})</button>`:""}</span>`;}
+function cmpSync(){
+  document.querySelectorAll("[data-cmp]").forEach(b=>{const w=b.parentNode;w.outerHTML=cmpBtn(b.dataset.cmp);});
+  const bar=$("cmpbar");
+  if(!CMP.length){bar.className="";bar.innerHTML="";return;}
+  bar.className="show";
+  bar.innerHTML=`<span>${CMP.length} van ${CMP_MAX} gekozen</span><span style="display:flex;gap:8px"><button type="button" class="x" data-cmpclear="1">Wissen</button><button type="button" class="go" data-cmpgo="1" ${CMP.length<2?"disabled":""}>${CMP.length<2?"Kies nog 1":"Vergelijk"}</button></span>`;
+}
+function cmpToggle(id){
+  const i=CMP.indexOf(id);
+  if(i>=0) CMP.splice(i,1);
+  else{ if(CMP.length>=CMP_MAX){ cmpFlash(`Je kunt maximaal ${CMP_MAX} auto's vergelijken. Haal er eerst een weg.`); return; } CMP.push(id); }
+  cmpSync(); if($("compare").innerHTML) cmpShow(false);
+}
+function cmpFlash(t){const bar=$("cmpbar");const old=bar.innerHTML;bar.className="show";bar.innerHTML=`<span>${t}</span>`;setTimeout(cmpSync,2200);}
+function cmpLink(){return location.origin+location.pathname+"?vergelijk="+CMP.join(",")+(EN?"&lang=en":"");}
+function cmpShow(scroll=true,missing=[]){
+  const el=$("compare");
+  const cars=CMP.map(carById).filter(Boolean);
+  if(cars.length<1){el.innerHTML="";return;}
+  const yr=c=>+c[5].slice(3), kpl=c=>c[13]!==""&&+c[13]>0?Math.round(100/+c[13]):0, mnd=c=>+(String(c[15]||"").replace(/\./g,""))||0;
+  const best=(vals,low)=>{const ok=vals.filter(v=>v>0);if(cars.length<2||!ok.length)return -1;const t=low?Math.min(...ok):Math.max(...ok);return vals.filter(v=>v===t).length===vals.length?-1:t;};
+  const row=(label,cells,cls="")=>{const d=cells.length>1&&new Set(cells.map(x=>String(x).replace(/<[^>]+>/g,"").replace(" ★",""))).size>1;return `<tr class="${cls}${d?" diff":" same"}${/^(Prijs|Per maand|Kilometerstand|Bouwjaar)$/.test(label)?" big":""}"><th scope="row">${label}</th>${cells.map(x=>`<td>${x}</td>`).join("")}</tr>`;};
+  const num=(label,vals,fmt,low)=>{const b=best(vals,low);return row(label,vals.map(v=>v>0?`<span class="${v===b?"best":""}">${fmt(v)}</span>`:"–"));};
+  const pic=c=>PHOTOS[c[0]]||`https://janvanveenautos.nl/webservices/feed_images/${c[0]}/${c[0]}-0.jpg`;
+  let h=`<div class="bar"><h2><span class="slant">Vergelijken</span>${cars.length} auto's naast elkaar</h2><button type="button" class="rm" data-cmpclose="1" style="font-size:14px">Sluiten ✕</button></div>`;
+  h+=`<div class="cmphead"><span style="display:flex;align-items:center;gap:14px"><img src="${document.querySelector('.jvv-logo img')?.src||''}" alt=""><b>Vergelijking · ${cars.length} auto's</b></span><span style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><label class="cmpdiff"><input type="checkbox" data-cmpdiff="1" ${document.documentElement.classList.contains("cmponlydiff")?"checked":""}> Alleen verschillen</label><button type="button" data-cmpprint="1">Print</button><button type="button" data-cmpfullx="1">Sluiten ✕</button></span></div>`;
+  h+=`<div class="cmpoffer" id="cmpoffer" hidden><b>${TL("Maak er een nette offerte van","Make it a tidy proposal")}</b><label>${TL("Voor (naam klant)","For (customer name)")}<input id="pp-in-name" autocomplete="off"></label><label>${TL("Uw adviseur","Your advisor")}<input id="pp-in-seller" autocomplete="off"></label><label class="wide">${TL("Opmerking (optioneel)","Note (optional)")}<input id="pp-in-note" autocomplete="off" placeholder="${TL("Bijv. inclusief afleverpakket","E.g. including delivery package")}"></label><span class="btns"><button type="button" class="go" data-ppgo="1">${TL("Maak PDF / print","Make PDF / print")}</button><button type="button" data-ppx="1">${TL("Annuleren","Cancel")}</button></span><small>${TL("Kies bij het printen “Opslaan als PDF” om een PDF te maken.","Choose “Save as PDF” in the print window to get a PDF.")}</small></div>`;
+  h+=`<div class="cmpprint pp-top"><img src="${document.querySelector('.jvv-logo img')?.src||''}" alt=""><div class="pp-co"><b>Jan van Veen Auto's</b>Zijlstraat 3, 5305 EE Zuilichem<br>0418-673026 · info@janvanveenautos.nl · janvanveenautos.nl</div><div class="pp-meta"><h1>${TL("Voorstel","Proposal")}<span class="pp-name"></span></h1>${TL("Datum","Date")}: ${new Date().toLocaleDateString(EN?"en-GB":"nl-NL")}<span class="pp-seller"></span></div></div><p class="cmpprint pp-note"></p>`;
+  if(missing.length) h+=`<p class="cmpmiss">${missing.length===1?"Eén auto uit de gedeelde link is":missing.length+" auto's uit de gedeelde link zijn"} inmiddels verkocht of niet meer beschikbaar.</p>`;
+  if(cars.length>1) h+=`<p class="cmphint">Veeg de tabel opzij om alle auto's te zien →</p>`;
+  const N=cars.length, bp=best(cars.map(c=>c[3]),true);
+  h+=`<div class="cmpwrap"><table class="cmpt"><colgroup><col class="lab">${cars.map(()=>"<col>").join("")}</colgroup><tbody>`;
+  h+=`<tr class="car-h"><th></th>${cars.map(c=>`<td><a href="https://janvanveenautos.nl/occasions-kopen/${c[0]}" target="_blank" rel="noopener"><img src="${pic(c)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-n="0" onerror="this.style.visibility='hidden'"></a><h3>${c[1]}</h3><div class="u">${cleanUitv(c[2])}</div><div class="cprice${c[3]===bp?" best":""}">${fmtEUR(c[3])}</div><div class="cmnd">${mnd(c)?"of € "+mnd(c).toLocaleString("nl-NL")+" /mnd · ":""}${c[4]==="M"?"Marge":"Incl. BTW"}</div><button type="button" class="rm" data-cmp="${c[0]}" data-cmprm="1">Verwijder</button></td>`).join("")}</tr>`;
+  h+=`<tr class="sec"><th colspan="${N+1}">De auto</th></tr>`;
+  h+=num("Bouwjaar",cars.map(yr),v=>{const c=cars.find(x=>yr(x)===v);return c?c[5]:v;},false);
+  h+=num("Kilometerstand",cars.map(c=>Math.round(c[7]*1000)),v=>v.toLocaleString("nl-NL")+" km",true);
+  h+=row("Transmissie",cars.map(c=>c[6]==="A"?"Automaat":"Handgeschakeld"));
+  h+=row("Brandstof",cars.map(c=>FUEL_LABEL[c[8]]||"–"));
+  h+=num("Vermogen",cars.map(c=>c[9]),v=>v+" pk",false);
+  if(cars.some(c=>c[8]!=="E")) h+=num("Verbruik (opgave)",cars.map(c=>c[8]==="E"?0:kpl(c)),v=>"1 op "+v,false);
+  h+=row("Aandrijving",cars.map(c=>DRIVE_LABEL[driveOf(c)]));
+  h+=row("Carrosserie",cars.map(c=>c[11]||"–"));
+  h+=row("Kleur",cars.map(c=>c[10]?c[10][0].toUpperCase()+c[10].slice(1):"–"));
+  h+=row("Trekhaak",cars.map(c=>hasOpt(c,"trekhaak")?`<span class="yes">✓ Aanwezig</span>`:(c[12]>0?`<span style="color:var(--blue)">+ Te monteren<br><small style="font-weight:600">vast ${fmtEUR(TREKHAAK_PRIJS.vast)} · afneembaar ${fmtEUR(TREKHAAK_PRIJS.afneembaar)}</small></span>`:`<span class="no">Niet mogelijk</span>`)));
+  h+=row("Trekgewicht",cars.map(c=>c[12]?c[12].toLocaleString("nl-NL")+" kg":"–"));
+  const xr=(label,fn)=>{if(cars.some(c=>X(c)&&fn(X(c))))h+=row(label,cars.map(c=>X(c)&&fn(X(c))?fn(X(c)):"–"));};
+  xr("Zitplaatsen",x=>x.z||""); xr("Deuren",x=>x.d||""); xr("Actieradius",x=>x.ar?x.ar+" km":""); xr("Energielabel",x=>x.el||""); xr("APK tot",x=>x.apk||""); xr("Interieur",x=>[x.i,x.b].filter(Boolean).join(", "));
+  const keys=[...SHOW_ORDER,...FLAGS.map(f=>f[0]).filter(k=>!SHOW_ORDER.includes(k))].filter(k=>k!=="trekhaak"&&k!=="vierwd"&&cars.some(c=>hasOpt(c,k)));
+  const common=keys.filter(k=>cars.every(c=>hasOpt(c,k)));
+  const chips=(ks,cls)=>ks.map(k=>`<span class="oc ${cls}">${FLAG_LABEL[k]}</span>`).join("");
+  if(N>1){
+    h+=`<tr class="sec optsumh"><th colspan="${N+1}">Verschil in uitrusting</th></tr>`;
+    h+=`<tr class="optsum"><th scope="row">Heeft wél</th>${cars.map(c=>{const ks=keys.filter(k=>hasOpt(c,k)&&!common.includes(k));return `<td>${ks.length?chips(ks,"plus"):'<span class="no">Niets extra</span>'}</td>`;}).join("")}</tr>`;
+    h+=`<tr class="optsum"><th scope="row">Niet vermeld</th>${cars.map(c=>{const ks=keys.filter(k=>!hasOpt(c,k));return `<td>${ks.length?chips(ks,"min"):'<span class="no">Mist niets</span>'}</td>`;}).join("")}</tr>`;
+    if(common.length) h+=`<tr class="optsum"><th scope="row">Hebben ze allemaal</th><td colspan="${N}">${chips(common,"all")}</td></tr>`;
+  }
+  h+=`<tr class="sec optrow"><th colspan="${N+1}">Opties en uitrusting</th></tr>`;
+  for(const k of keys) h+=row(FLAG_LABEL[k],cars.map(c=>hasOpt(c,k)?`<span class="yes">✓</span>`:`<span class="no">–</span>`),"optrow");
+  h+=`<tr class="links"><th></th>${cars.map(c=>`<td><a href="https://janvanveenautos.nl/occasions-kopen/${c[0]}" target="_blank" rel="noopener" style="font-weight:800">Bekijk auto →</a></td>`).join("")}</tr>`;
+  h+=`</tbody></table></div>`;
+  const txt=TL("Hallo! Hierbij de auto's die we samen hebben bekeken bij Jan van Veen Auto's:\n\n","Hello! Here are the cars we looked at together at Jan van Veen Auto's:\n\n")+cars.map((c,i)=>`${i+1}. ${c[1]} ${cleanUitv(c[2])}\n   ${fmtEUR(c[3])} · ${c[5]} · ${fmtKm(c[7])}\n   https://janvanveenautos.nl/occasions-kopen/${c[0]}`).join("\n\n")+TL("\n\nBekijk ze naast elkaar:\n","\n\nSee them side by side:\n")+cmpLink()+"&klant=1";
+  h+=`<div class="cmpprint pp-foot">${TL("Prijzen incl. BTW of marge zoals vermeld. Opties volgens de advertentie. Onder voorbehoud van tussentijdse verkoop en typefouten. Bekijk elke auto op janvanveenautos.nl.","Prices incl. VAT or margin as stated. Options as listed in the advert. Subject to prior sale and typing errors. See every car at janvanveenautos.nl.")}</div>`;
+  h+=`<div class="cmpact"><button type="button" class="klant" data-cmpfull="1">Toon aan klant</button><label class="cmpdiff"><input type="checkbox" data-cmpdiff="1" ${document.documentElement.classList.contains("cmponlydiff")?"checked":""}> Alleen verschillen</label><button type="button" data-cmpprint="1">Print / PDF</button><details><summary>Delen…</summary><a class="wa" href="https://wa.me/?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener" data-cmpshare="wa">WhatsApp</a><a href="mailto:?subject=${encodeURIComponent("Vergelijking occasions Jan van Veen Auto's")}&body=${encodeURIComponent(txt)}" data-cmpshare="mail">Mail</a><button type="button" data-cmpcopy="1">Kopieer link</button></details><span class="note2" style="flex-basis:100%">Opties zoals vermeld in de advertentie. ★ = beste waarde van deze auto's. Aandrijving en verbruik zijn een indicatie.</span></div>`;
+  el.innerHTML=h;
+  if(scroll) setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),40);
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest&&e.target.closest("[data-cmp],[data-cmpgo],[data-cmpclear],[data-cmpclose],[data-cmpcopy],[data-cmpprint],[data-cmpshare],[data-cmpfull],[data-cmpfullx],[data-cmpdiff],[data-ppgo],[data-ppx]");
+  if(!t) return;
+  if(t.dataset.cmpshare){try{goatcounter.count({path:"vergelijk/deel-"+t.dataset.cmpshare,title:"Vergelijking gedeeld ("+t.dataset.cmpshare+")",event:true});}catch(err){}return;}
+  if(t.dataset.cmpdiff){const on=t.checked;document.documentElement.classList.toggle("cmponlydiff",on);document.querySelectorAll("[data-cmpdiff]").forEach(x=>x.checked=on);return;}
+  e.preventDefault();
+  if(t.dataset.ppx){$("cmpoffer").hidden=true;return;}
+  if(t.dataset.ppgo){const nm=$("pp-in-name").value.trim(),sl=$("pp-in-seller").value.trim(),nt=$("pp-in-note").value.trim();
+    try{localStorage.setItem("jvv-seller",sl);}catch(err){}
+    document.querySelectorAll(".pp-name").forEach(x=>x.textContent=nm?TL(" voor "," for ")+nm:"");
+    document.querySelectorAll(".pp-seller").forEach(x=>x.textContent=sl?TL(" · Uw adviseur: "," · Your advisor: ")+sl:"");
+    document.querySelectorAll(".pp-note").forEach(x=>x.textContent=nt);
+    $("cmpoffer").hidden=true;
+    try{goatcounter.count({path:"vergelijk/offerte",title:"Offerte-PDF gemaakt",event:true});}catch(err){}
+    document.documentElement.classList.add("printcmp");setTimeout(()=>{window.print();setTimeout(()=>document.documentElement.classList.remove("printcmp"),500);},50);return;}
+  if(t.dataset.cmpfull){cmpFull(true);return;}
+  if(t.dataset.cmpfullx){cmpFull(false);return;}
+  if(t.dataset.cmp){cmpToggle(t.dataset.cmp);if(t.dataset.cmprm&&CMP.length===0)$("compare").innerHTML="";return;}
+  if(t.dataset.cmpgo){cmpShow(true);try{goatcounter.count({path:"vergelijk/"+CMP.length,title:"Vergelijking geopend ("+CMP.length+" auto's)",event:true});}catch(err){}return;}
+  if(t.dataset.cmpclear){CMP=[];cmpSync();$("compare").innerHTML="";return;}
+  if(t.dataset.cmpclose){$("compare").innerHTML="";return;}
+  if(t.dataset.cmpcopy){const l=cmpLink()+"&klant=1";const done=()=>{t.textContent="Link gekopieerd ✓";setTimeout(()=>t.textContent="Kopieer link",2000);};
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(l).then(done,()=>prompt("Kopieer deze link:",l)); else prompt("Kopieer deze link:",l);return;}
+  if(t.dataset.cmpprint){const f=$("cmpoffer");if(!f)return;f.hidden=false;try{$("pp-in-seller").value=localStorage.getItem("jvv-seller")||"";}catch(err){}$("pp-in-name").focus();f.scrollIntoView({behavior:"smooth",block:"center"});return;}
+});
+function cmpFull(on){
+  const emb=document.documentElement.classList.contains("embedded");
+  if(on&&emb){ // in de website-pagina: open los in een nieuw tabblad, schermvullend
+    window.open(cmpLink()+"&klant=1","_blank","noopener");
+    try{goatcounter.count({path:"vergelijk/klant",title:"Vergelijking getoond aan klant",event:true});}catch(err){}
+    return;}
+  document.documentElement.classList.toggle("cmpfull",on);
+  if(on){ $("compare").scrollTop=0; try{goatcounter.count({path:"vergelijk/klant",title:"Vergelijking getoond aan klant",event:true});}catch(err){}
+    try{const el=document.documentElement; if(el.requestFullscreen&&window.innerWidth>700) el.requestFullscreen().catch(()=>{});}catch(err){} }
+  else { try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(err){} }
+}
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.documentElement.classList.contains("cmpfull"))cmpFull(false);});
+document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement&&document.documentElement.classList.contains("cmpfull")&&window.__fsWas)cmpFull(false);window.__fsWas=!!document.fullscreenElement;});
+(function(){try{const v=new URLSearchParams(location.search).get("vergelijk");if(!v)return;
+  const ids=v.split(",").map(x=>x.replace(/\D/g,"")).filter(Boolean).slice(0,CMP_MAX);
+  const have=ids.filter(id=>carById(id)), miss=ids.filter(id=>!carById(id));
+  CMP=have; cmpSync(); if(have.length){ cmpShow(!new URLSearchParams(location.search).get("klant"),miss); if(new URLSearchParams(location.search).get("klant")) cmpFull(true); } else if(miss.length) $("compare").innerHTML=`<p class="cmpmiss">De auto's uit deze vergelijking zijn inmiddels verkocht. Zoek hieronder verder of bel ons op 0418-673026.</p>`;
+}catch(e){}})();
 
 // Live bijwerken: haalt het actuele aanbod op van janvanveenautos.nl (1 verzoek) en vult alleen nieuwe auto's aan
 const LF=[['trekhaak',/trekhaak/i],['acc',/cruise control adaptief|adaptive cruise/i],['cruise',/cruise control/i],['navi',/navigatie/i],['camera',/achteruitrijcamera|rondomzicht|\bcamera\b/i],['cam360',/rondomzicht|360 camera/i],['pdcv',/parkeersensor voor/i],['pdca',/parkeersensor achter|parkeersensor voor en achter|parkeersensoren/i],['parkassist',/parkeer-assistent/i],['stoelverw',/voorstoelen verwarmd|verwarmde voorstoelen|stoelverwarming/i],['stuurverw',/stuurwiel verwarmd/i],['achterbankverw',/achterbank verwarmd/i],['leder',/lederen bekleding|luxe lederen|^bekleding leder$/i],['halfleder',/lederen\/stoffen|lederen\/alcantara|leder-stof|leder-alcantara|half leder/i],['alcantara',/alcantara/i],['panorama',/panorama/i],['carplay',/apple carplay|android auto|appconnect|app-connect/i],['vcockpit',/virtual cockpit|volledig digitaal instrumentenpaneel/i],['climate',/climate|airco automatisch/i],['led',/led koplampen|matrix|\bLED\b(?! (achter|dag|mist))/i],['matrix',/matrix/i],['keyless',/keyless/i],['eklep',/elektrisch bedienbare achterklep/i],['dodehoek',/dodehoek/i],['lane',/rijstrook/i],['hud',/head-up/i],['sfeer',/sfeerverlichting/i],['dab',/DAB/],['draadloos',/draadloze telefoonlader/i],['estoel',/elektrisch verstelbare (voor|bestuurders|passagiers)?stoel|elektrisch verstelb\. passagiers|elektrisch verstelbare stoel/i],['massage',/massage/i],['luchtvering',/luchtvering/i],['zeven',/derde rij|7p\.|7-zits/i],['warmtepomp',/warmtepomp/i],['dakrails',/dakrails/i],['sportstoel',/sportstoelen/i],['verkeersbord',/verkeersbord/i],['getint',/getint glas|privacy/i],['sline',/s line|s-line|r-line|\bFR\b|sportline/i],['vierwd',/quattro|4motion|4x4|4drive/i],['premiumaudio',/audio installatie premium|B&O|bang|canton|beats/i]];
@@ -548,7 +1289,7 @@ async function detail(x){
     MODELS=[...new Set(CARS.map(c=>modelOf(c[1])))].sort((a,b)=>b.length-a.length);
     $("stockCount").textContent=CARS.length; $("stockDate").textContent="live bijgewerkt";
     if(lastQuery) filters=localParse(lastQuery);
-    renderChips(); run();
+    renderChips(); run(); cmpSync(); if($("compare").innerHTML) cmpShow(false);
   }catch(e){ /* niet op de eigen site of offline: dan blijft de meegeleverde voorraad staan */ }
 })();
 </script>

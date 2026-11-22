@@ -12,6 +12,7 @@ from PIL import Image
 SITE = "https://janvanveenautos.nl"
 UA = "Mozilla/5.0 (compatible; JvV-SlimZoeken/1.0; +https://slimzoeken-janvanveenautos.nl)"
 MAX_NEW = 60  # maximaal aantal nieuwe auto's per keer
+TIME_BUDGET = 11 * 60  # seconden; daarna stopt het aanvullen van extra gegevens tot de volgende keer
 
 FLAGS = [
     ("trekhaak", r"trekhaak"), ("acc", r"cruise control adaptief|adaptive cruise"), ("cruise", r"cruise control"),
@@ -115,7 +116,30 @@ def read_detail(card):
         "trek": digits(k.get("Max. trekgewicht")),
         "verbruik": (k.get("Gemiddeld verbruik") or "").replace(" L/100KM", ""),
         "flags": flags_for(opts, card["mm"] + " " + card["uitv"]),
+        "x": extra_from(k, opts[:-1]),
     }
+
+
+def extra_from(k, opts):
+    """Extra gegevens voor Slim zoeken: deuren, zitplaatsen, actieradius, label, APK, interieur en de optielijst."""
+    def num(key):
+        try:
+            return int(re.sub(r"\D", "", (k.get(key) or "").split(",")[0]) or 0)
+        except Exception:
+            return 0
+    def txt(key, n):
+        return clean(k.get(key, ""))[:n]
+    x = {"d": num("Aantal deuren"), "z": num("Aantal zitplaatsen"), "ar": num("Actieradius"),
+         "el": txt("Energielabel", 4), "apk": txt("APK", 12), "i": txt("Interieur", 24), "b": txt("Bekleding", 24),
+         "cc": num("Cilinderinhoud")}
+    seen, lst = set(), []
+    for o in opts:
+        o = clean(o)[:70]
+        if o and o.lower() not in seen:
+            seen.add(o.lower())
+            lst.append(o)
+    x["opts"] = lst[:150]
+    return {a: b for a, b in x.items() if b}
 
 
 def row(card, ex):
@@ -159,14 +183,37 @@ def main():
     if len(cards) < 50:
         sys.exit(f"Te weinig auto's gevonden op /aanbod ({len(cards)}); niets gewijzigd.")
 
-    rows, new = [], 0
+    me = re.search(r"^const EXTRA=(.*);$", html, re.M)
+    extra = {}
+    if me:
+        try:
+            ej = json.loads(me.group(1))
+            od = ej.get("o", [])
+            for i, v in ej.get("c", {}).items():
+                v = dict(v)
+                v["opts"] = [od[j] for j in v.pop("o", []) if j < len(od)]
+                extra[i] = v
+        except Exception as e:
+            print("EXTRA niet gelezen, begin opnieuw:", e)
+    start = time.time()
+    rows, new, filled = [], 0, 0
     for c in cards:
         o = old.get(c["id"])
-        if o:
+        if o and me and c["id"] not in extra and time.time() - start < TIME_BUDGET:
+            try:  # aanvullen: extra gegevens van een auto die al in de lijst stond
+                ex = read_detail(c)
+                extra[c["id"]] = ex.pop("x", {})
+                filled += 1
+                time.sleep(0.4)
+            except Exception as e:
+                print("Extra gegevens niet gelezen:", c["id"], e)
+                ex = {"fuel": o[8], "pk": o[9], "kleur": o[10], "body": o[11], "trek": o[12], "verbruik": o[13], "flags": o[14]}
+        elif o:
             ex = {"fuel": o[8], "pk": o[9], "kleur": o[10], "body": o[11], "trek": o[12], "verbruik": o[13], "flags": o[14]}
         elif new < MAX_NEW:
             try:
                 ex = read_detail(c)
+                extra[c["id"]] = ex.pop("x", {})
                 new += 1
                 time.sleep(0.5)
             except Exception as e:
@@ -190,10 +237,31 @@ def main():
 
     data = json.dumps(rows, ensure_ascii=False, separators=(",", ":"))
     html = html[:m.start()] + f"{m.group(1)} CARS={data};" + html[m.end():]
+    if me:
+        od, idx, ec = [], {}, {}
+        for i in sorted(ids):
+            v = dict(extra.get(i) or {})
+            if not v:
+                continue
+            nums = []
+            for s in v.pop("opts", []):
+                if s not in idx:
+                    idx[s] = len(od)
+                    od.append(s)
+                nums.append(idx[s])
+            if nums:
+                v["o"] = nums
+            ec[i] = v
+        ejs = json.dumps({"v": 1, "o": od, "c": ec}, ensure_ascii=False, separators=(",", ":"))
+        me2 = re.search(r"^const EXTRA=(.*);$", html, re.M)
+        html = html[:me2.start()] + "const EXTRA=" + ejs.replace("</", "<\\/") + ";" + html[me2.end():]
+        print(f"Extra gegevens: {len(ec)} auto's, {len(od)} verschillende opties, {filled} aangevuld.")
     today = datetime.now(ZoneInfo("Europe/Amsterdam")).strftime("%d-%m-%Y")
     html = re.sub(r'const STOCK_DATE="[^"]*";', f'const STOCK_DATE="{today}";', html, count=1)
     open("index.html", "w", encoding="utf-8").write(html)
     json.dump(fotos, open("fotos.json", "w", encoding="utf-8"), separators=(",", ":"))
+    nieuw_ids = [r[0] for r in rows if r[0] not in old]
+    json.dump(nieuw_ids, open("nieuw.json", "w"))
     gone = len(set(old) - ids)
     print(f"Klaar: {len(rows)} auto's, {new} nieuw, {gone} verdwenen, {len(fotos)} foto's.")
 
