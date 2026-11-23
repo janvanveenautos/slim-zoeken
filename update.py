@@ -224,6 +224,7 @@ def main():
             print("EXTRA niet gelezen, begin opnieuw:", e)
     start = time.time()
     rows, new, filled = [], 0, 0
+    skipped = []  # auto's van de site die niet in Slim zoeken komen, met de reden
     for c in cards:
         o = old.get(c["id"])
         if o and me and c["id"] not in extra and time.time() - start < TIME_BUDGET:
@@ -245,12 +246,16 @@ def main():
                 time.sleep(0.5)
             except Exception as e:
                 print("Advertentie niet gelezen:", c["id"], e)
+                skipped.append([c["id"], c.get("mm", ""), "advertentie kon niet gelezen worden (volgende keer opnieuw)"])
                 continue
         else:
+            skipped.append([c["id"], c.get("mm", ""), "te veel nieuwe auto's tegelijk (volgende keer)"])
             continue
         r = row(c, ex)
         if r[3]:
             rows.append(r)
+        else:
+            skipped.append([c["id"], c.get("mm", ""), "geen prijs gevonden: " + clean(c.get("prijs", ""))[:40]])
 
     ids = {r[0] for r in rows}
     for i in list(fotos):
@@ -300,6 +305,15 @@ def main():
         me2 = re.search(r"^const EXTRA=(.*);$", html, re.M)
         html = html[:me2.start()] + "const EXTRA=" + ejs.replace("</", "<\\/") + ";" + html[me2.end():]
         print(f"Extra gegevens: {len(ec)} auto's, {len(od)} verschillende opties, {filled} aangevuld.")
+    # controle: welke auto's van de site ontbreken (alleen voor ons, niet zichtbaar voor klanten)
+    ctl = json.dumps({"site": len(cards), "slim": len(rows), "mist": skipped}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    if re.search(r"^const CONTROLE=.*;$", html, re.M):
+        html = re.sub(r"^const CONTROLE=.*;$", lambda m: "const CONTROLE=" + ctl + ";", html, count=1, flags=re.M)
+    else:
+        mc = re.search(r"^let CARS=.*;$", html, re.M)
+        html = html[:mc.end()] + "\nconst CONTROLE=" + ctl + ";" + html[mc.end():]
+    for sk in skipped:
+        print("Niet in Slim zoeken:", *sk)
     today = datetime.now(ZoneInfo("Europe/Amsterdam")).strftime("%d-%m-%Y")
     html = re.sub(r'const STOCK_DATE="[^"]*";', f'const STOCK_DATE="{today}";', html, count=1)
     open("index.html", "w", encoding="utf-8").write(html)
@@ -307,6 +321,7 @@ def main():
     nieuw_ids = [r[0] for r in rows if r[0] not in old]
     json.dump(nieuw_ids, open("nieuw.json", "w"))
     gone = len(set(old) - ids)
+    print(f"Op de site: {len(cards)} auto's, in Slim zoeken: {len(rows)}.")
     print(f"Klaar: {len(rows)} auto's, {new} nieuw, {gone} verdwenen, {len(fotos)} foto's.")
 
 
