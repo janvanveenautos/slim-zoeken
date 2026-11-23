@@ -136,7 +136,8 @@ def extra_from(k, opts):
     apk = re.sub(r"^(tot|t/m|geldig tot)\s*", "", val("apk"), flags=re.I)[:10]
     x = {"d": num("deuren", "deur"), "z": num("zitplaats", "zitpla"), "ar": num("actieradius", "bereik"),
          "el": val("energielabel")[:4], "apk": apk, "i": val("interieur")[:24], "b": val("bekleding")[:24],
-         "cc": num("cilinderinhoud", "motorinhoud")}
+         "cc": num("cilinderinhoud", "motorinhoud"),
+         "k": re.sub(r"[^A-Z0-9]", "", val("kenteken").upper())[:8]}
     seen, lst = set(), []
     for o in opts:
         o = clean(o)[:70]
@@ -212,8 +213,8 @@ def main():
     if me:
         try:
             ej = json.loads(me.group(1))
-            if ej.get("v", 1) < 2:
-                ej = {"v": 2, "o": [], "c": {}}  # nieuwe versie: alle auto's één keer opnieuw lezen
+            if ej.get("v", 1) < 3:
+                ej = {"v": 3, "o": [], "c": {}}  # nieuwe versie: alle auto's één keer opnieuw lezen
             od = ej.get("o", [])
             for i, v in ej.get("c", {}).items():
                 v = dict(v)
@@ -295,7 +296,7 @@ def main():
             if os.path.exists(os.path.join("img", f"{i}.jpg")):
                 v["im"] = 1
             ec[i] = v
-        ejs = json.dumps({"v": 2, "o": od, "c": ec}, ensure_ascii=False, separators=(",", ":"))
+        ejs = json.dumps({"v": 3, "o": od, "c": ec}, ensure_ascii=False, separators=(",", ":"))
         me2 = re.search(r"^const EXTRA=(.*);$", html, re.M)
         html = html[:me2.start()] + "const EXTRA=" + ejs.replace("</", "<\\/") + ";" + html[me2.end():]
         print(f"Extra gegevens: {len(ec)} auto's, {len(od)} verschillende opties, {filled} aangevuld.")
