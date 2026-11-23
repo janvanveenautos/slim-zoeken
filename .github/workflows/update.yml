@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: voorraad
@@ -23,11 +24,17 @@ jobs:
           python-version: "3.12"
       - run: pip install beautifulsoup4==4.12.3 pillow==10.4.0
       - run: python update.py
+      - name: Zoekwens-alarm
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node wensen.js
       - name: Wijzigingen opslaan
         run: |
           git config user.name "Slim zoeken (automatisch)"
           git config user.email "actions@users.noreply.github.com"
           git add index.html fotos.json
+          if [ -d img ]; then git add -A img; fi
           git diff --cached --quiet && echo "Geen wijzigingen" && exit 0
           git commit -m "Voorraad bijgewerkt $(TZ=Europe/Amsterdam date '+%d-%m-%Y %H:%M')"
           git push
