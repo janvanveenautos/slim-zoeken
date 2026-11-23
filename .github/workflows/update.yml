@@ -37,4 +37,11 @@ jobs:
           if [ -d img ]; then git add -A img; fi
           git diff --cached --quiet && echo "Geen wijzigingen" && exit 0
           git commit -m "Voorraad bijgewerkt $(TZ=Europe/Amsterdam date '+%d-%m-%Y %H:%M')"
-          git push
+          # is er tijdens het draaien iets geüpload? Eerst ophalen, dan pas opslaan (3 pogingen)
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            echo "Opslaan mislukt, nieuwe poging over 10 seconden..."
+            git rebase --abort 2>/dev/null || true
+            sleep 10
+          done
+          exit 1
