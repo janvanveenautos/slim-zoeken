@@ -116,22 +116,27 @@ def read_detail(card):
         "trek": digits(k.get("Max. trekgewicht")),
         "verbruik": (k.get("Gemiddeld verbruik") or "").replace(" L/100KM", ""),
         "flags": flags_for(opts, card["mm"] + " " + card["uitv"]),
-        "x": extra_from(k, opts[:-1]),
+        "x": extra_from({**top, **k}, opts[:-1]),
     }
 
 
 def extra_from(k, opts):
     """Extra gegevens voor Slim zoeken: deuren, zitplaatsen, actieradius, label, APK, interieur en de optielijst."""
-    def num(key):
+    def val(*words):
+        for key, v in k.items():
+            kl = key.lower()
+            if any(w in kl for w in words):
+                return clean(v or "")
+        return ""
+    def num(*words):
         try:
-            return int(re.sub(r"\D", "", (k.get(key) or "").split(",")[0]) or 0)
+            return int(re.sub(r"\D", "", val(*words).split(",")[0]) or 0)
         except Exception:
             return 0
-    def txt(key, n):
-        return clean(k.get(key, ""))[:n]
-    x = {"d": num("Aantal deuren"), "z": num("Aantal zitplaatsen"), "ar": num("Actieradius"),
-         "el": txt("Energielabel", 4), "apk": txt("APK", 12), "i": txt("Interieur", 24), "b": txt("Bekleding", 24),
-         "cc": num("Cilinderinhoud")}
+    apk = re.sub(r"^(tot|t/m|geldig tot)\s*", "", val("apk"), flags=re.I)[:10]
+    x = {"d": num("deuren", "deur"), "z": num("zitplaats", "zitpla"), "ar": num("actieradius", "bereik"),
+         "el": val("energielabel")[:4], "apk": apk, "i": val("interieur")[:24], "b": val("bekleding")[:24],
+         "cc": num("cilinderinhoud", "motorinhoud")}
     seen, lst = set(), []
     for o in opts:
         o = clean(o)[:70]
@@ -207,6 +212,8 @@ def main():
     if me:
         try:
             ej = json.loads(me.group(1))
+            if ej.get("v", 1) < 2:
+                ej = {"v": 2, "o": [], "c": {}}  # nieuwe versie: alle auto's één keer opnieuw lezen
             od = ej.get("o", [])
             for i, v in ej.get("c", {}).items():
                 v = dict(v)
@@ -288,7 +295,7 @@ def main():
             if os.path.exists(os.path.join("img", f"{i}.jpg")):
                 v["im"] = 1
             ec[i] = v
-        ejs = json.dumps({"v": 1, "o": od, "c": ec}, ensure_ascii=False, separators=(",", ":"))
+        ejs = json.dumps({"v": 2, "o": od, "c": ec}, ensure_ascii=False, separators=(",", ":"))
         me2 = re.search(r"^const EXTRA=(.*);$", html, re.M)
         html = html[:me2.start()] + "const EXTRA=" + ejs.replace("</", "<\\/") + ";" + html[me2.end():]
         print(f"Extra gegevens: {len(ec)} auto's, {len(od)} verschillende opties, {filled} aangevuld.")
